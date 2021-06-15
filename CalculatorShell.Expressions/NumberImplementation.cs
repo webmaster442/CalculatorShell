@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Maths;
+using System;
 using System.Globalization;
 
 namespace CalculatorShell.Expressions
@@ -35,6 +36,11 @@ namespace CalculatorShell.Expressions
                 throw new TypeException("Value is not a boolean");
 
             return (bool)Value;
+        }
+
+        internal string ToString(IFormatProvider formatProvider)
+        {
+            return Value.ToString(formatProvider);
         }
 
         public System.Numerics.Complex GetComplex()
