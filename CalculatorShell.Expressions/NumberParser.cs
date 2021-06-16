@@ -9,16 +9,16 @@ namespace CalculatorShell.Expressions
     {
         private static Dictionary<string, double> _multipliers = new()
         {
-            { "p", 1E-12 },
-            { "n", 1E-9 },
-            { "micro", 1E-6 },
-            { "m", 1E-3 },
-            { "d", 1E1 },
-            { "h", 1E2 },
-            { "k", 1E3 },
-            { "M", 1E6 },
-            { "G", 1E9 },
-            { "T", 1E12 },
+            { "_p", 1E-12 },
+            { "_n", 1E-9 },
+            { "_micro", 1E-6 },
+            { "_m", 1E-3 },
+            { "_d", 1E1 },
+            { "_h", 1E2 },
+            { "_k", 1E3 },
+            { "_M", 1E6 },
+            { "_G", 1E9 },
+            { "_T", 1E12 },
         };
 
         private static string FindPrefix(string input)

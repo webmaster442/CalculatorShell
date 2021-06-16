@@ -6,6 +6,7 @@ namespace CalculatorShell.Expressions
     {
         NumberType NumberType { get; }
         string ToString(CultureInfo cultureInfo);
+        string ToString();
         double GetDouble();
         (long numerator, long denominator) GetFraction();
         System.Numerics.Complex GetComplex();

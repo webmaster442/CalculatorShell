@@ -74,5 +74,10 @@ namespace CalculatorShell.Expressions
         {
             return Value.ToString(cultureInfo);
         }
+
+        public override string ToString()
+        {
+            return ToString(CultureInfo.InvariantCulture);
+        }
     }
 }
