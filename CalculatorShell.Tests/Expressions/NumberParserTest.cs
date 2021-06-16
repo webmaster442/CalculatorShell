@@ -21,6 +21,10 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("1G", 1E9)]
         [TestCase("1T", 1E12)]
         [TestCase("1970-01-01", 0.0d)]
+        [TestCase("01/01/1970", 0.0d)]
+        [TestCase("01/01/1970 00:00", 0.0d)]
+        [TestCase("01/01/1970 00:00:00", 0.0d)]
+        [TestCase("06/16/2021 16:01:00", 1623859260d)]
         [TestCase("2021-06-16 16:01:00", 1623859260d)]
         public void TestDoubleParsing(string input, double expected)
         {

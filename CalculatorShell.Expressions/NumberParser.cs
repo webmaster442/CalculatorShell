@@ -51,7 +51,7 @@ namespace CalculatorShell.Expressions
                 number = new NumberImplementation(n * _multipliers[prefix]);
                 return true;
             }
-            else if ((input.Contains("-") || input.Contains(":"))
+            else if ((input.Contains('-') || input.Contains('/') || input.Contains(':'))
                 && DateTime.TryParse(input, culture, DateTimeStyles.AssumeUniversal, out DateTime parsed))
             {
                 number = new NumberImplementation(parsed.ToUnixTime());
