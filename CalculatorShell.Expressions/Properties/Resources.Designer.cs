@@ -77,5 +77,14 @@ namespace CalculatorShell.Expressions.Properties {
                 return ResourceManager.GetString("DivideByZero", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t complete operation on expression. Varaibles are not set.
+        /// </summary>
+        internal static string NoVariableValues {
+            get {
+                return ResourceManager.GetString("NoVariableValues", resourceCulture);
+            }
+        }
     }
 }
