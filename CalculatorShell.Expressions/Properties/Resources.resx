@@ -123,10 +123,52 @@
   <data name="DivideByZero" xml:space="preserve">
     <value>Divide by zero detected in function</value>
   </data>
+  <data name="EmptyFunction" xml:space="preserve">
+    <value>Cannot parse an empty function</value>
+  </data>
+  <data name="ExpectedExponent" xml:space="preserve">
+    <value>Expected exponent, got: {0}</value>
+  </data>
+  <data name="ExpectedExpression" xml:space="preserve">
+    <value>Expected an expression after + or -</value>
+  </data>
+  <data name="ExpectedExpressionAfterExponent" xml:space="preserve">
+    <value>Expected an expression after ^ operator</value>
+  </data>
+  <data name="ExpectedExpressionAfterMultDiv" xml:space="preserve">
+    <value>Expected an expression after * or / operator</value>
+  </data>
+  <data name="ExpectedMultiplyDivide" xml:space="preserve">
+    <value>Expected mult or divide, got: {0}</value>
+  </data>
+  <data name="ExpectedPlussminus" xml:space="preserve">
+    <value>Expected plus or minus, got: {0}</value>
+  </data>
+  <data name="InvalidExpression" xml:space="preserve">
+    <value>Invalid expression</value>
+  </data>
   <data name="InvalidToken" xml:space="preserve">
     <value>Expression contains invalid token.</value>
   </data>
+  <data name="MissingToken" xml:space="preserve">
+    <value>Missing {0} token</value>
+  </data>
+  <data name="NoVariables" xml:space="preserve">
+    <value>Variables not set on expression</value>
+  </data>
   <data name="NoVariableValues" xml:space="preserve">
     <value>Can't complete operation on expression. Varaibles are not set</value>
+  </data>
+  <data name="OutOfTokens" xml:space="preserve">
+    <value>Parsed past the end of the function. Expected more tokens</value>
+  </data>
+  <data name="TrailingChars" xml:space="preserve">
+    <value>Some chars are left that can't be parsed</value>
+  </data>
+  <data name="UnexpectedTokenInFactior" xml:space="preserve">
+    <value>Unexpected token in Factor: {0}</value>
+  </data>
+  <data name="UnknownFuction" xml:space="preserve">
+    <value>Unknown function name: {0}</value>
   </data>
 </root>

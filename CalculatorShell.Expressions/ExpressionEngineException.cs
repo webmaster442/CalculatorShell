@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculatorShell.Expressions.Internals;
+using System;
 using System.Runtime.Serialization;
 
 namespace CalculatorShell.Expressions
@@ -6,6 +7,8 @@ namespace CalculatorShell.Expressions
     [Serializable]
     public class ExpressionEngineException : Exception
     {
+        private TokenType type;
+
         public ExpressionEngineException() : base()
         {
         }
@@ -15,6 +18,10 @@ namespace CalculatorShell.Expressions
         }
 
         public ExpressionEngineException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public ExpressionEngineException(string message, params object[] arguments) : this(string.Format(message, arguments))
         {
         }
 

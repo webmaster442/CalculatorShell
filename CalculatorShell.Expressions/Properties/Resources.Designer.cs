@@ -79,6 +79,78 @@ namespace CalculatorShell.Expressions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot parse an empty function.
+        /// </summary>
+        internal static string EmptyFunction {
+            get {
+                return ResourceManager.GetString("EmptyFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected exponent, got: {0}.
+        /// </summary>
+        internal static string ExpectedExponent {
+            get {
+                return ResourceManager.GetString("ExpectedExponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected an expression after + or -.
+        /// </summary>
+        internal static string ExpectedExpression {
+            get {
+                return ResourceManager.GetString("ExpectedExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected an expression after ^ operator.
+        /// </summary>
+        internal static string ExpectedExpressionAfterExponent {
+            get {
+                return ResourceManager.GetString("ExpectedExpressionAfterExponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected an expression after * or / operator.
+        /// </summary>
+        internal static string ExpectedExpressionAfterMultDiv {
+            get {
+                return ResourceManager.GetString("ExpectedExpressionAfterMultDiv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected mult or divide, got: {0}.
+        /// </summary>
+        internal static string ExpectedMultiplyDivide {
+            get {
+                return ResourceManager.GetString("ExpectedMultiplyDivide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected plus or minus, got: {0}.
+        /// </summary>
+        internal static string ExpectedPlussminus {
+            get {
+                return ResourceManager.GetString("ExpectedPlussminus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid expression.
+        /// </summary>
+        internal static string InvalidExpression {
+            get {
+                return ResourceManager.GetString("InvalidExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expression contains invalid token..
         /// </summary>
         internal static string InvalidToken {
@@ -88,11 +160,65 @@ namespace CalculatorShell.Expressions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing {0} token.
+        /// </summary>
+        internal static string MissingToken {
+            get {
+                return ResourceManager.GetString("MissingToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variables not set on expression.
+        /// </summary>
+        internal static string NoVariables {
+            get {
+                return ResourceManager.GetString("NoVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t complete operation on expression. Varaibles are not set.
         /// </summary>
         internal static string NoVariableValues {
             get {
                 return ResourceManager.GetString("NoVariableValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsed past the end of the function. Expected more tokens.
+        /// </summary>
+        internal static string OutOfTokens {
+            get {
+                return ResourceManager.GetString("OutOfTokens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some chars are left that can&apos;t be parsed.
+        /// </summary>
+        internal static string TrailingChars {
+            get {
+                return ResourceManager.GetString("TrailingChars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected token in Factor: {0}.
+        /// </summary>
+        internal static string UnexpectedTokenInFactior {
+            get {
+                return ResourceManager.GetString("UnexpectedTokenInFactior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown function name: {0}.
+        /// </summary>
+        internal static string UnknownFuction {
+            get {
+                return ResourceManager.GetString("UnknownFuction", resourceCulture);
             }
         }
     }
