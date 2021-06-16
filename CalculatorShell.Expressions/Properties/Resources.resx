@@ -123,6 +123,9 @@
   <data name="DivideByZero" xml:space="preserve">
     <value>Divide by zero detected in function</value>
   </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>Expression contains invalid token.</value>
+  </data>
   <data name="NoVariableValues" xml:space="preserve">
     <value>Can't complete operation on expression. Varaibles are not set</value>
   </data>

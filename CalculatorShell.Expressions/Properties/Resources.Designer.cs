@@ -79,6 +79,15 @@ namespace CalculatorShell.Expressions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expression contains invalid token..
+        /// </summary>
+        internal static string InvalidToken {
+            get {
+                return ResourceManager.GetString("InvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t complete operation on expression. Varaibles are not set.
         /// </summary>
         internal static string NoVariableValues {
