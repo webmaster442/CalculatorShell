@@ -1,6 +1,7 @@
 ﻿using CalculatorShell.Expressions.Internals;
 using CalculatorShell.Expressions.Internals.Expressions;
 using CalculatorShell.Expressions.Properties;
+using CalculatorShell.Maths;
 using System;
 using System.Globalization;
 using System.Text;
@@ -19,6 +20,12 @@ namespace CalculatorShell.Expressions
         private static TokenSet FirstUnaryExp = FirstFactorPrefix + TokenType.Minus + TokenType.Not;
         private static TokenSet FirstMultExp = new TokenSet(FirstUnaryExp);
         private static TokenSet FirstExpExp = new TokenSet(FirstUnaryExp);
+
+        public static AngleMode CurrentAngleMode
+        {
+            get => Trigonometry.AngleMode;
+            set => Trigonometry.AngleMode = value;
+        }
 
         public static IExpression? Parse(string function, IVariables variables, CultureInfo? culture)
         {

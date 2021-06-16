@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculatorShell.Maths;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,8 +36,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         protected override NumberImplementation Evaluate(NumberImplementation number)
         {
-            //TODO: Proper system switcher
-            return Math.Sin(number.Value);
+            return new NumberImplementation(Trigonometry.Sin(number.Value));
         }
     }
 }

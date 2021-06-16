@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculatorShell.Maths;
+using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -31,8 +32,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         protected override NumberImplementation Evaluate(NumberImplementation number)
         {
-            //TODO: Proper system switcher
-            return Math.Cos(number.Value);
+            return new NumberImplementation(Trigonometry.Cos(number.Value));
         }
     }
 }
