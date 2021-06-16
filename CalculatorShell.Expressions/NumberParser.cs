@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Maths;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -30,29 +31,39 @@ namespace CalculatorShell.Expressions
             return string.Empty;
         }
 
-        public static NumberImplementation Parse(string input, CultureInfo culture)
+        public static bool TryParse(string input, out NumberImplementation number, CultureInfo culture)
         {
             string prefix = FindPrefix(input);
 
             if (string.Compare(input, "true", true, culture) == 0)
             {
-                return new NumberImplementation(true);
+                number = new NumberImplementation(true);
+                return true;
             }
             else if (string.Compare(input, "false", true, culture) == 0)
             {
-                return new NumberImplementation(false);
+                number = new NumberImplementation(false);
+                return true;
             }
             else if (!string.IsNullOrEmpty(prefix))
             {
-                double number = double.Parse(input.Replace(prefix, ""), culture);
-                return new NumberImplementation(number * _multipliers[prefix]);
+                double n = double.Parse(input.Replace(prefix, ""), culture);
+                number = new NumberImplementation(n * _multipliers[prefix]);
+                return true;
             }
-            else
+            else if ((input.Contains("-") || input.Contains(":"))
+                && DateTime.TryParse(input, culture, DateTimeStyles.AssumeUniversal, out DateTime parsed))
             {
-                double number = double.Parse(input, culture);
-                return new NumberImplementation(number);
+                number = new NumberImplementation(parsed.ToUnixTime());
+                return true;
             }
-            throw new TypeException("Can't parse number");
+            else if (double.TryParse(input, NumberStyles.Any, culture, out double n))
+            {
+                number = new NumberImplementation(n);
+                return true;
+            }
+            number = new NumberImplementation(double.NaN);
+            return false;
         }
     }
 }

@@ -20,9 +20,12 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("1M", 1E6)]
         [TestCase("1G", 1E9)]
         [TestCase("1T", 1E12)]
+        [TestCase("1970-01-01", 0.0d)]
+        [TestCase("2021-06-16 16:01:00", 1623859260d)]
         public void TestDoubleParsing(string input, double expected)
         {
-            var result = NumberParser.Parse(input, CultureInfo.InvariantCulture);
+            bool succes = NumberParser.TryParse(input, out var result, CultureInfo.InvariantCulture);
+            Assert.IsTrue(succes);
             Assert.AreEqual(NumberType.Double, result.NumberType);
             Assert.AreEqual(expected, result.Value);
         }
@@ -35,7 +38,8 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("fAlSe", false)]
         public void TestBooleanParsing(string input, bool expected)
         {
-            var result = NumberParser.Parse(input, CultureInfo.InvariantCulture);
+            bool succes = NumberParser.TryParse(input, out var result, CultureInfo.InvariantCulture);
+            Assert.IsTrue(succes);
             Assert.AreEqual(NumberType.Boolean, result.NumberType);
             Assert.AreEqual(expected, result.Value);
         }
