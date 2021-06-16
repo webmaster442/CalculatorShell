@@ -31,7 +31,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         protected override NumberImplementation Evaluate(NumberImplementation number)
         {
-            return Math.Log(number.Value);
+            return new NumberImplementation(Math.Log(number.Value));
         }
     }
 }

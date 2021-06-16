@@ -63,8 +63,8 @@ namespace CalculatorShell.Expressions.Internals
                         return new Token("(", TokenType.OpenParen);
                     case ')':
                         return new Token(")", TokenType.CloseParen);
-                    case ',':
-                        return new Token(",", TokenType.ArgumentDivider);
+                    case ';':
+                        return new Token(";", TokenType.ArgumentDivider);
                     default:
                         throw new ExpressionEngineException(Resources.InvalidToken);
                 }

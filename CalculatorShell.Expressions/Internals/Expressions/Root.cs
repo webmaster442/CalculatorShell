@@ -67,7 +67,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         protected override NumberImplementation Evaluate(NumberImplementation number1, NumberImplementation number2)
         {
-            return Math.Pow(number1.Value, 1 / number2.Value);
+            return new NumberImplementation(Math.Pow(number1.Value, 1 / number2.Value));
         }
     }
 }

@@ -32,7 +32,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         protected override NumberImplementation Evaluate(NumberImplementation number)
         {
-            return new NumberImplementation(!number.Value.Value);
+            return new NumberImplementation(!number.Value);
         }
     }
 }
