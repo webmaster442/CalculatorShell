@@ -24,7 +24,7 @@ namespace CalculatorShell.Maths
             else if (AngleMode == AngleMode.Grad)
                 radians = DoubleFunctions.GradToRad(input);
 
-            return function(radians);
+            return Math.Round(function(radians), 7);
         }
 
         private static double ExecuteInvertedTrigonometry(Func<double, double> function, double input)
@@ -35,7 +35,7 @@ namespace CalculatorShell.Maths
             else if (AngleMode == AngleMode.Grad)
                 return DoubleFunctions.RadToGrad(result);
 
-            return result;
+            return Math.Round(result, 7);
         }
 
         /// <summary>
