@@ -23,11 +23,6 @@
             _tokens = tokens;
         }
 
-        public static TokenSet operator +(TokenSet t1, TokenSet t2)
-        {
-            return new TokenSet(t1._tokens | t2._tokens);
-        }
-
         public static TokenSet operator +(TokenSet t1, TokenType t2)
         {
             return new TokenSet(t1._tokens | (uint)t2);

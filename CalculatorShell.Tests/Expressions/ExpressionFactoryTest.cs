@@ -40,6 +40,8 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("1/2+1/4", "0.75")]
         [TestCase("(1/2)*2+(4*3)", "13")]
         [TestCase("1+-2", "-1")]
+        [TestCase("-2", "-2")]
+        [TestCase("33-11", "22")]
         [TestCase("10^2", "100")]
         [TestCase("true&true", "True")]
         [TestCase("true&false", "False")]

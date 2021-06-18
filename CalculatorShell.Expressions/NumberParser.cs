@@ -31,6 +31,16 @@ namespace CalculatorShell.Expressions
             return string.Empty;
         }
 
+        private static string PreprocessInput(string input, bool isDate)
+        {
+            if (input.Contains('_'))
+            {
+                if (isDate) return input.Replace('_', ' ');
+                else return input.Replace("_", "");
+            }
+            return input;
+        } 
+
         public static bool TryParse(string input, out NumberImplementation number, CultureInfo culture)
         {
             string prefix = FindPrefix(input);
@@ -47,17 +57,17 @@ namespace CalculatorShell.Expressions
             }
             else if (!string.IsNullOrEmpty(prefix))
             {
-                double n = double.Parse(input.Replace(prefix, ""), culture);
+                double n = double.Parse(PreprocessInput(input.Replace(prefix, ""), false), culture);
                 number = new NumberImplementation(n * _multipliers[prefix]);
                 return true;
             }
-            else if ((input.Contains('-') || input.Contains('/') || input.Contains(':'))
-                && DateTime.TryParse(input, culture, DateTimeStyles.AssumeUniversal, out DateTime parsed))
+            else if ((input.Contains('_') || input.Contains('/') || input.Contains(':'))
+                && DateTime.TryParse(PreprocessInput(input, true), culture, DateTimeStyles.AssumeUniversal, out DateTime parsed))
             {
                 number = new NumberImplementation(parsed.ToUnixTime());
                 return true;
             }
-            else if (double.TryParse(input, NumberStyles.Any, culture, out double n))
+            else if (double.TryParse(PreprocessInput(input, false), NumberStyles.Any, culture, out double n))
             {
                 number = new NumberImplementation(n);
                 return true;
