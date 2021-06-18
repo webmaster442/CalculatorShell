@@ -37,7 +37,6 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("1\n+1", "2")]
         [TestCase("1\r\n+1", "2")]
         [TestCase("2^10", "1024")]
-        [TestCase("1/2+1/4", "0.75")]
         [TestCase("(1/2)*2+(4*3)", "13")]
         [TestCase("1+-2", "-1")]
         [TestCase("-2", "-2")]
@@ -57,6 +56,12 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("sin(90)", "1")]
         [TestCase("cos(90)", "0")]
         [TestCase("tan(90)", "Infinity")]
+        [TestCase("(1/27)", "1/27")]
+        [TestCase("1/27", "1/27")]
+        [TestCase("(1/3)+(1/3)+(1/3)", "1")]
+        [TestCase("(2/3)-(1/3)", "1/3")]
+        [TestCase("(1/3)*(2*4)", "8/3")]
+        [TestCase("(1/3)/(2*4)", "1/24")]
         public void TestsParseAndEvalute(string expression, string expected)
         {
             ExpressionFactory.CurrentAngleMode = CalculatorShell.Maths.AngleMode.Deg;

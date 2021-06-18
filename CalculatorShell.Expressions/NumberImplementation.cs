@@ -7,6 +7,21 @@ namespace CalculatorShell.Expressions
     internal class NumberImplementation : INumber
     {
         public dynamic Value { get; }
+        
+        internal bool IsInteger
+        {
+            get
+            {
+                return NumberType == NumberType.Double
+                    && Extensions.IsInteger(Value);
+            }
+        }
+
+        public NumberImplementation(double n, double d)
+        {
+            NumberType = NumberType.Fraction;
+            Value = new Fraction(n.ToInteger(), d.ToInteger());
+        }
 
         public NumberImplementation(dynamic value)
         {

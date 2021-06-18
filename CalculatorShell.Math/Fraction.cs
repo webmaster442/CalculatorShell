@@ -67,11 +67,16 @@ namespace CalculatorShell.Maths
         /// <inheritdoc/>
         public override string ToString()
         {
+            return ToString(CultureInfo.InvariantCulture);
+        }
+
+        public string ToString(CultureInfo cultureInfo)
+        {
             string str;
             if (Denominator == 1)
-                str = Numerator.ToString();
+                str = Numerator.ToString(cultureInfo);
             else
-                str = Numerator + "/" + Denominator;
+                str = $"{Numerator.ToString(cultureInfo)}/{Denominator.ToString(cultureInfo)}";
             return str;
         }
 

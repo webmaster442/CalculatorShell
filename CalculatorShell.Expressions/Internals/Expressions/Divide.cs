@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Expressions.Properties;
+using CalculatorShell.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,15 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 {
                     throw new ExpressionEngineException(Resources.DivideByZero);
                 }
-                return new Constant(new NumberImplementation(leftConst.Value.Value / rightConst.Value.Value));
+                if (leftConst.Value.IsInteger
+                    && rightConst.Value.IsInteger)
+                {
+                    return new Constant(new NumberImplementation(leftConst.Value.Value, rightConst.Value.Value));
+                }
+                else
+                {
+                    return new Constant(new NumberImplementation(leftConst.Value.Value / rightConst.Value.Value));
+                }
             }
             if (leftConst?.Value.Value == 0)
             {
@@ -88,7 +97,13 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         protected override NumberImplementation Evaluate(NumberImplementation number1, NumberImplementation number2)
         {
-            return new NumberImplementation(number1.Value / number2.Value);
+            if (number1.IsInteger
+                && number2.IsInteger)
+            {
+                return new NumberImplementation(number1.Value, number2.Value);
+            }
+            else
+                return new NumberImplementation(number1.Value / number2.Value);
         }
     }
 }
