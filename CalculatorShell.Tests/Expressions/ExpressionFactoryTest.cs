@@ -54,8 +54,12 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("ln(2)", "0.6931471805599453")]
         [TestCase("log(16; 2)", "4")]
         [TestCase("root(16; 2)", "4")]
-        public void TestParseAndEvalute(string expression, string expected)
+        [TestCase("sin(90)", "1")]
+        [TestCase("cos(90)", "0")]
+        [TestCase("tan(90)", "Infinity")]
+        public void TestsParseAndEvalute(string expression, string expected)
         {
+            ExpressionFactory.CurrentAngleMode = CalculatorShell.Maths.AngleMode.Deg;
             IExpression parsed = ExpressionFactory.Parse(expression, null, CultureInfo.InvariantCulture);
 
             INumber result = parsed.Evaluate();

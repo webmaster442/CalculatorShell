@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Expressions.Internals.Expressions;
+using CalculatorShell.Maths;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,16 @@ namespace CalculatorShell.Expressions.Internals
             { "sin", (child) => new Sin(child) },
             { "cos", (child) => new Cos(child) },
             { "tan", (child) => new Tan(child) },
+            { "arcsin", (child) => new Function(child, Trigonometry.ArcSin, "arcsin") },
+            { "arccos", (child) => new Function(child, Trigonometry.ArcCos, "arccos") },
+            { "arctan", (child) => new Function(child, Trigonometry.ArcTan, "arctan") },
+            { "arcctg", (child) => new Function(child, Trigonometry.ArcCtg, "arcctg") },
+            { "deg2rad", (child) => new Function(child, DoubleFunctions.DegToRad, "deg2rad") },
+            { "rad2deg", (child) => new Function(child, DoubleFunctions.RadToDeg, "rad2deg") },
+            { "grad2deg", (child) => new Function(child, DoubleFunctions.GradToDeg, "grad2deg") },
+            { "deg2grad", (child) => new Function(child, DoubleFunctions.DegToGrad, "deg2grad") },
+            { "grad2rad", (child) => new Function(child, DoubleFunctions.GradToRad, "grad2rad") },
+            { "rad2grad", (child) => new Function(child, DoubleFunctions.RadToGrad, "rad2grad") },
         };
 
         private static readonly Dictionary<string, Func<IExpression?, IExpression?, IExpression>> TwoParamFunctions = new()
