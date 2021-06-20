@@ -1,10 +1,21 @@
-﻿using System;
+﻿using CalculatorShell.Infrastructure;
+using CalculatorShell.Properties;
+using CalculatorShell.ReadLine;
+using System;
 using System.Text.Json;
 
 namespace CalculatorShell
 {
-    internal class ProgramConsole : CalculatorShell.Infrastructure.IConsole, CalculatorShell.ReadLine.IConsole
+    internal class ProgramConsole : ICommandConsole, IConsole
     {
+        private void WriteWithColors(ConsoleColor color, Action action)
+        {
+            var currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            action.Invoke();
+            Console.ForegroundColor = currentColor;
+        }
+
         public int CursorLeft => Console.CursorLeft;
 
         public int CursorTop => Console.CursorTop;
@@ -20,7 +31,12 @@ namespace CalculatorShell
 
         public void Error(Exception ex)
         {
-            WriteLine("Error: {0}", ex.Message);
+            WriteWithColors(ConsoleColor.Red, () => WriteLine(Resources.GeneralError, ex.Message));
+        }
+
+        public void Error(string format, params object[] args)
+        {
+            WriteWithColors(ConsoleColor.Red, () => WriteLine(format, args));
         }
 
         public void Report(int value)

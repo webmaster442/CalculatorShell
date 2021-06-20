@@ -1,12 +1,14 @@
-﻿using System;
+﻿using CalculatorShell.Infrastructure;
 
 namespace CalculatorShell
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CommandLoader loader = new CommandLoader();
+            var runner = new CommandRunner(loader.Commands);
+            runner.Run();
         }
     }
 }

@@ -242,7 +242,9 @@ namespace CalculatorShell.ReadLine
         {
             get
             {
-                return _text.ToString();
+                var ret = _text.ToString();
+                _text.Clear();
+                return ret;
             }
         }
 

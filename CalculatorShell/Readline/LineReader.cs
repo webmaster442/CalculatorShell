@@ -26,7 +26,6 @@ namespace CalculatorShell.ReadLine
         public string Read(string prompt = "", string @default = "")
         {
             _console.Write(prompt);
-            Console.Write(prompt);
             string text = GetText(_keyHandler);
 
             if (string.IsNullOrWhiteSpace(text) 
