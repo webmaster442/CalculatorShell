@@ -116,9 +116,10 @@ namespace CalculatorShell.Infrastructure
 
         string[] IAutoCompleteHandler.GetSuggestions(string text, int index)
         {
+            string word = text[index..];
+
             return _commandTable.Keys
-                .Where(x => x.IndexOf(text, index, StringComparison.InvariantCultureIgnoreCase) >= 0)
-                .OrderBy(x => x.IndexOf(text, index, StringComparison.InvariantCultureIgnoreCase))
+                .Where(c => c.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)
                 .ToArray();
         }
 
