@@ -1,6 +1,6 @@
 namespace CalculatorShell.ReadLine
 {
-    internal interface IConsole
+    public interface IConsole
     {
         int CursorLeft { get; }
         int CursorTop { get; }
