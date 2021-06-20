@@ -1,4 +1,4 @@
-﻿using CalculatorShell.Infrastructure;
+﻿using CalculatorShell.Base;
 using CalculatorShell.Properties;
 using CalculatorShell.ReadLine;
 using System;
@@ -8,6 +8,17 @@ namespace CalculatorShell
 {
     internal class ProgramConsole : ICommandConsole, IConsole
     {
+        public ProgramConsole()
+        {
+            Console.CancelKeyPress += Console_CancelKeyPress;
+        }
+
+        private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            e.Cancel = true;
+            InterruptRequested?.Invoke(this, EventArgs.Empty);
+        }
+
         private void WriteWithColors(ConsoleColor color, Action action)
         {
             var currentColor = Console.ForegroundColor;
@@ -15,6 +26,8 @@ namespace CalculatorShell
             action.Invoke();
             Console.ForegroundColor = currentColor;
         }
+
+        public event EventHandler InterruptRequested;
 
         public int CursorLeft => Console.CursorLeft;
 

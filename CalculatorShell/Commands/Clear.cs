@@ -1,12 +1,13 @@
-﻿using CalculatorShell.Infrastructure;
+﻿using CalculatorShell.Base;
+using CalculatorShell.Infrastructure;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
-    internal sealed class Clear : CommandBase
+    internal sealed class Clear : CommandBase, ISimpleCommand
     {
-        public override void Execute(string[] arguments, ICommandConsole output)
+        public void Execute(Arguments arguments, ICommandConsole output)
         {
             output.Clear();
         }

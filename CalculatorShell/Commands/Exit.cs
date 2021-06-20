@@ -1,13 +1,14 @@
-﻿using CalculatorShell.Infrastructure;
+﻿using CalculatorShell.Base;
+using CalculatorShell.Infrastructure;
 using System;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
-    internal class Exit : CommandBase
+    internal class Exit : CommandBase, ISimpleCommand
     {
-        public override void Execute(string[] arguments, ICommandConsole output)
+        public void Execute(Arguments arguments, ICommandConsole output)
         {
             Environment.Exit(0);
         }

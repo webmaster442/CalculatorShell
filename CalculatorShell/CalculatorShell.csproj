@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CalculatorShell.Base\CalculatorShell.Base.csproj" />
     <ProjectReference Include="..\CalculatorShell.Expressions\CalculatorShell.Expressions.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CalculatorShell.Infrastructure
+namespace CalculatorShell.Base
 {
-    internal interface ICommandConsole : IProgress<int>
+    public interface ICommandConsole : IProgress<int>
     {
         void Error(Exception ex);
         void Error(string format, params object[] args);

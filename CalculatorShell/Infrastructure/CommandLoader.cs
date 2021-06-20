@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CalculatorShell.Base;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 
@@ -17,7 +18,7 @@ namespace CalculatorShell.Infrastructure
             _memory = memory;
             using (var catalog = new AggregateCatalog())
             {
-                using (var ac = new AssemblyCatalog(typeof(ICommand).Assembly))
+                using (var ac = new AssemblyCatalog(typeof(CommandLoader).Assembly))
                 {
                     catalog.Catalogs.Add(ac);
                     using (var container = new CompositionContainer(catalog))

@@ -1,17 +1,20 @@
 ﻿using CalculatorShell.Infrastructure;
 using System;
+using System.Threading.Tasks;
 
 namespace CalculatorShell
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             PrintVersion();
             var memory = new Memory();
             CommandLoader loader = new CommandLoader(memory);
-            var runner = new CommandRunner(loader.Commands);
-            runner.Run();
+            using (var runner = new CommandRunner(loader.Commands))
+            {
+                await runner.Run();
+            }
         }
 
         private static void PrintVersion()

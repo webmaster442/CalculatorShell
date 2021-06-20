@@ -1,5 +1,5 @@
-﻿using CalculatorShell.Expressions;
-using CalculatorShell.Infrastructure;
+﻿using CalculatorShell.Base;
+using CalculatorShell.Expressions;
 using CalculatorShell.Properties;
 using System.Collections.Generic;
 using System.Linq;
