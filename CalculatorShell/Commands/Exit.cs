@@ -6,7 +6,7 @@ using System.ComponentModel.Composition;
 namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
-    internal class Exit : CommandBase, ISimpleCommand
+    internal sealed class Exit : CommandBase, ISimpleCommand
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {

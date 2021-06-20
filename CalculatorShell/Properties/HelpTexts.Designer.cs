@@ -22,14 +22,14 @@ namespace CalculatorShell.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class HelpTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal HelpTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CalculatorShell.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CalculatorShell.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CalculatorShell.Properties.HelpTexts", typeof(HelpTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,39 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Constant value can&apos;t be redefined: {0}.
+        ///   Looks up a localized string similar to Clears the current console.
         /// </summary>
-        internal static string ConstantCantBeRedefined {
+        internal static string Clear {
             get {
-                return ResourceManager.GetString("ConstantCantBeRedefined", resourceCulture);
+                return ResourceManager.GetString("Clear", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: {0}.
+        ///   Looks up a localized string similar to Prints out the divsors of an integer number.
+        ///Usage: Divisors [number: integer].
         /// </summary>
-        internal static string GeneralError {
+        internal static string Divisors {
             get {
-                return ResourceManager.GetString("GeneralError", resourceCulture);
+                return ResourceManager.GetString("Divisors", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Help entry found for command: {0}.
+        ///   Looks up a localized string similar to Exits the program.
         /// </summary>
-        internal static string NoHelpFound {
+        internal static string Exit {
             get {
-                return ResourceManager.GetString("NoHelpFound", resourceCulture);
+                return ResourceManager.GetString("Exit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Undefined Variable: {0}.
+        ///   Looks up a localized string similar to Prints out basic help information about commands.
         /// </summary>
-        internal static string UndefinedVariable {
+        internal static string Help {
             get {
-                return ResourceManager.GetString("UndefinedVariable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown command: {0}.
-        /// </summary>
-        internal static string UnknownCommand {
-            get {
-                return ResourceManager.GetString("UnknownCommand", resourceCulture);
+                return ResourceManager.GetString("Help", resourceCulture);
             }
         }
     }

@@ -117,19 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConstantCantBeRedefined" xml:space="preserve">
-    <value>Constant value can't be redefined: {0}</value>
+  <data name="Clear" xml:space="preserve">
+    <value>Clears the current console</value>
   </data>
-  <data name="GeneralError" xml:space="preserve">
-    <value>Error: {0}</value>
+  <data name="Divisors" xml:space="preserve">
+    <value>Prints out the divsors of an integer number.
+Usage: Divisors [number: integer]</value>
   </data>
-  <data name="NoHelpFound" xml:space="preserve">
-    <value>No Help entry found for command: {0}</value>
+  <data name="Exit" xml:space="preserve">
+    <value>Exits the program</value>
   </data>
-  <data name="UndefinedVariable" xml:space="preserve">
-    <value>Undefined Variable: {0}</value>
-  </data>
-  <data name="UnknownCommand" xml:space="preserve">
-    <value>Unknown command: {0}</value>
+  <data name="Help" xml:space="preserve">
+    <value>Prints out basic help information about commands</value>
   </data>
 </root>

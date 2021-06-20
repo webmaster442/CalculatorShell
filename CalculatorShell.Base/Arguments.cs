@@ -14,6 +14,20 @@ namespace CalculatorShell.Base
             _culture = culture;
         }
 
+        public bool TryGet<T>(int index, out T result) where T : IConvertible
+        {
+            try
+            {
+                result = (T)Convert.ChangeType(_arguments[index], typeof(T), _culture);
+                return true;
+            }
+            catch (Exception)
+            {
+                result = default;
+                return false;
+            }
+        }
+
         public T Get<T>(int index, string failMsg = null) where T : IConvertible
         {
             try

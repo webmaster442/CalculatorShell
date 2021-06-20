@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
-    internal class Divisors : CommandBase, ITaskCommand
+    internal sealed class Divisors : CommandBase, ITaskCommand
     {
         public async Task Execute(Arguments arguments, ICommandConsole output, CancellationToken cancellationToken)
         {
