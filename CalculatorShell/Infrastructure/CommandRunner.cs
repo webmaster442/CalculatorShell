@@ -3,6 +3,7 @@ using CalculatorShell.Properties;
 using CalculatorShell.ReadLine;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,11 +16,13 @@ namespace CalculatorShell.Infrastructure
         private readonly LineReader _lineReader;
         private readonly ProgramConsole _console;
         private readonly Dictionary<string, ICommand> _commandTable;
+        private readonly CultureInfo _culture;
         private string _currentPrompt;
         private CancellationTokenSource _cancellationTokenSource;
 
-        public CommandRunner(IEnumerable<ICommand> commands)
+        public CommandRunner(IEnumerable<ICommand> commands, CultureInfo culture)
         {
+            _culture = culture;
             _currentPrompt = "Calculator >";
             _console = new ProgramConsole();
             _console.InterruptRequested += _console_InterruptRequested;
@@ -50,11 +53,11 @@ namespace CalculatorShell.Infrastructure
                         {
                             if (_commandTable[cmd] is ISimpleCommand simpleCommand)
                             {
-                                simpleCommand.Execute(new Arguments(args), _console);
+                                simpleCommand.Execute(new Arguments(args, _culture), _console);
                             }
                             else if (_commandTable[cmd] is ITaskCommand taskCommand)
                             {
-                                await taskCommand.Execute(new Arguments(args), _console, _cancellationTokenSource.Token);
+                                await taskCommand.Execute(new Arguments(args, _culture), _console, _cancellationTokenSource.Token);
                             }
                             else
                             {

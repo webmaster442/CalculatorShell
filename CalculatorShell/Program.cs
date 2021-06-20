@@ -1,5 +1,6 @@
 ﻿using CalculatorShell.Infrastructure;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace CalculatorShell
@@ -11,7 +12,7 @@ namespace CalculatorShell
             PrintVersion();
             var memory = new Memory();
             CommandLoader loader = new CommandLoader(memory);
-            using (var runner = new CommandRunner(loader.Commands))
+            using (var runner = new CommandRunner(loader.Commands, CultureInfo.InvariantCulture))
             {
                 await runner.Run();
             }
