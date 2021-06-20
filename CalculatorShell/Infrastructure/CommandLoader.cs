@@ -9,8 +9,12 @@ namespace CalculatorShell.Infrastructure
         [ImportMany(typeof(ICommand))]
         public IEnumerable<ICommand> Commands { get; private set; }
 
-        public CommandLoader()
+        [Export(typeof(IMemory))]
+        public IMemory _memory;
+
+        public CommandLoader(IMemory memory)
         {
+            _memory = memory;
             using (var catalog = new AggregateCatalog())
             {
                 using (var ac = new AssemblyCatalog(typeof(ICommand).Assembly))

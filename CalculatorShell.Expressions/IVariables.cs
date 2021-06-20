@@ -5,8 +5,8 @@ namespace CalculatorShell.Expressions
     public interface IVariables
     {
         bool IsConstant(string variableName);
-        bool IsVaribleDefined(string variableName);
-        bool IsVariableOrConstant(string variableName) => IsConstant(variableName) || IsVaribleDefined(variableName);
+        bool IsVariable(string variableName);
+        bool IsVariableOrConstant(string variableName) => IsConstant(variableName) || IsVariable(variableName);
         dynamic this[string variable] { get; set; }
         void Clear();
         int Count { get; }

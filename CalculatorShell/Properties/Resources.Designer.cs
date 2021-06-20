@@ -61,11 +61,29 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Constant value can&apos;t be redefined: {0}.
+        /// </summary>
+        internal static string ConstantCantBeRedefined {
+            get {
+                return ResourceManager.GetString("ConstantCantBeRedefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: {0}.
         /// </summary>
         internal static string GeneralError {
             get {
                 return ResourceManager.GetString("GeneralError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undefined Variable: {0}.
+        /// </summary>
+        internal static string UndefinedVariable {
+            get {
+                return ResourceManager.GetString("UndefinedVariable", resourceCulture);
             }
         }
         

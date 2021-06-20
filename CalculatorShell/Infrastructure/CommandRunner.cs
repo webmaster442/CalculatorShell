@@ -91,7 +91,10 @@ namespace CalculatorShell.Infrastructure
 
         string[] IAutoCompleteHandler.GetSuggestions(string text, int index)
         {
-            return Array.Empty<string>();
+            return _commandTable.Keys
+                .Where(x => x.IndexOf(text, index, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                .OrderBy(x => x.IndexOf(text, index, StringComparison.InvariantCultureIgnoreCase))
+                .ToArray();
         }
     }
 }

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConstantCantBeRedefined" xml:space="preserve">
+    <value>Constant value can't be redefined: {0}</value>
+  </data>
   <data name="GeneralError" xml:space="preserve">
     <value>Error: {0}</value>
+  </data>
+  <data name="UndefinedVariable" xml:space="preserve">
+    <value>Undefined Variable: {0}</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command: {0}</value>
