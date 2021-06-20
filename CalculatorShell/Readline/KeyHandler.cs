@@ -244,6 +244,7 @@ namespace CalculatorShell.ReadLine
             {
                 var ret = _text.ToString();
                 _cursorPos = 0;
+                _cursorLimit = 0;
                 _text.Clear();
                 return ret;
             }
