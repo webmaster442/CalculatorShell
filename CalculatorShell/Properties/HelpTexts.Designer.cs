@@ -70,6 +70,15 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prints out current date.
+        /// </summary>
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prints out the divsors of an integer number.
         ///Usage: Divisors [number: integer].
         /// </summary>
@@ -104,6 +113,15 @@ namespace CalculatorShell.Properties {
         internal static string Sleep {
             get {
                 return ResourceManager.GetString("Sleep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prints out current time.
+        /// </summary>
+        internal static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
             }
         }
     }

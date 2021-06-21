@@ -120,6 +120,9 @@
   <data name="Clear" xml:space="preserve">
     <value>Clears the current console</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Prints out current date</value>
+  </data>
   <data name="Divisors" xml:space="preserve">
     <value>Prints out the divsors of an integer number.
 Usage: Divisors [number: integer]</value>
@@ -133,5 +136,8 @@ Usage: Divisors [number: integer]</value>
   <data name="Sleep" xml:space="preserve">
     <value>Sleeps for the given ammount of seconds.
 Usage: Sleep  [number: positive integer]</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Prints out current time</value>
   </data>
 </root>

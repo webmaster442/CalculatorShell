@@ -123,6 +123,11 @@
   <data name="ConstantCantBeRedefined" xml:space="preserve">
     <value>Constant value can't be redefined: {0}</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>Today's date: {0}
+Day of year: {1}
+Day of week: {2}</value>
+  </data>
   <data name="GeneralError" xml:space="preserve">
     <value>Error: {0}</value>
   </data>

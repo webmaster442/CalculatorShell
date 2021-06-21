@@ -79,6 +79,17 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Today&apos;s date: {0}
+        ///Day of year: {1}
+        ///Day of week: {2}.
+        /// </summary>
+        internal static string DateFormat {
+            get {
+                return ResourceManager.GetString("DateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: {0}.
         /// </summary>
         internal static string GeneralError {
