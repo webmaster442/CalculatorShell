@@ -6,7 +6,6 @@ using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
 {
-
     [Export(typeof(ICommand))]
     internal class Eval : CommandBase, ISimpleCommand
     {
@@ -16,13 +15,10 @@ namespace CalculatorShell.Commands
                 throw new InvalidOperationException();
 
             var expression = ExpressionFactory.Parse(arguments.Get<string>(0), Memory, arguments.CurrentCulture);
-            if (expression != null)
-            {
-                var result = expression.Evaluate();
-                output.WriteLine("{0}", result);
+            var result = expression.Evaluate();
+            output.WriteLine("{0}", result);
 
-                Memory["Ans"] = result;
-            }
+            Memory["Ans"] = result;
         }
     }
 }

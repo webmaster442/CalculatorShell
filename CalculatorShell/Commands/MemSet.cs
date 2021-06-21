@@ -15,11 +15,7 @@ namespace CalculatorShell.Commands
                 throw new InvalidOperationException();
 
             var name = arguments.Get<string>(0);
-            var strExpression = arguments.Get<string>(1);
-            var value = ExpressionFactory.Parse(strExpression, Memory, arguments.CurrentCulture)?.Evaluate();
-            if (value == null)
-                throw new InvalidOperationException();
-            Memory[name] = value;
+            Memory[name] = ExpressionFactory.Parse(arguments.Get<string>(1), Memory, arguments.CurrentCulture).Evaluate();
         }
     }
 }

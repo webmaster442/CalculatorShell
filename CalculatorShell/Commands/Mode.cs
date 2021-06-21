@@ -8,7 +8,6 @@ using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
 {
-
     [Export(typeof(ICommand))]
     internal class Mode : CommandBase, ISimpleCommand
     {

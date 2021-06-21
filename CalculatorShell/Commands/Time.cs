@@ -5,7 +5,6 @@ using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
 {
-
     [Export(typeof(ICommand))]
     internal class Time : CommandBase, ISimpleCommand
     {

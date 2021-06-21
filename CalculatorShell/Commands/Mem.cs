@@ -1,7 +1,5 @@
 ﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
-using CalculatorShell.Maths;
 using CalculatorShell.Properties;
 using System;
 using System.ComponentModel.Composition;
