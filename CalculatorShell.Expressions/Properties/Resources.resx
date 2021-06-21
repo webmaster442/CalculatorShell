@@ -144,6 +144,9 @@
   <data name="ExpectedPlussminus" xml:space="preserve">
     <value>Expected plus or minus, got: {0}</value>
   </data>
+  <data name="InternalError" xml:space="preserve">
+    <value>Internal Error</value>
+  </data>
   <data name="InvalidExpression" xml:space="preserve">
     <value>Invalid expression</value>
   </data>

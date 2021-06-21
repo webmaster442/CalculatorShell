@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculatorShell.Expressions.Properties;
+using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -8,13 +9,13 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             return new Add(new Multiply(Left, Right?.Differentiate(byVariable)),
                       new Multiply(Left?.Differentiate(byVariable), Right));
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newLeft = Left?.Simplify();
             var newRight = Right?.Simplify();
@@ -39,7 +40,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 if (leftConst.Value.Value == 1)
                 {
                     // 1 * y
-                    return newRight;
+                    return newRight ?? throw new ExpressionEngineException(Resources.InternalError);
                 }
                 if (leftConst.Value.Value == -1)
                 {
@@ -47,7 +48,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                     if (rightNegate != null)
                     {
                         // y = -u (-y = --u)
-                        return rightNegate.Child;
+                        return rightNegate.Child ?? throw new ExpressionEngineException(Resources.InternalError);
                     }
                     return new Negate(newRight);
                 }
@@ -62,7 +63,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 if (rightConst.Value.Value == 1)
                 {
                     // x * 1
-                    return newLeft;
+                    return newLeft ?? throw new ExpressionEngineException(Resources.InternalError);
                 }
                 if (rightConst.Value.Value == -1)
                 {
@@ -70,7 +71,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                     if (leftNegate != null)
                     {
                         // x = -u (-x = --u)
-                        return leftNegate.Child;
+                        return leftNegate.Child ?? throw new ExpressionEngineException(Resources.InternalError);
                     }
                     return new Negate(newLeft);
                 }

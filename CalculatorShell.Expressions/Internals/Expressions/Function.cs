@@ -14,12 +14,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             _name = name;
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             throw new ExpressionEngineException(Resources.CanotDifferentiate);
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newChild = Child?.Simplify();
             if (newChild is Constant childConst)

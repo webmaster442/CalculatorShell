@@ -28,9 +28,9 @@ namespace CalculatorShell.Expressions.Internals
 
         protected abstract NumberImplementation Evaluate(NumberImplementation number1, NumberImplementation number2);
 
-        public abstract IExpression? Simplify();
+        public abstract IExpression Simplify();
 
-        public abstract IExpression? Differentiate(string byVariable);
+        public abstract IExpression Differentiate(string byVariable);
 
         public abstract string ToString(IFormatProvider formatProvider);
 

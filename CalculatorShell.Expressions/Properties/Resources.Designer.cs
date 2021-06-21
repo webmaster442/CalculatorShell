@@ -142,6 +142,15 @@ namespace CalculatorShell.Expressions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Internal Error.
+        /// </summary>
+        internal static string InternalError {
+            get {
+                return ResourceManager.GetString("InternalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid expression.
         /// </summary>
         internal static string InvalidExpression {

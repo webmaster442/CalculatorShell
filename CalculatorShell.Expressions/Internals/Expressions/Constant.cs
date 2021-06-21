@@ -14,7 +14,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             Value = value;
         }
 
-        public IExpression? Differentiate(string byVariable)
+        public IExpression Differentiate(string byVariable)
         {
             return new Constant(new NumberImplementation(0.0));
         }
@@ -24,7 +24,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             return Value;
         }
 
-        public IExpression? Simplify()
+        public IExpression Simplify()
         {
             return new Constant(Value);
         }

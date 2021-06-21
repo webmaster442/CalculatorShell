@@ -8,13 +8,13 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             return new Multiply(new Divide(new Constant(new NumberImplementation(1)), new Ln(Right)),
                                            new Divide(new Constant(new NumberImplementation(1)), Left));
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newLeft = Left?.Simplify();
             var newRight = Right?.Simplify();

@@ -14,7 +14,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             return
                 new Divide(new Subtract(new Multiply(Left?.Differentiate(byVariable), Right),
@@ -22,7 +22,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                            new Exponent(Right, new Constant(new NumberImplementation(2))));
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newLeft = Left?.Simplify();
             var newRight = Right?.Simplify();
@@ -68,7 +68,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 if (rightConst.Value.Value == 1)
                 {
                     // x / 1
-                    return newLeft;
+                    return newLeft ?? throw new ExpressionEngineException(Resources.InternalError);
                 }
                 if (rightConst.Value.Value == -1)
                 {
@@ -76,7 +76,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                     if (leftNegate != null)
                     {
                         // x = -u (-x = --u)
-                        return leftNegate.Child;
+                        return leftNegate.Child ?? throw new ExpressionEngineException(Resources.InternalError);
                     }
                     return new Negate(newLeft);
                 }

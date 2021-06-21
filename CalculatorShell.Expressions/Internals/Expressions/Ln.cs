@@ -8,12 +8,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             return new Divide(new Constant(new NumberImplementation(1)), Child);
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newChild = Child?.Simplify();
             if (newChild is Constant childConst)

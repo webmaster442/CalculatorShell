@@ -20,7 +20,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             Identifier = identifier.ToLower();
         }
 
-        public IExpression? Differentiate(string byVariable)
+        public IExpression Differentiate(string byVariable)
         {
             if (byVariable == Identifier)
             {
@@ -45,7 +45,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             return Variables[Identifier];
         }
 
-        public IExpression? Simplify()
+        public IExpression Simplify()
         {
             if (Variables == null)
                 throw new ExpressionEngineException(Resources.NoVariableValues);

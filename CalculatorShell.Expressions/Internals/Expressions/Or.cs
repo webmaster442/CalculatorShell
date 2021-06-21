@@ -9,12 +9,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             throw new ExpressionEngineException(Resources.CanotDifferentiate);
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newLeft = Left?.Simplify();
             var newRight = Right?.Simplify();

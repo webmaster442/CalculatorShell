@@ -9,7 +9,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             if (Right is Constant)
             {
@@ -25,7 +25,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             throw new ExpressionEngineException(Resources.CanotDifferentiate);
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newLeft = Left?.Simplify();
             var newRight = Right?.Simplify();
@@ -48,7 +48,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 if (rightConst.Value.Value == 1)
                 {
                     // x ^ 1
-                    return newLeft;
+                    return newLeft ?? throw new ExpressionEngineException(Resources.InternalError);
                 }
             }
             else if (leftConst?.Value.Value == 0)

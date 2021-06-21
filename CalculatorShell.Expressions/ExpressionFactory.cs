@@ -27,12 +27,12 @@ namespace CalculatorShell.Expressions
             set => Trigonometry.AngleMode = value;
         }
 
-        public static IExpression? Parse(string function, IVariables variables, CultureInfo? culture)
+        public static IExpression Parse(string function, IVariables variables, CultureInfo? culture)
         {
             if (culture == null)
                 throw new ArgumentNullException(nameof(culture));
 
-            _culture = culture;   
+            _culture = culture;  
             _tokenizer = new Tokenizer(function, culture);
             _currentToken = new Token("", TokenType.None);
             _variables = variables;
@@ -77,7 +77,7 @@ namespace CalculatorShell.Expressions
             Next();
         }
 
-        private static IExpression? ParseAddExpression()
+        private static IExpression ParseAddExpression()
         {
             if (Check(FirstMultExp))
             {
@@ -117,7 +117,7 @@ namespace CalculatorShell.Expressions
             throw new ExpressionEngineException(Resources.InvalidExpression);
         }
 
-        private static IExpression? ParseMultExpression()
+        private static IExpression ParseMultExpression()
         {
             if (Check(FirstExpExp))
             {
@@ -157,7 +157,7 @@ namespace CalculatorShell.Expressions
             throw new ExpressionEngineException(Resources.InvalidExpression);
         }
 
-        private static IExpression? ParseExpExpression()
+        private static IExpression ParseExpExpression()
         {
             if (Check(FirstUnaryExp))
             {
@@ -189,7 +189,7 @@ namespace CalculatorShell.Expressions
             throw new ExpressionEngineException(Resources.InvalidExpression);
         }
 
-        private static IExpression? ParseUnaryExpression()
+        private static IExpression ParseUnaryExpression()
         {
             var negate = false;
             var not = false;
@@ -222,7 +222,7 @@ namespace CalculatorShell.Expressions
             throw new ExpressionEngineException(Resources.InvalidExpression);
         }
 
-        private static IExpression? ParseFactorPrefix()
+        private static IExpression ParseFactorPrefix()
         {
             IExpression? exp = null;
             if (_currentToken.Type == TokenType.Constant)
@@ -255,7 +255,7 @@ namespace CalculatorShell.Expressions
             return exp;
         }
 
-        private static IExpression? ParseFactor()
+        private static IExpression ParseFactor()
         {
             IExpression? exp = null;
             do
@@ -293,10 +293,10 @@ namespace CalculatorShell.Expressions
             }
             while (Check(FirstFactor));
 
-            return exp;
+            throw new ExpressionEngineException(Resources.UnexpectedTokenInFactior, _currentToken.Type);
         }
 
-        private static IExpression? ParseFunction()
+        private static IExpression ParseFunction()
         {
             var opType = _currentToken.Type;
             var function = _currentToken.Value;
@@ -316,7 +316,7 @@ namespace CalculatorShell.Expressions
             }
         }
 
-        private static IExpression? ParseFunction2()
+        private static IExpression ParseFunction2()
         {
             var opType = _currentToken.Type;
             var function = _currentToken.Value;

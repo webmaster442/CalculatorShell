@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculatorShell.Expressions.Properties;
+using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -8,12 +9,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             return new Subtract(Left?.Differentiate(byVariable), Right?.Differentiate(byVariable));
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newLeft = Left?.Simplify();
             var newRight = Right?.Simplify();
@@ -33,14 +34,14 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 if (rightNegate != null)
                 {
                     // y = -u (--u)
-                    return rightNegate.Child;
+                    return rightNegate.Child ?? throw new ExpressionEngineException(Resources.InternalError);
                 }
                 return new Negate(newRight);
             }
             if (rightConst?.Value.Value == 0)
             {
                 // x - 0
-                return newLeft;
+                return newLeft ?? throw new ExpressionEngineException(Resources.InternalError);
             }
             if (rightNegate != null)
             {

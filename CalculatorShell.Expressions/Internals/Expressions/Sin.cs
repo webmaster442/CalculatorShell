@@ -9,12 +9,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
         }
 
-        public override IExpression? Differentiate(string byVariable)
+        public override IExpression Differentiate(string byVariable)
         {
             return new Multiply(new Cos(Child), Child?.Differentiate(byVariable));
         }
 
-        public override IExpression? Simplify()
+        public override IExpression Simplify()
         {
             var newChild = Child?.Simplify();
             if (newChild is Constant childConst)
