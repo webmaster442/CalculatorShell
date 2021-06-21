@@ -131,6 +131,14 @@ Day of week: {2}</value>
   <data name="GeneralError" xml:space="preserve">
     <value>Error: {0}</value>
   </data>
+  <data name="InitText" xml:space="preserve">
+    <value>(c) Webmaster442.
+To get help type Help [command]</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Change trigonometry parsing mode.
+Usage: Mode [Deg or Rad or Grad]</value>
+  </data>
   <data name="NoHelpFound" xml:space="preserve">
     <value>No Help entry found for command: {0}</value>
   </data>
@@ -142,5 +150,8 @@ Day of week: {2}</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command: {0}</value>
+  </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unknown mode: {0}</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Base;
+using CalculatorShell.Expressions;
 using CalculatorShell.Properties;
 using CalculatorShell.ReadLine;
 using System;
@@ -17,13 +18,11 @@ namespace CalculatorShell.Infrastructure
         private readonly ProgramConsole _console;
         private readonly Dictionary<string, ICommand> _commandTable;
         private readonly CultureInfo _culture;
-        private string _currentPrompt;
         private CancellationTokenSource? _cancellationTokenSource;
 
         public CommandRunner(IEnumerable<ICommand> commands, CultureInfo culture)
         {
             _culture = culture;
-            _currentPrompt = "Calculator >";
             _console = new ProgramConsole();
             _console.InterruptRequested += OnInterruptRequested;
             _lineReader = new LineReader(true, _console, this);
@@ -40,7 +39,8 @@ namespace CalculatorShell.Infrastructure
         {
             while (true)
             {
-                string rawLine = _lineReader.Read(_currentPrompt);
+                string prompt = $"\n{ExpressionFactory.CurrentAngleMode} > ";
+                string rawLine = _lineReader.Read(prompt);
                 IEnumerable<string> arguments = ParseArguments(rawLine);
                 string cmd = arguments.FirstOrDefault() ?? string.Empty;
                 string[] args = arguments.Skip(1).ToArray();
@@ -64,6 +64,10 @@ namespace CalculatorShell.Infrastructure
                             }
                             else
                             {
+                                // Missing entry proint for command
+#if DEBUG
+                                System.Diagnostics.Debugger.Break();
+#endif
                                 throw new InvalidOperationException($"Don't know how to run command: {cmd}");
                             }
                         }

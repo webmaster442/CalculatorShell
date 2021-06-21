@@ -89,6 +89,16 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evaluates an expression and writes out the result. Result is also stored into the Ans variable.
+        ///Usage: Eval [expression].
+        /// </summary>
+        internal static string Eval {
+            get {
+                return ResourceManager.GetString("Eval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exits the program.
         /// </summary>
         internal static string Exit {
@@ -142,6 +152,16 @@ namespace CalculatorShell.Properties {
         internal static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear memory or delete a specific variable
+        ///Usage: Unset or Unset [Variable name].
+        /// </summary>
+        internal static string Unset {
+            get {
+                return ResourceManager.GetString("Unset", resourceCulture);
             }
         }
     }

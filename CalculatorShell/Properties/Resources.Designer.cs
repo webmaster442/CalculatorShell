@@ -99,6 +99,26 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (c) Webmaster442.
+        ///To get help type Help [command].
+        /// </summary>
+        internal static string InitText {
+            get {
+                return ResourceManager.GetString("InitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change trigonometry parsing mode.
+        ///Usage: Mode [Deg or Rad or Grad].
+        /// </summary>
+        internal static string Mode {
+            get {
+                return ResourceManager.GetString("Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Help entry found for command: {0}.
         /// </summary>
         internal static string NoHelpFound {
@@ -131,6 +151,15 @@ namespace CalculatorShell.Properties {
         internal static string UnknownCommand {
             get {
                 return ResourceManager.GetString("UnknownCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown mode: {0}.
+        /// </summary>
+        internal static string UnknownMode {
+            get {
+                return ResourceManager.GetString("UnknownMode", resourceCulture);
             }
         }
     }

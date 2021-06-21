@@ -6,20 +6,24 @@ using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
 {
+
     [Export(typeof(ICommand))]
-    internal class MemSet : CommandBase, ISimpleCommand
+    internal class Unset : CommandBase, ISimpleCommand
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
             if (Memory == null)
                 throw new InvalidOperationException();
 
-            var name = arguments.Get<string>(0);
-            var strExpression = arguments.Get<string>(1);
-            var value = ExpressionFactory.Parse(strExpression, Memory, arguments.CurrentCulture)?.Evaluate();
-            if (value == null)
-                throw new InvalidOperationException();
-            Memory[name] = value;
+            if (arguments.Count == 1)
+            {
+                var name = arguments.Get<string>(0);
+                Memory.Delete(name);
+            }
+            else
+            {
+                Memory.Clear();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Infrastructure;
+using CalculatorShell.Properties;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -19,8 +20,7 @@ namespace CalculatorShell
         private static void PrintVersion()
         {
             var name = typeof(Program).Assembly.GetName();
-            Console.WriteLine($"{name.Name} [{name.Version}]");
-            Console.WriteLine();
+            Console.WriteLine($"{name.Name} [{name.Version}] {Resources.InitText}");
         }
     }
 }

@@ -68,5 +68,10 @@ namespace CalculatorShell
         {
             return _variables.ContainsKey(variableName);
         }
+
+        public void Delete(string name)
+        {
+            _variables.Remove(name);
+        }
     }
 }

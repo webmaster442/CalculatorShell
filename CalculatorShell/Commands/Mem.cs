@@ -1,6 +1,9 @@
 ﻿using CalculatorShell.Base;
+using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
+using CalculatorShell.Maths;
 using CalculatorShell.Properties;
+using System;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
@@ -10,16 +13,17 @@ namespace CalculatorShell.Commands
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
-            if (arguments.Count == 0
-                && Memory != null)
+            if (Memory == null)
+                throw new InvalidOperationException();
+
+            if (arguments.Count == 0)
             {
                 var list = string.Join('\n', Memory.VariableNames);
                 output.WriteLine(Resources.SetVariables);
                 if (!string.IsNullOrEmpty(list))
                     output.WriteLine(list);
             }
-            else if (arguments.Count == 1
-                && Memory != null)
+            else if (arguments.Count == 1)
             {
                 var name = arguments.Get<string>(0);
                 output.WriteLine("{0}", Memory[name]);

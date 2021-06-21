@@ -127,6 +127,10 @@
     <value>Prints out the divsors of an integer number.
 Usage: Divisors [number: integer]</value>
   </data>
+  <data name="Eval" xml:space="preserve">
+    <value>Evaluates an expression and writes out the result. Result is also stored into the Ans variable.
+Usage: Eval [expression]</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>Exits the program</value>
   </data>
@@ -147,5 +151,9 @@ Usage: Sleep  [number: positive integer]</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Prints out current time</value>
+  </data>
+  <data name="Unset" xml:space="preserve">
+    <value>Clear memory or delete a specific variable
+Usage: Unset or Unset [Variable name]</value>
   </data>
 </root>
