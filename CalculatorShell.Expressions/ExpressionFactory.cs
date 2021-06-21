@@ -15,11 +15,11 @@ namespace CalculatorShell.Expressions
         private static Token _currentToken;
         private static IVariables? _variables;
 
-        private static TokenSet FirstFactor = new TokenSet(TokenType.Function1, TokenType.Function2, TokenType.Variable, TokenType.OpenParen);
-        private static TokenSet FirstFactorPrefix = FirstFactor + TokenType.Constant;
-        private static TokenSet FirstUnaryExp = FirstFactorPrefix + TokenType.Minus + TokenType.Not;
-        private static TokenSet FirstMultExp = new TokenSet(FirstUnaryExp);
-        private static TokenSet FirstExpExp = new TokenSet(FirstUnaryExp);
+        private static readonly TokenSet FirstFactor = new(TokenType.Function1, TokenType.Function2, TokenType.Variable, TokenType.OpenParen);
+        private static readonly TokenSet FirstFactorPrefix = FirstFactor + TokenType.Constant;
+        private static readonly TokenSet FirstUnaryExp = FirstFactorPrefix + TokenType.Minus + TokenType.Not;
+        private static readonly TokenSet FirstMultExp = new(FirstUnaryExp);
+        private static readonly TokenSet FirstExpExp = new(FirstUnaryExp);
 
         public static AngleMode CurrentAngleMode
         {
@@ -290,7 +290,7 @@ namespace CalculatorShell.Expressions
                 }
 
                 exp = (exp == null) ? right : new Multiply(exp, right);
-            } 
+            }
             while (Check(FirstFactor));
 
             return exp;
@@ -337,6 +337,5 @@ namespace CalculatorShell.Expressions
                 throw new ExpressionEngineException(Resources.UnknownFuction, function);
             }
         }
-
     }
 }

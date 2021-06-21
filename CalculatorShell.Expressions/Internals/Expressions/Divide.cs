@@ -103,7 +103,9 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 return new NumberImplementation(number1.Value, number2.Value);
             }
             else
+            {
                 return new NumberImplementation(number1.Value / number2.Value);
+            }
         }
     }
 }

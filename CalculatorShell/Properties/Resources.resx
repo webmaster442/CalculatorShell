@@ -134,6 +134,9 @@ Day of week: {2}</value>
   <data name="NoHelpFound" xml:space="preserve">
     <value>No Help entry found for command: {0}</value>
   </data>
+  <data name="SetVariables" xml:space="preserve">
+    <value>Currently set variable names:</value>
+  </data>
   <data name="UndefinedVariable" xml:space="preserve">
     <value>Undefined Variable: {0}</value>
   </data>

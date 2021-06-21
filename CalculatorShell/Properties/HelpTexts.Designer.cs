@@ -107,6 +107,26 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display currently set variables or a specific variable value.
+        ///Usage: Mem or Mem [variable name].
+        /// </summary>
+        internal static string Mem {
+            get {
+                return ResourceManager.GetString("Mem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Define a variable or change it&apos;s value
+        ///Usage: MemSet [Variable name] [Expression].
+        /// </summary>
+        internal static string MemSet {
+            get {
+                return ResourceManager.GetString("MemSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sleeps for the given ammount of seconds.
         ///Usage: Sleep  [number: positive integer].
         /// </summary>

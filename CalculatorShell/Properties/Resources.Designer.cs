@@ -108,6 +108,15 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currently set variable names:.
+        /// </summary>
+        internal static string SetVariables {
+            get {
+                return ResourceManager.GetString("SetVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Undefined Variable: {0}.
         /// </summary>
         internal static string UndefinedVariable {

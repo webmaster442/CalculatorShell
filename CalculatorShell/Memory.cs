@@ -50,7 +50,9 @@ namespace CalculatorShell
 
         public int Count => _variables.Count + _constants.Count;
 
-        public IEnumerable<string> VariableNames => _variables.Keys.Union(_constants.Keys);
+        public IEnumerable<string> VariableAndConstantNames => _variables.Keys.Union(_constants.Keys);
+
+        public IEnumerable<string> VariableNames => _variables.Keys;
 
         public void Clear()
         {

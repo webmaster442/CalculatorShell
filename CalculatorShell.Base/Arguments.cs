@@ -6,19 +6,19 @@ namespace CalculatorShell.Base
     public sealed class Arguments
     {
         private readonly string[] _arguments;
-        private readonly CultureInfo _culture;
+        public CultureInfo CurrentCulture { get; }
 
         public Arguments(string[] args, CultureInfo culture)
         {
             _arguments = args;
-            _culture = culture;
+            CurrentCulture = culture;
         }
 
         public bool TryGet<T>(int index, out T? result) where T : IConvertible
         {
             try
             {
-                result = (T)Convert.ChangeType(_arguments[index], typeof(T), _culture);
+                result = (T)Convert.ChangeType(_arguments[index], typeof(T), CurrentCulture);
                 return true;
             }
             catch (Exception)
@@ -32,7 +32,7 @@ namespace CalculatorShell.Base
         {
             try
             {
-                return (T)Convert.ChangeType(_arguments[index], typeof(T), _culture);
+                return (T)Convert.ChangeType(_arguments[index], typeof(T), CurrentCulture);
             }
             catch (Exception ex)
             {

@@ -10,6 +10,7 @@ namespace CalculatorShell.Expressions
         dynamic this[string variable] { get; set; }
         void Clear();
         int Count { get; }
+        IEnumerable<string> VariableAndConstantNames { get; }
         IEnumerable<string> VariableNames { get; }
     }
 }
