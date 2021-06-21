@@ -142,7 +142,9 @@ namespace CalculatorShell.Maths
                         double dTemp = dValue;
                         long iMultiple = 1;
                         string strTemp = dValue.ToString(CultureInfo.InvariantCulture);
+#pragma warning disable S2692 // "IndexOf" checks should not be for positive numbers
                         while (strTemp.IndexOf("E") > 0)    // if in the form like 12E-9
+#pragma warning restore S2692 // "IndexOf" checks should not be for positive numbers
                         {
                             dTemp *= 10;
                             iMultiple *= 10;

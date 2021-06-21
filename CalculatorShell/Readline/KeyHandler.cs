@@ -19,7 +19,6 @@ namespace CalculatorShell.ReadLine
         private int _completionStart;
         private int _completionsIndex;
 
-
         private bool IsStartOfLine() => _cursorPos == 0;
 
         private bool IsEndOfLine() => _cursorPos == _cursorLimit;
@@ -107,7 +106,7 @@ namespace CalculatorShell.ReadLine
             {
                 int left = _console.CursorLeft;
                 int top = _console.CursorTop;
-                string str = _text.ToString().Substring(_cursorPos);
+                string str = _text.ToString()[_cursorPos..];
                 _text.Insert(_cursorPos, c);
                 _console.Write(c.ToString() + str);
                 _console.SetCursorPosition(left, top);
@@ -125,7 +124,7 @@ namespace CalculatorShell.ReadLine
             MoveCursorLeft();
             int index = _cursorPos;
             _text.Remove(index, 1);
-            string replacement = _text.ToString().Substring(index);
+            string replacement = _text.ToString()[index..];
             int left = _console.CursorLeft;
             int top = _console.CursorTop;
             _console.Write(string.Format("{0} ", replacement));
@@ -140,7 +139,7 @@ namespace CalculatorShell.ReadLine
 
             int index = _cursorPos;
             _text.Remove(index, 1);
-            string replacement = _text.ToString().Substring(index);
+            string replacement = _text.ToString()[index..];
             int left = _console.CursorLeft;
             int top = _console.CursorTop;
             _console.Write(string.Format("{0} ", replacement));
@@ -234,7 +233,7 @@ namespace CalculatorShell.ReadLine
 
         private void ResetAutoComplete()
         {
-            _completions = null;
+            _completions = Array.Empty<string>();
             _completionsIndex = 0;
         }
 
@@ -254,79 +253,80 @@ namespace CalculatorShell.ReadLine
         {
             _console = console;
 
+            _completions = Array.Empty<string>();
             _history = history ?? new List<string>();
             _historyIndex = _history.Count;
             _text = new StringBuilder();
-            _keyActions = new Dictionary<string, Action>();
-
-            _keyActions["LeftArrow"] = MoveCursorLeft;
-            _keyActions["Home"] = MoveCursorHome;
-            _keyActions["End"] = MoveCursorEnd;
-            _keyActions["ControlA"] = MoveCursorHome;
-            _keyActions["ControlB"] = MoveCursorLeft;
-            _keyActions["RightArrow"] = MoveCursorRight;
-            _keyActions["ControlF"] = MoveCursorRight;
-            _keyActions["ControlE"] = MoveCursorEnd;
-            _keyActions["Backspace"] = Backspace;
-            _keyActions["Delete"] = Delete;
-            _keyActions["ControlD"] = Delete;
-            _keyActions["ControlH"] = Backspace;
-            _keyActions["ControlL"] = ClearLine;
-            _keyActions["Escape"] = ClearLine;
-            _keyActions["UpArrow"] = PrevHistory;
-            _keyActions["ControlP"] = PrevHistory;
-            _keyActions["DownArrow"] = NextHistory;
-            _keyActions["ControlN"] = NextHistory;
-            _keyActions["ControlU"] = () =>
+            _keyActions = new Dictionary<string, Action>
             {
-                while (!IsStartOfLine())
-                    Backspace();
-            };
-            _keyActions["ControlK"] = () =>
-            {
-                int pos = _cursorPos;
-                MoveCursorEnd();
-                while (_cursorPos > pos)
-                    Backspace();
-            };
-            _keyActions["ControlW"] = () =>
-            {
-                while (!IsStartOfLine() && _text[_cursorPos - 1] != ' ')
-                    Backspace();
-            };
-            _keyActions["ControlT"] = TransposeChars;
-
-            _keyActions["Tab"] = () =>
-            {
-                if (IsInAutoCompleteMode())
+                ["LeftArrow"] = MoveCursorLeft,
+                ["Home"] = MoveCursorHome,
+                ["End"] = MoveCursorEnd,
+                ["ControlA"] = MoveCursorHome,
+                ["ControlB"] = MoveCursorLeft,
+                ["RightArrow"] = MoveCursorRight,
+                ["ControlF"] = MoveCursorRight,
+                ["ControlE"] = MoveCursorEnd,
+                ["Backspace"] = Backspace,
+                ["Delete"] = Delete,
+                ["ControlD"] = Delete,
+                ["ControlH"] = Backspace,
+                ["ControlL"] = ClearLine,
+                ["Escape"] = ClearLine,
+                ["UpArrow"] = PrevHistory,
+                ["ControlP"] = PrevHistory,
+                ["DownArrow"] = NextHistory,
+                ["ControlN"] = NextHistory,
+                ["ControlU"] = () =>
                 {
-                    NextAutoComplete();
-                }
-                else
+                    while (!IsStartOfLine())
+                        Backspace();
+                },
+                ["ControlK"] = () =>
                 {
-                    if (autoCompleteHandler == null || !IsEndOfLine())
-                        return;
-
-                    string text = _text.ToString();
-
-                    _completionStart = text.LastIndexOfAny(autoCompleteHandler.Separators);
-                    _completionStart = _completionStart == -1 ? 0 : _completionStart + 1;
-
-                    _completions = autoCompleteHandler.GetSuggestions(text, _completionStart);
-                    _completions = _completions?.Length == 0 ? null : _completions;
-
-                    if (_completions == null)
-                        return;
-
-                    StartAutoComplete();
-                }
-            };
-
-            _keyActions["ShiftTab"] = () =>
-            {
-                if (IsInAutoCompleteMode())
+                    int pos = _cursorPos;
+                    MoveCursorEnd();
+                    while (_cursorPos > pos)
+                        Backspace();
+                },
+                ["ControlW"] = () =>
                 {
-                    PreviousAutoComplete();
+                    while (!IsStartOfLine() && _text[_cursorPos - 1] != ' ')
+                        Backspace();
+                },
+                ["ControlT"] = TransposeChars,
+
+                ["Tab"] = () =>
+                {
+                    if (IsInAutoCompleteMode())
+                    {
+                        NextAutoComplete();
+                    }
+                    else
+                    {
+                        if (autoCompleteHandler == null || !IsEndOfLine())
+                            return;
+
+                        string text = _text.ToString();
+
+                        _completionStart = text.LastIndexOfAny(autoCompleteHandler.Separators);
+                        _completionStart = _completionStart == -1 ? 0 : _completionStart + 1;
+
+                        _completions = autoCompleteHandler.GetSuggestions(text, _completionStart);
+
+                        if (_completions.Length == 0)
+                            return;
+
+                        StartAutoComplete();
+                    }
+                },
+
+                ["ShiftTab"] = () =>
+                {
+                    if (IsInAutoCompleteMode())
+                    {
+                        PreviousAutoComplete();
+                    }
                 }
             };
         }
@@ -339,9 +339,8 @@ namespace CalculatorShell.ReadLine
             if (IsInAutoCompleteMode() && _keyInfo.Key != ConsoleKey.Tab)
                 ResetAutoComplete();
 
-            Action action;
-            _keyActions.TryGetValue(BuildKeyInput(), out action);
-            action = action ?? WriteChar;
+            _keyActions.TryGetValue(BuildKeyInput(), out Action? action);
+            action ??= WriteChar;
             action.Invoke();
         }
     }

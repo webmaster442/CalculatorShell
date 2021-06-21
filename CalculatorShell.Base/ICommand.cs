@@ -2,6 +2,6 @@
 {
     public interface ICommand
     {
-        IMemory Memory { get; set; }
+        IMemory? Memory { get; set; }
     }
 }

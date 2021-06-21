@@ -13,13 +13,13 @@ namespace CalculatorShell
             Console.CancelKeyPress += Console_CancelKeyPress;
         }
 
-        private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        private void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
         {
             e.Cancel = true;
             InterruptRequested?.Invoke(this, EventArgs.Empty);
         }
 
-        private void WriteWithColors(ConsoleColor color, Action action)
+        private static void WriteWithColors(ConsoleColor color, Action action)
         {
             var currentColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -27,7 +27,7 @@ namespace CalculatorShell
             Console.ForegroundColor = currentColor;
         }
 
-        public event EventHandler InterruptRequested;
+        public event EventHandler? InterruptRequested;
 
         public int CursorLeft => Console.CursorLeft;
 
@@ -74,14 +74,14 @@ namespace CalculatorShell
             Console.SetCursorPosition(left, top);
         }
 
-        public void Write(string value) => Write(value, null);
+        public void Write(string value) => Write(value, Array.Empty<object>());
 
         public void Write(string format, params object[] args)
         {
             Console.Write(format, args);
         }
 
-        public void WriteLine(string value) => WriteLine(value, null);
+        public void WriteLine(string value) => WriteLine(value, Array.Empty<object>());
 
         public void WriteLine(string format, params object[] args)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -15,19 +16,14 @@ namespace CalculatorShell.Infrastructure
 
         public CommandLoader(IMemory memory)
         {
+            Commands = Enumerable.Empty<ICommand>();
             _memory = memory;
-            using (var catalog = new AggregateCatalog())
-            {
-                using (var ac = new AssemblyCatalog(typeof(CommandLoader).Assembly))
-                {
-                    catalog.Catalogs.Add(ac);
-                    using (var container = new CompositionContainer(catalog))
-                    {
-                        container.ComposeParts(this);
-                        container.SatisfyImportsOnce(this);
-                    }
-                }
-            }
+            using var catalog = new AggregateCatalog();
+            using var ac = new AssemblyCatalog(typeof(CommandLoader).Assembly);
+            catalog.Catalogs.Add(ac);
+            using var container = new CompositionContainer(catalog);
+            container.ComposeParts(this);
+            container.SatisfyImportsOnce(this);
         }
     }
 }

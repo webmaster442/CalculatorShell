@@ -18,14 +18,18 @@ namespace CalculatorShell
             _constants = FillConstants();
         }
 
-        private Dictionary<string, dynamic> FillConstants()
+        private static Dictionary<string, dynamic> FillConstants()
         {
             var fields = typeof(Constants).GetFields(BindingFlags.Static | BindingFlags.Public);
-            return fields.ToDictionary(x => x.Name, x => x.GetValue(null));
+            if (fields != null)
+            {
+                return fields.ToDictionary(x => x.Name, x => x.GetValue(null))!;
+            }
+            return new Dictionary<string, dynamic>();
         }
 
-        public dynamic this[string variable] 
-        { 
+        public dynamic this[string variable]
+        {
             get
             {
                 if (IsConstant(variable))
@@ -34,17 +38,13 @@ namespace CalculatorShell
                     return _variables[variable];
 
                 throw new ExpressionEngineException(Resources.UndefinedVariable, variable);
-
             }
             set
             {
                 if (IsConstant(variable))
                     throw new ExpressionEngineException(Resources.ConstantCantBeRedefined, variable);
 
-                if (_variables.ContainsKey(variable))
-                    _variables[variable] = value;
-                else
-                    _variables.Add(variable, value);
+                _variables[variable] = value;
             }
         }
 

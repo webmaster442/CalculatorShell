@@ -14,7 +14,7 @@ namespace CalculatorShell.Base
             _culture = culture;
         }
 
-        public bool TryGet<T>(int index, out T result) where T : IConvertible
+        public bool TryGet<T>(int index, out T? result) where T : IConvertible
         {
             try
             {
@@ -28,7 +28,7 @@ namespace CalculatorShell.Base
             }
         }
 
-        public T Get<T>(int index, string failMsg = null) where T : IConvertible
+        public T Get<T>(int index, string? failMsg = null) where T : IConvertible
         {
             try
             {

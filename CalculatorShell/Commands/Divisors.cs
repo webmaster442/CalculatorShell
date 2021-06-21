@@ -11,10 +11,12 @@ namespace CalculatorShell.Commands
     [Export(typeof(ICommand))]
     internal sealed class Divisors : CommandBase, ITaskCommand
     {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task Execute(Arguments arguments, ICommandConsole output, CancellationToken cancellationToken)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             long number = arguments.Get<long>(0);
-            ConcurrentBag<long> numbers = new ConcurrentBag<long>();
+            var numbers = new ConcurrentBag<long>();
             var options = new ParallelOptions
             {
                 CancellationToken = cancellationToken,
@@ -28,7 +30,6 @@ namespace CalculatorShell.Commands
 
             var str = string.Join(';', numbers.OrderBy(i => i));
             output.WriteLine(str);
-
         }
     }
 }

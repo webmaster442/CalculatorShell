@@ -6,6 +6,6 @@ namespace CalculatorShell.Infrastructure
     internal abstract class CommandBase : ICommand
     {
         [Import(typeof(IMemory))]
-        public IMemory Memory { get; set; }
+        public IMemory? Memory { get; set; }
     }
 }

@@ -18,22 +18,22 @@ namespace CalculatorShell.Infrastructure
         private readonly Dictionary<string, ICommand> _commandTable;
         private readonly CultureInfo _culture;
         private string _currentPrompt;
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource? _cancellationTokenSource;
 
         public CommandRunner(IEnumerable<ICommand> commands, CultureInfo culture)
         {
             _culture = culture;
             _currentPrompt = "Calculator >";
             _console = new ProgramConsole();
-            _console.InterruptRequested += _console_InterruptRequested;
+            _console.InterruptRequested += OnInterruptRequested;
             _lineReader = new LineReader(true, _console, this);
             _commandTable = commands.ToDictionary(x => x.GetType().Name, x => x);
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
-        private void _console_InterruptRequested(object sender, EventArgs e)
+        private void OnInterruptRequested(object? sender, EventArgs e)
         {
-            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource?.Cancel();
         }
 
         public async Task Run()
@@ -42,7 +42,7 @@ namespace CalculatorShell.Infrastructure
             {
                 string rawLine = _lineReader.Read(_currentPrompt);
                 IEnumerable<string> arguments = ParseArguments(rawLine);
-                string cmd = arguments.FirstOrDefault();
+                string cmd = arguments.FirstOrDefault() ?? string.Empty;
                 string[] args = arguments.Skip(1).ToArray();
 
                 if (!string.IsNullOrEmpty(cmd))
@@ -55,9 +55,10 @@ namespace CalculatorShell.Infrastructure
                             {
                                 simpleCommand.Execute(new Arguments(args, _culture), _console);
                             }
-                            else if (_commandTable[cmd] is ITaskCommand taskCommand)
+                            else if (_commandTable[cmd] is ITaskCommand taskCommand
+                                     && _cancellationTokenSource != null)
                             {
-                                await taskCommand.Execute(new Arguments(args, _culture), _console, _cancellationTokenSource.Token);
+                                await taskCommand.Execute(new Arguments(args, _culture), _console, _cancellationTokenSource.Token).ConfigureAwait(false);
                             }
                             else
                             {
@@ -74,7 +75,6 @@ namespace CalculatorShell.Infrastructure
                         _console.Error(Resources.UnknownCommand, cmd);
                     }
                 }
-
             }
         }
 
@@ -119,7 +119,7 @@ namespace CalculatorShell.Infrastructure
             string word = text[index..];
 
             return _commandTable.Keys
-                .Where(c => c.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)
+                .Where(c => c.Contains(word, StringComparison.OrdinalIgnoreCase))
                 .ToArray();
         }
 
