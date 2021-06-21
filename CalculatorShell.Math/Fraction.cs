@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace CalculatorShell.Maths
 {
-    public sealed class Fraction : IEquatable<Fraction>
+    public sealed class Fraction : IEquatable<Fraction?>
     {
         /// <summary>
         /// Constructors
@@ -61,7 +61,7 @@ namespace CalculatorShell.Maths
         /// </summary>
         public double ToDouble()
         {
-            return ((double)Numerator / Denominator);
+            return (double)Numerator / Denominator;
         }
 
         /// <inheritdoc/>
@@ -72,29 +72,24 @@ namespace CalculatorShell.Maths
 
         public string ToString(CultureInfo cultureInfo)
         {
-            string str;
             if (Denominator == 1)
-                str = Numerator.ToString(cultureInfo);
+                return Numerator.ToString(cultureInfo);
             else
-                str = $"{Numerator.ToString(cultureInfo)}/{Denominator.ToString(cultureInfo)}";
-            return str;
+                return $"{Numerator.ToString(cultureInfo)}/{Denominator.ToString(cultureInfo)}";
         }
 
-        /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Equals(obj as Fraction);
         }
 
-        /// <inheritdoc/>
-        public bool Equals(Fraction other)
+        public bool Equals(Fraction? other)
         {
             return other != null &&
                    Denominator == other.Denominator &&
                    Numerator == other.Numerator;
         }
 
-        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return HashCode.Combine(Denominator, Numerator);
@@ -119,18 +114,17 @@ namespace CalculatorShell.Maths
             if (i == strValue.Length)       // if string is not in the form of a fraction
             {
                 // then it is double or integer
-                return (Convert.ToDouble(strValue));
+                return Convert.ToDouble(strValue);
             }
 
             // else string is in the form of Numerator/Denominator
             long iNumerator = Convert.ToInt64(strValue.Substring(0, i));
-            long iDenominator = Convert.ToInt64(strValue.Substring(i + 1));
+            long iDenominator = Convert.ToInt64(strValue[(i + 1)..]);
             return new Fraction(iNumerator, iDenominator);
         }
 
-
         /// <summary>
-        /// The function takes a floating point number as an argument 
+        /// The function takes a floating point number as an argument
         /// and returns its corresponding reduced fraction
         /// </summary>
         public static Fraction ToFraction(double dValue)
@@ -183,10 +177,11 @@ namespace CalculatorShell.Maths
         /// </summary>
         public Fraction Duplicate()
         {
-            Fraction frac = new Fraction();
-            frac.Numerator = Numerator;
-            frac.Denominator = Denominator;
-            return frac;
+            return new Fraction
+            {
+                Numerator = Numerator,
+                Denominator = Denominator
+            };
         }
 
         /// <summary>
@@ -199,9 +194,8 @@ namespace CalculatorShell.Maths
 
             long iNumerator = frac1.Denominator;
             long iDenominator = frac1.Numerator;
-            return (new Fraction(iNumerator, iDenominator));
+            return new Fraction(iNumerator, iDenominator);
         }
-
 
         /// <summary>
         /// Operators for the Fraction object
@@ -234,13 +228,13 @@ namespace CalculatorShell.Maths
 
         public static Fraction operator /(Fraction frac1, double dbl) => Multiply(frac1, Inverse(Fraction.ToFraction(dbl)));
 
-        public static bool operator ==(Fraction left, double right) => EqualityComparer<Fraction>.Default.Equals(left, new Fraction(right)); 
+        public static bool operator ==(Fraction left, double right) => EqualityComparer<Fraction>.Default.Equals(left, new Fraction(right));
 
         public static bool operator !=(Fraction left, double right) => !(left == new Fraction(right));
 
-        public static bool operator ==(Fraction left, Fraction right) => EqualityComparer<Fraction>.Default.Equals(left, right);
+        public static bool operator ==(Fraction? left, Fraction? right) => EqualityComparer<Fraction>.Default.Equals(left, right);
 
-        public static bool operator !=(Fraction left, Fraction right) => !(left == right);
+        public static bool operator !=(Fraction? left, Fraction? right) => !(left == right);
 
         public static bool operator <(Fraction frac1, Fraction frac2)
         {
@@ -287,8 +281,7 @@ namespace CalculatorShell.Maths
         {
             long iNumerator = -frac1.Numerator;
             long iDenominator = frac1.Denominator;
-            return (new Fraction(iNumerator, iDenominator));
-
+            return new Fraction(iNumerator, iDenominator);
         }
 
         /// <summary>
@@ -300,7 +293,7 @@ namespace CalculatorShell.Maths
             {
                 checked
                 {
-                    long iNumerator = frac1.Numerator * frac2.Denominator + frac2.Numerator * frac1.Denominator;
+                    long iNumerator = (frac1.Numerator * frac2.Denominator) + (frac2.Numerator * frac1.Denominator);
                     long iDenominator = frac1.Denominator * frac2.Denominator;
                     return new Fraction(iNumerator, iDenominator);
                 }
@@ -356,8 +349,8 @@ namespace CalculatorShell.Maths
                 if (iNo2 == 0)
                     return 0;
                 else
-                    iNo1 = iNo1 % iNo2;
-            } 
+                    iNo1 %= iNo2;
+            }
             while (iNo1 != 0);
 
             return iNo2;
