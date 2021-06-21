@@ -26,7 +26,7 @@ namespace CalculatorShell.ReadLine
         private bool IsStartOfBuffer() => _console.CursorLeft == 0;
 
         private bool IsEndOfBuffer() => _console.CursorLeft == _console.BufferWidth - 1;
-        private bool IsInAutoCompleteMode() => _completions != null;
+        private bool IsInAutoCompleteMode() => _completions.Length > 0;
 
         private void MoveCursorLeft()
         {

@@ -56,9 +56,11 @@ namespace CalculatorShell.Infrastructure
                                 simpleCommand.Execute(new Arguments(args, _culture), _console);
                             }
                             else if (_commandTable[cmd] is ITaskCommand taskCommand
-                                     && _cancellationTokenSource != null)
+                                && _cancellationTokenSource != null)
                             {
+                                _console.WriteLine(Resources.BackgroundJobStart);
                                 await taskCommand.Execute(new Arguments(args, _culture), _console, _cancellationTokenSource.Token).ConfigureAwait(false);
+                                ResetToken();
                             }
                             else
                             {
@@ -75,6 +77,16 @@ namespace CalculatorShell.Infrastructure
                         _console.Error(Resources.UnknownCommand, cmd);
                     }
                 }
+            }
+        }
+
+        private void ResetToken()
+        {
+            if (_cancellationTokenSource?.IsCancellationRequested == true)
+            {
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
+                _cancellationTokenSource = new CancellationTokenSource();
             }
         }
 

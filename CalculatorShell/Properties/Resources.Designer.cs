@@ -61,6 +61,15 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Starting bacground job... Press CTRL+C  to cancel.
+        /// </summary>
+        internal static string BackgroundJobStart {
+            get {
+                return ResourceManager.GetString("BackgroundJobStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Constant value can&apos;t be redefined: {0}.
         /// </summary>
         internal static string ConstantCantBeRedefined {

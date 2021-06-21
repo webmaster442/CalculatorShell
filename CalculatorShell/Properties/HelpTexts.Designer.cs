@@ -96,5 +96,15 @@ namespace CalculatorShell.Properties {
                 return ResourceManager.GetString("Help", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sleeps for the given ammount of seconds.
+        ///Usage: Sleep  [number: positive integer].
+        /// </summary>
+        internal static string Sleep {
+            get {
+                return ResourceManager.GetString("Sleep", resourceCulture);
+            }
+        }
     }
 }

@@ -52,13 +52,13 @@ namespace CalculatorShell
             WriteWithColors(ConsoleColor.Red, () => WriteLine(format, args));
         }
 
-        public void Report(int value)
+        public void Report(float value)
         {
             if (value < 0)
                 value = 0;
-            if (value > 100)
-                value = 100;
-            WriteLine("Progress: {0}%", value);
+            if (value > 1)
+                value = 1;
+            WriteLine("Progress: {0:P}%", value);
         }
 
         public void SetBufferSize(int width, int height)

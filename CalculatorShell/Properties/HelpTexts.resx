@@ -130,4 +130,8 @@ Usage: Divisors [number: integer]</value>
   <data name="Help" xml:space="preserve">
     <value>Prints out basic help information about commands</value>
   </data>
+  <data name="Sleep" xml:space="preserve">
+    <value>Sleeps for the given ammount of seconds.
+Usage: Sleep  [number: positive integer]</value>
+  </data>
 </root>
