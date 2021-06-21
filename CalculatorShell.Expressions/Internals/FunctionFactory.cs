@@ -13,6 +13,7 @@ namespace CalculatorShell.Expressions.Internals
             { "sin", (child) => new Sin(child) },
             { "cos", (child) => new Cos(child) },
             { "tan", (child) => new Tan(child) },
+            { "abs", (child) => new Abs(child) },
             { "arcsin", (child) => new Function(child, Trigonometry.ArcSin, "arcsin") },
             { "arccos", (child) => new Function(child, Trigonometry.ArcCos, "arccos") },
             { "arctan", (child) => new Function(child, Trigonometry.ArcTan, "arctan") },
