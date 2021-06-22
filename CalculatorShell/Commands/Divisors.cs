@@ -1,5 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
+using System;
 using System.Collections.Concurrent;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -22,10 +23,20 @@ namespace CalculatorShell.Commands
                 CancellationToken = cancellationToken,
             };
 
-            Parallel.For(1, number / 2,  options, i =>
+            Parallel.For(1L, Convert.ToInt64(Math.Sqrt(number)),  options, i =>
             {
                 if (number % i == 0)
-                    numbers.Add(i);
+                {
+                    if (number / i == 0)
+                    {
+                        numbers.Add(i);
+                    }
+                    else
+                    {
+                        numbers.Add(i);
+                        numbers.Add(number / i);
+                    }
+                }
             });
 
             var str = string.Join(';', numbers.OrderBy(i => i));
