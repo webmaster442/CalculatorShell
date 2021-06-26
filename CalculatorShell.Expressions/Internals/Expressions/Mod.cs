@@ -3,18 +3,29 @@ using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
-    internal sealed class Divide : BinaryExpression
+    internal class Mod : BinaryExpression
     {
-        public Divide(IExpression? left, IExpression? right) : base(left, right)
+        public Mod(IExpression? left, IExpression? right) : base(left, right)
         {
         }
 
         public override IExpression Differentiate(string byVariable)
         {
-            return
-                new Divide(new Subtract(new Multiply(Left?.Differentiate(byVariable), Right),
-                           new Multiply(Left, Right?.Differentiate(byVariable))),
-                           new Exponent(Right, new Constant(new NumberImplementation(2))));
+            var newLeft = Left?.Simplify();
+            var newRight = Right?.Simplify();
+
+            var leftConst = newLeft as Constant;
+            var rightConst = newRight as Constant;
+
+            if (leftConst != null && rightConst != null)
+            {
+                if (Math.Abs(leftConst.Value.Value % rightConst.Value.Value) < 1E-9)
+                    throw new ExpressionEngineException(Resources.CanotDifferentiate);
+                else
+                    return new Constant(new NumberImplementation(1));
+            }
+
+            throw new ExpressionEngineException(Resources.CanotDifferentiate);
         }
 
         public override IExpression Simplify()
@@ -34,14 +45,9 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 {
                     throw new ExpressionEngineException(Resources.DivideByZero);
                 }
-                if (leftConst.Value.IsInteger
-                    && rightConst.Value.IsInteger)
-                {
-                    return new Constant(new NumberImplementation(leftConst.Value.Value, rightConst.Value.Value));
-                }
                 else
                 {
-                    return new Constant(new NumberImplementation(leftConst.Value.Value / rightConst.Value.Value));
+                    return new Constant(new NumberImplementation(leftConst.Value.Value % rightConst.Value.Value));
                 }
             }
             if (leftConst?.Value.Value == 0)
@@ -79,28 +85,20 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             else if (leftNegate != null && rightNegate != null)
             {
                 // -x / -y
-                return new Divide(leftNegate.Child, rightNegate.Child);
+                return new Mod(leftNegate.Child, rightNegate.Child);
             }
             // x / y;  no simplification
-            return new Divide(newLeft, newRight);
+            return new Mod(newLeft, newRight);
         }
 
         public override string ToString(IFormatProvider formatProvider)
         {
-            return $"({Left?.ToString(formatProvider)} / {Right?.ToString(formatProvider)})";
+            return $"({Left?.ToString(formatProvider)} % {Right?.ToString(formatProvider)})";
         }
 
         protected override NumberImplementation Evaluate(NumberImplementation number1, NumberImplementation number2)
         {
-            if (number1.IsInteger
-                && number2.IsInteger)
-            {
-                return new NumberImplementation(number1.Value, number2.Value);
-            }
-            else
-            {
-                return new NumberImplementation(number1.Value / number2.Value);
-            }
+            return new NumberImplementation(number1.Value % number2.Value);
         }
     }
 }

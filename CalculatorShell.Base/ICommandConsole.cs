@@ -2,7 +2,7 @@
 
 namespace CalculatorShell.Base
 {
-    public interface ICommandConsole : IProgress<float>
+    public interface ICommandConsole : IProgress<float>, IProgress<TimeSpan>
     {
         void Error(Exception ex);
         void Error(string format, params object[] args);

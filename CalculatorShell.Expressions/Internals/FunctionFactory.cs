@@ -24,6 +24,8 @@ namespace CalculatorShell.Expressions.Internals
             { "deg2grad", (child) => new Function(child, DoubleFunctions.DegToGrad, "deg2grad") },
             { "grad2rad", (child) => new Function(child, DoubleFunctions.GradToRad, "grad2rad") },
             { "rad2grad", (child) => new Function(child, DoubleFunctions.RadToGrad, "rad2grad") },
+            { "floor", (child) => new Function(child, Math.Floor, "floor") },
+            { "ceil", (child) => new Function(child, Math.Ceiling, "ceil") },
         };
 
         private static readonly Dictionary<string, Func<IExpression?, IExpression?, IExpression>> TwoParamFunctions = new()

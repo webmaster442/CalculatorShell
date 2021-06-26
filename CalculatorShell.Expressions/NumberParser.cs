@@ -39,7 +39,7 @@ namespace CalculatorShell.Expressions
                 else return input.Replace("_", "");
             }
             return input;
-        } 
+        }
 
         public static bool TryParse(string input, out NumberImplementation number, CultureInfo culture)
         {

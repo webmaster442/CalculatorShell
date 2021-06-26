@@ -123,7 +123,7 @@ namespace CalculatorShell.Expressions
             {
                 var exp = ParseExpExpression();
 
-                while (Check(new TokenSet(TokenType.Multiply, TokenType.Divide, TokenType.And)))
+                while (Check(new TokenSet(TokenType.Multiply, TokenType.Divide, TokenType.And, TokenType.Mod)))
                 {
                     var opType = _currentToken.Type;
                     Eat(opType);
@@ -141,6 +141,10 @@ namespace CalculatorShell.Expressions
 
                         case TokenType.Divide:
                             exp = new Divide(exp, right);
+                            break;
+
+                        case TokenType.Mod:
+                            exp = new Mod(exp, right);
                             break;
 
                         case TokenType.And:

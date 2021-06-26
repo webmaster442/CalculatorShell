@@ -2,24 +2,25 @@
 {
     internal enum TokenType : uint
     {
-        None = 0x0,
-        Constant = 0x1,
-        Variable = 0x2,
-        Not = 0x4,
-        Plus = 0x8,
-        Minus = 0x10,
-        Multiply = 0x20,
-        Divide = 0x40,
-        And = 0x80,
-        Or = 0x100,
-        Exponent = 0x200,
-        Function1 = 0x400,
-        Function2 = 0x800,
-        ArgumentDivider = 0x1000,
+        None = 0,
+        Constant = 1,
+        Variable = 2,
+        Not = 4,
+        Plus = 8,
+        Minus = 16,
+        Multiply = 32,
+        Divide = 64,
+        Mod = 128,
+        And = 256,
+        Or = 512,
+        Exponent = 1024,
+        Function1 = 2048,
+        Function2 = 4096,
+        ArgumentDivider = 8192,
 
-        OpenParen = 0x2000,
-        CloseParen = 0x4000,
+        OpenParen = 16384,
+        CloseParen = 32768,
 
-        Eof = 0x10000
+        Eof = 2147483648
     }
 }
