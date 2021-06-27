@@ -9,16 +9,24 @@ namespace CalculatorShell.Commands
     [Export(typeof(ICommand))]
     internal class Eval : CommandBase, ISimpleCommand
     {
-        public void Execute(Arguments arguments, ICommandConsole output)
+        protected INumber EvaluateExpression(Arguments arguments)
         {
             if (Memory == null)
                 throw new InvalidOperationException();
 
             var expression = ExpressionFactory.Parse(arguments.Get<string>(0), Memory, arguments.CurrentCulture);
-            var result = expression.Evaluate();
+            return expression.Evaluate();
+        }
+
+        public virtual void Execute(Arguments arguments, ICommandConsole output)
+        {
+            if (Memory == null)
+                throw new InvalidOperationException();
+
+            var result = EvaluateExpression(arguments);
             output.WriteLine("{0}", result);
 
-            Memory["Ans"] = result;
+            Memory["ans"] = result;
         }
     }
 }
