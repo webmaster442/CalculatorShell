@@ -4,18 +4,27 @@ using CalculatorShell.Properties;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 
 namespace CalculatorShell
 {
     internal class Memory : IMemory
     {
-        private readonly Dictionary<string, dynamic> _variables;
+        private Dictionary<string, dynamic> _variables;
         private readonly Dictionary<string, dynamic> _constants;
+        private readonly JsonSerializerOptions _serializeOptions;
 
         public Memory()
         {
             _variables = new Dictionary<string, dynamic>();
             _constants = FillConstants();
+            _serializeOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
+                PropertyNameCaseInsensitive = false,
+            };
         }
 
         private static Dictionary<string, dynamic> FillConstants()
@@ -72,6 +81,22 @@ namespace CalculatorShell
         public void Delete(string name)
         {
             _variables.Remove(name);
+        }
+
+        public void WriteToFile(string fileName)
+        {
+            var result = JsonSerializer.Serialize(_variables, _serializeOptions);
+            System.IO.File.WriteAllText(fileName, result);
+        }
+
+        public void ReadFromFile(string fileName)
+        {
+            var json = System.IO.File.ReadAllText(fileName);
+            var deserialized = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(json, _serializeOptions);
+            if (deserialized != null)
+            {
+                _variables = deserialized;
+            }
         }
     }
 }
