@@ -13,7 +13,7 @@ namespace CalculatorShell.Expressions
             get
             {
                 return NumberType == NumberType.Double
-                    && Extensions.IsInteger(Value);
+                    && Maths.Extensions.IsInteger(Value);
             }
         }
 

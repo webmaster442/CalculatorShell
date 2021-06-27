@@ -87,10 +87,8 @@ namespace CalculatorShell.Expressions.Internals
             {
                 return new Token(identifier, TokenType.Constant);
             }
-            else if (FunctionFactory.IsSignleParamFunction(identifier))
-                return new Token(identifier, TokenType.Function1);
-            else if (FunctionFactory.IsTwoParamFunction(identifier))
-                return new Token(identifier, TokenType.Function2);
+            else if (FunctionFactory.GetParameterCount(identifier) > 0)
+                return new Token(identifier, TokenType.Function);
             else
                 return new Token(identifier, TokenType.Variable);
 

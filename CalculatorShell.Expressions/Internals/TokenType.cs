@@ -14,12 +14,11 @@
         And = 256,
         Or = 512,
         Exponent = 1024,
-        Function1 = 2048,
-        Function2 = 4096,
-        ArgumentDivider = 8192,
+        Function = 2048,
+        ArgumentDivider = 4096,
 
-        OpenParen = 16384,
-        CloseParen = 32768,
+        OpenParen = 8192,
+        CloseParen = 16384,
 
         Eof = 2147483648
     }

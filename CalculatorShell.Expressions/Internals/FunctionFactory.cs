@@ -34,24 +34,24 @@ namespace CalculatorShell.Expressions.Internals
             { "log", (child1, child2) => new Log(child1, child2) },
         };
 
-        public static bool IsSignleParamFunction(string identifier)
+        public static int GetParameterCount(string identifier)
         {
-            return SingleParamFunctions.ContainsKey(identifier);
+            if (SingleParamFunctions.ContainsKey(identifier))
+                return 1;
+            else if (TwoParamFunctions.ContainsKey(identifier))
+                return 2;
+            else
+                return -1;
         }
 
-        public static bool IsTwoParamFunction(string identifier)
+        internal static IExpression Create(string function, IExpression[] arguments)
         {
-            return TwoParamFunctions.ContainsKey(identifier);
-        }
-
-        internal static IExpression Create(string function, IExpression? exp)
-        {
-            return SingleParamFunctions[function](exp);
-        }
-
-        internal static IExpression Create(string function, IExpression? exp1, IExpression? exp2)
-        {
-            return TwoParamFunctions[function](exp1, exp2);
+            if (arguments.Length == 1)
+                return SingleParamFunctions[function](arguments[0]);
+            else if (arguments.Length == 2)
+                return TwoParamFunctions[function](arguments[0], arguments[1]);
+            else
+                throw new InvalidOperationException();
         }
     }
 }

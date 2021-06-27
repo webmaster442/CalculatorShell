@@ -15,7 +15,7 @@ namespace CalculatorShell.Expressions
         private static Token _currentToken;
         private static IVariables? _variables;
 
-        private static readonly TokenSet FirstFactor = new(TokenType.Function1, TokenType.Function2, TokenType.Variable, TokenType.OpenParen);
+        private static readonly TokenSet FirstFactor = new(TokenType.Function, TokenType.Variable, TokenType.OpenParen);
         private static readonly TokenSet FirstFactorPrefix = FirstFactor + TokenType.Constant;
         private static readonly TokenSet FirstUnaryExp = FirstFactorPrefix + TokenType.Minus + TokenType.Not;
         private static readonly TokenSet FirstMultExp = new(FirstUnaryExp);
@@ -276,11 +276,8 @@ namespace CalculatorShell.Expressions
                         Eat(TokenType.Variable);
                         break;
 
-                    case TokenType.Function1:
+                    case TokenType.Function:
                         right = ParseFunction();
-                        break;
-                    case TokenType.Function2:
-                        right = ParseFunction2();
                         break;
 
                     case TokenType.OpenParen:
@@ -297,6 +294,9 @@ namespace CalculatorShell.Expressions
             }
             while (Check(FirstFactor));
 
+            if (exp != null)
+                return exp;
+
             throw new ExpressionEngineException(Resources.UnexpectedTokenInFactior, _currentToken.Type);
         }
 
@@ -304,42 +304,32 @@ namespace CalculatorShell.Expressions
         {
             var opType = _currentToken.Type;
             var function = _currentToken.Value;
+
             Eat(opType);
             Eat(TokenType.OpenParen);
-            var exp = ParseAddExpression();
-            Eat(TokenType.CloseParen);
 
-            if (opType == TokenType.Function1
-                && FunctionFactory.IsSignleParamFunction(function))
-            {
-                return FunctionFactory.Create(function, exp);
-            }
-            else
+            int argumentCount = FunctionFactory.GetParameterCount(function);
+
+            if (opType != TokenType.Function
+                || argumentCount <= 0)
             {
                 throw new ExpressionEngineException(Resources.UnknownFuction, function);
             }
-        }
 
-        private static IExpression ParseFunction2()
-        {
-            var opType = _currentToken.Type;
-            var function = _currentToken.Value;
-            Eat(opType);
-            Eat(TokenType.OpenParen);
-            var exp1 = ParseAddExpression();
-            Eat(TokenType.ArgumentDivider);
-            var exp2 = ParseAddExpression();
+            IExpression[] arguments = new IExpression[argumentCount];
+
+            for (int i=0; i<argumentCount; i++)
+            {
+                arguments[i] = ParseAddExpression();
+                if (i < (argumentCount - 1))
+                {
+                    Eat(TokenType.ArgumentDivider);
+                }
+            }
             Eat(TokenType.CloseParen);
 
-            if (opType == TokenType.Function2
-                && FunctionFactory.IsTwoParamFunction(function))
-            {
-                return FunctionFactory.Create(function, exp1, exp2);
-            }
-            else
-            {
-                throw new ExpressionEngineException(Resources.UnknownFuction, function);
-            }
+            return FunctionFactory.Create(function, arguments);
+
         }
     }
 }

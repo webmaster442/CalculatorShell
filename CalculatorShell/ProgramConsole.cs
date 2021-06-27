@@ -61,6 +61,11 @@ namespace CalculatorShell
             WriteLine("Progress: {0:P}%", value);
         }
 
+        public void Report(TimeSpan value)
+        {
+            WriteLine("Time passed: {0}", value);
+        }
+
         public void SetBufferSize(int width, int height)
         {
             if (OperatingSystem.IsWindows())
