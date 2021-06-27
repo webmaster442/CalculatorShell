@@ -12,8 +12,9 @@ namespace CalculatorShell
         {
             PrintVersion();
             var memory = new Memory();
-            var loader = new CommandLoader(memory);
-            using var runner = new CommandRunner(loader.Commands, CultureInfo.InvariantCulture);
+            var host = new HostEnvironment();
+            var loader = new CommandLoader(memory, host);
+            using var runner = new CommandRunner(loader.Commands, host, CultureInfo.InvariantCulture);
             await runner.Run();
         }
 

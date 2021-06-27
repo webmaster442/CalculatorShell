@@ -19,8 +19,9 @@ namespace CalculatorShell.Infrastructure
         private readonly Dictionary<string, ICommand> _commandTable;
         private readonly CultureInfo _culture;
         private CancellationTokenSource? _cancellationTokenSource;
+        private readonly HostEnvironment _host;
 
-        public CommandRunner(IEnumerable<ICommand> commands, CultureInfo culture)
+        public CommandRunner(IEnumerable<ICommand> commands, HostEnvironment host, CultureInfo culture)
         {
             _culture = culture;
             _console = new ProgramConsole();
@@ -28,6 +29,14 @@ namespace CalculatorShell.Infrastructure
             _lineReader = new LineReader(true, _console, this);
             _commandTable = commands.ToDictionary(x => x.GetType().Name, x => x);
             _cancellationTokenSource = new CancellationTokenSource();
+            _host = host;
+            SetupHosting();
+        }
+
+        private void SetupHosting()
+        {
+            _host.Commands = _commandTable.Keys;
+            _host.Functions = ExpressionFactory.KnownFunctions;
         }
 
         private void OnInterruptRequested(object? sender, EventArgs e)

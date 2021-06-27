@@ -7,5 +7,8 @@ namespace CalculatorShell.Infrastructure
     {
         [Import(typeof(IMemory))]
         public IMemory? Memory { get; set; }
+
+        [Import(typeof(IHost))]
+        public IHost? Host { get; set; }
     }
 }

@@ -14,16 +14,21 @@ namespace CalculatorShell.Infrastructure
         [Export(typeof(IMemory))]
         public IMemory _memory;
 
-        public CommandLoader(IMemory memory)
+        [Export(typeof(IHost))]
+        public IHost _host;
+
+        public CommandLoader(IMemory memory, IHost host)
         {
             Commands = Enumerable.Empty<ICommand>();
             _memory = memory;
+            _host = host;
             using var catalog = new AggregateCatalog();
             using var ac = new AssemblyCatalog(typeof(CommandLoader).Assembly);
             catalog.Catalogs.Add(ac);
             using var container = new CompositionContainer(catalog);
             container.ComposeParts(this);
             container.SatisfyImportsOnce(this);
+
         }
     }
 }

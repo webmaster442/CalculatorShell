@@ -2,6 +2,7 @@
 using CalculatorShell.Maths;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CalculatorShell.Expressions.Internals
 {
@@ -26,7 +27,13 @@ namespace CalculatorShell.Expressions.Internals
             { "rad2grad", (child) => new Function(child, DoubleFunctions.RadToGrad, "rad2grad") },
             { "floor", (child) => new Function(child, Math.Floor, "floor") },
             { "ceil", (child) => new Function(child, Math.Ceiling, "ceil") },
+            { "sign", (child) => new Function(child, x => Math.Sign(x), "sign") },
         };
+
+        internal static IEnumerable<string> GetFunctionNames()
+        {
+            return SingleParamFunctions.Keys.Union(TwoParamFunctions.Keys);
+        }
 
         private static readonly Dictionary<string, Func<IExpression?, IExpression?, IExpression>> TwoParamFunctions = new()
         {

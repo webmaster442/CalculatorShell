@@ -3,6 +3,7 @@ using CalculatorShell.Expressions.Internals.Expressions;
 using CalculatorShell.Expressions.Properties;
 using CalculatorShell.Maths;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
@@ -25,6 +26,10 @@ namespace CalculatorShell.Expressions
         {
             get => Trigonometry.AngleMode;
             set => Trigonometry.AngleMode = value;
+        }
+        public static IEnumerable<string> KnownFunctions
+        {
+            get => FunctionFactory.GetFunctionNames();
         }
 
         public static IExpression Parse(string function, IVariables variables, CultureInfo? culture)
