@@ -51,7 +51,7 @@ namespace CalculatorShell.ReadLine
                 keyInfo = Console.ReadKey(true);
             }
             _console.WriteLine(string.Empty);
-            return keyHandler.Text;
+            return keyHandler.GetAndResetText();
         }
     }
 }
