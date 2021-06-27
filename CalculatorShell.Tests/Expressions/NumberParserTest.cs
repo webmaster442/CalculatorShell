@@ -27,6 +27,12 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("06/16/2021 16:01:00", 1623859260d)]
         [TestCase("2021_06_16 16:01:00", 1623859260d)]
         [TestCase("1_000", 1000d)]
+        [TestCase("0hff", 255)]
+        [TestCase("0hf_f", 255)]
+        [TestCase("0b1111", 15)]
+        [TestCase("0b11_11", 15)]
+        [TestCase("0o777", 511)]
+        [TestCase("0o7_77", 511)]
         public void TestDoubleParsing(string input, double expected)
         {
             bool succes = NumberParser.TryParse(input, out var result, CultureInfo.InvariantCulture);

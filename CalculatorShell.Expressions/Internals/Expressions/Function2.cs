@@ -1,17 +1,26 @@
-﻿using System;
+﻿using CalculatorShell.Expressions.Properties;
+using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
-    internal sealed class Log : BinaryExpression
+    internal sealed class Function2 : BinaryExpression
     {
-        public Log(IExpression? left, IExpression? right) : base(left, right)
+        private readonly Func<double, double, double> _function;
+        private readonly string _name;
+
+        public Function2(
+            IExpression? left,
+            IExpression? right,
+            Func<double, double, double> function,
+            string name) : base(left, right)
         {
+            _function = function;
+            _name = name;
         }
 
         public override IExpression Differentiate(string byVariable)
         {
-            return new Multiply(new Divide(new Constant(new NumberImplementation(1)), new Ln(Right)),
-                                           new Divide(new Constant(new NumberImplementation(1)), Left));
+            throw new ExpressionEngineException(Resources.CanotDifferentiate);
         }
 
         public override IExpression Simplify()
@@ -33,12 +42,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override string ToString(IFormatProvider formatProvider)
         {
-            return $"log({Left?.ToString(formatProvider)}; {Right?.ToString(formatProvider)})";
+            return $"{_name}({Left?.ToString(formatProvider)}; {Right?.ToString(formatProvider)})";
         }
 
         protected override NumberImplementation Evaluate(NumberImplementation number1, NumberImplementation number2)
         {
-            return new NumberImplementation(Math.Log(number1.Value, number2.Value));
+            return new NumberImplementation(_function.Invoke(number1.Value, number2.Value));
         }
     }
 }

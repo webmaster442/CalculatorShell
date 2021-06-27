@@ -28,6 +28,7 @@ namespace CalculatorShell.Expressions.Internals
             { "floor", (child) => new Function(child, Math.Floor, "floor") },
             { "ceil", (child) => new Function(child, Math.Ceiling, "ceil") },
             { "sign", (child) => new Function(child, x => Math.Sign(x), "sign") },
+            { "not", (child) => new Function(child, DoubleWrappedLogic.Not, "not") },
         };
 
         internal static IEnumerable<string> GetFunctionNames()
@@ -39,6 +40,11 @@ namespace CalculatorShell.Expressions.Internals
         {
             { "root", (child1, child2) => new Root(child1, child2) },
             { "log", (child1, child2) => new Log(child1, child2) },
+            { "and", (child1, child2) => new Function2(child1, child2, DoubleWrappedLogic.And, "and") },
+            { "or", (child1, child2) => new Function2(child1, child2, DoubleWrappedLogic.Or, "or") },
+            { "xor", (child1, child2) => new Function2(child1, child2, DoubleWrappedLogic.Xor, "xor") },
+            { "shl", (child1, child2) => new Function2(child1, child2, DoubleWrappedLogic.Xor, "shl") },
+            { "shr", (child1, child2) => new Function2(child1, child2, DoubleWrappedLogic.Xor, "shr") },
         };
 
         public static int GetParameterCount(string identifier)

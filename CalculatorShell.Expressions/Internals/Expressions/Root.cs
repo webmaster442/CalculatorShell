@@ -62,7 +62,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override string ToString(IFormatProvider formatProvider)
         {
-            return $"Root({Left?.ToString(formatProvider)}, {Right?.ToString(formatProvider)})";
+            return $"Root({Left?.ToString(formatProvider)}; {Right?.ToString(formatProvider)})";
         }
 
         protected override NumberImplementation Evaluate(NumberImplementation number1, NumberImplementation number2)

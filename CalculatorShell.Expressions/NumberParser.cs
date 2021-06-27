@@ -45,7 +45,25 @@ namespace CalculatorShell.Expressions
         {
             string prefix = FindPrefix(input);
 
-            if (string.Compare(input, "true", true, culture) == 0)
+            if (input.StartsWith("0b", true, culture)
+                && TryParseInt(input, 2, out long parsedBin))
+            {
+                number = new NumberImplementation(parsedBin);
+                return true;
+            }
+            else if (input.StartsWith("0o", true, culture)
+                && TryParseInt(input, 8, out long parsedOct))
+            {
+                number = new NumberImplementation(parsedOct);
+                return true;
+            }
+            else if (input.StartsWith("0h", true, culture)
+                && TryParseInt(input, 16, out long parsedHex))
+            {
+                number = new NumberImplementation(parsedHex);
+                return true;
+            }
+            else if (string.Compare(input, "true", true, culture) == 0)
             {
                 number = new NumberImplementation(true);
                 return true;
@@ -74,6 +92,21 @@ namespace CalculatorShell.Expressions
             }
             number = new NumberImplementation(double.NaN);
             return false;
+        }
+
+        private static bool TryParseInt(string input, int system, out long parsed)
+        {
+            string processed = input[2..].Replace("_", "");
+            try
+            {
+                parsed = Convert.ToInt64(processed, system);
+                return true;
+            }
+            catch (FormatException)
+            {
+                parsed = 0;
+                return false;
+            }
         }
     }
 }
