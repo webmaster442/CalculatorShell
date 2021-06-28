@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using System.Linq;
 
 namespace CalculatorShell.Expressions
 {
@@ -100,27 +101,34 @@ namespace CalculatorShell.Expressions
             return ToString(CultureInfo.InvariantCulture);
         }
 
-        public IDictionary<string, object?> GetObjectData()
+        public IDictionary<string, string> GetObjectData()
         {
             object o = Value;
-            Dictionary<string, object?> result = new();
+            Dictionary<string, string> result = new();
             var properties = o.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (var property in properties)
             {
-                result.Add(property.Name, property.GetValue(o));
+                result.Add(property.Name, property.GetValue(o)?.ToString() ?? string.Empty);
             }
             return result;
         }
 
-        public string GetPropertyValue(string property)
+        public INumber GetPropertyValue(string property)
         {
             object o = Value;
-            var propertyInfo = o.GetType()?.GetProperty(property);
+            var propertyInfo = o.GetType()?
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .FirstOrDefault(x => x.Name.Equals(property, StringComparison.InvariantCultureIgnoreCase));
             if (propertyInfo != null)
             {
-                return propertyInfo?.GetValue(o)?.ToString() ?? string.Empty;
+                var result = propertyInfo?.GetValue(o);
+                if (result != null)
+                {
+                    return new NumberImplementation(result);
+                }
+
             }
-            return string.Empty;
+            return new NumberImplementation(double.NaN);
         }
     }
 }

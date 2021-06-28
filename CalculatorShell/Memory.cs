@@ -54,7 +54,7 @@ namespace CalculatorShell
 
         public IEnumerable<string> VariableNames => _variables.Keys;
 
-        public string this[string variable, string property]
+        public INumber this[string variable, string property]
         {
             get
             {

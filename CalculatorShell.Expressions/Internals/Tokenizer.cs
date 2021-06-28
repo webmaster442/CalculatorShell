@@ -11,7 +11,7 @@ namespace CalculatorShell.Expressions.Internals
         private readonly string _function;
         private readonly char[] _specialTokens = new[]
         {
-            ':', '_', '.', ',' 
+            ':', '_', '.', ',', '[', ']'
         };
         private int _index;
         private readonly CultureInfo _culture;

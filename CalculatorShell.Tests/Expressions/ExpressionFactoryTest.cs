@@ -1,4 +1,6 @@
 ﻿using CalculatorShell.Expressions;
+using CalculatorShell.Maths;
+using Moq;
 using NUnit.Framework;
 using System.Globalization;
 
@@ -7,6 +9,18 @@ namespace CalculatorShell.Tests.Expressions
     [TestFixture]
     public class ExpressionFactoryTest
     {
+        private Mock<IVariables> _variablesMock;
+
+        [SetUp]
+        public void Setup()
+        {
+            _variablesMock = new Mock<IVariables>(MockBehavior.Strict);
+            _variablesMock.SetupGet(x => x["a"]).Returns(new NumberImplementation(44));
+            _variablesMock.SetupGet(x => x["b"]).Returns(new NumberImplementation(new Fraction(3, 4)));
+            _variablesMock.SetupGet(x => x["b", "Denominator"]).Returns(new NumberImplementation(4));
+            _variablesMock.SetupGet(x => x["b", "denominator"]).Returns(new NumberImplementation(4));
+        }
+
         [TestCase("1!2")]
         [TestCase("1%2")]
         [TestCase("1'2")]
@@ -71,16 +85,18 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("ceil(3.5)", "4")]
         [TestCase("sign(-5)", "-1")]
         [TestCase("sign(5)", "1")]
+        [TestCase("a+1", "45")]
+        [TestCase("sign(a)", "1")]
+        [TestCase("b[Denominator]", "4")]
+        [TestCase("b[denominator]", "4")]
         public void TestsParseAndEvalute(string expression, string expected)
         {
             ExpressionFactory.CurrentAngleMode = CalculatorShell.Maths.AngleMode.Deg;
-            IExpression parsed = ExpressionFactory.Parse(expression, null, CultureInfo.InvariantCulture);
+            IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
 
             INumber result = parsed.Evaluate();
 
             Assert.AreEqual(expected, result.ToString());
         }
-
-
     }
 }

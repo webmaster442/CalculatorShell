@@ -12,7 +12,7 @@ namespace CalculatorShell.Expressions
         (long numerator, long denominator) GetFraction();
         System.Numerics.Complex GetComplex();
         bool GetBooean();
-        IDictionary<string, object?> GetObjectData();
-        string GetPropertyValue(string property);
+        IDictionary<string, string> GetObjectData();
+        INumber GetPropertyValue(string property);
     }
 }
