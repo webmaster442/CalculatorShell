@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace CalculatorShell.Maths
 {
@@ -97,6 +98,16 @@ namespace CalculatorShell.Maths
         public override int GetHashCode()
         {
             return HashCode.Combine(_complex);
+        }
+
+        public override string ToString()
+        {
+            return ToString(CultureInfo.InvariantCulture);
+        }
+
+        public string ToString(CultureInfo culture)
+        {
+            return $"({_complex.Real.ToString(culture)} + {_complex.Imaginary.ToString(culture)}i)";
         }
     }
 }

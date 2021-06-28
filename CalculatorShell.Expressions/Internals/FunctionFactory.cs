@@ -8,6 +8,11 @@ namespace CalculatorShell.Expressions.Internals
 {
     internal static class FunctionFactory
     {
+        private static Dictionary<string, int> TypeFunctionTable = new()
+        {
+            { "cplx", 2 },
+        };
+
         private static readonly Dictionary<string, Func<IExpression?, IExpression>> SingleParamFunctions = new()
         {
             { "ln", (child) => new Ln(child) },
@@ -53,6 +58,8 @@ namespace CalculatorShell.Expressions.Internals
                 return 1;
             else if (TwoParamFunctions.ContainsKey(identifier))
                 return 2;
+            else if (TypeFunctionTable.ContainsKey(identifier))
+                return TypeFunctionTable[identifier];
             else
                 return -1;
         }
@@ -60,11 +67,17 @@ namespace CalculatorShell.Expressions.Internals
         internal static IExpression Create(string function, IExpression[] arguments)
         {
             if (arguments.Length == 1)
+            {
                 return SingleParamFunctions[function](arguments[0]);
+            }
             else if (arguments.Length == 2)
-                return TwoParamFunctions[function](arguments[0], arguments[1]);
-            else
-                throw new InvalidOperationException();
+            {
+                if (function == "cplx")
+                    return new Cplx(arguments[0], arguments[1]);
+                else
+                    return TwoParamFunctions[function](arguments[0], arguments[1]);
+            }
+            throw new InvalidOperationException();
         }
     }
 }

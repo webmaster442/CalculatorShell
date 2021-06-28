@@ -89,6 +89,14 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("sign(a)", "1")]
         [TestCase("b[Denominator]", "4")]
         [TestCase("b[denominator]", "4")]
+        [TestCase("cplx(10; 20) + cplx(10; 20)", "(20 + 40i)")]
+        [TestCase("cplx(10; 20) + 10", "(20 + 20i)")]
+        [TestCase("cplx(10; 20) - cplx(5; 3)", "(5 + 17i)")]
+        [TestCase("cplx(10; 20) - 10", "(0 + 20i)")]
+        [TestCase("cplx(10; 20) * 10", "(100 + 200i)")]
+        [TestCase("cplx(10; 20) * cplx(10; 20)", "(-300 + 400i)")]
+        [TestCase("cplx(10; 20) / cplx(10; 20)", "(1 + 0i)")]
+        [TestCase("cplx(10; 20) / 10", "(1 + 2i)")]
         public void TestsParseAndEvalute(string expression, string expected)
         {
             ExpressionFactory.CurrentAngleMode = CalculatorShell.Maths.AngleMode.Deg;
