@@ -13,7 +13,6 @@ namespace CalculatorShell.Base
         void WriteTable<Tkey, TValue>(IDictionary<Tkey, TValue> dictionary);
         void WriteTable<T>(IEnumerable<T> items, int columns = 4);
         void Clear();
-        void SetFormat(ConsoleFormat format);
-        void ClearFormat();
+        ConsoleFormat? CurrentFormat { get; set; }
     }
 }

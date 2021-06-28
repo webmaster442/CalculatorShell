@@ -71,6 +71,7 @@ namespace CalculatorShell.Infrastructure
                         {
                             if (_commandTable[cmd] is ISimpleCommand simpleCommand)
                             {
+
                                 simpleCommand.Execute(new Arguments(args, _culture), _console);
                             }
                             else if (_commandTable[cmd] is ITaskCommand taskCommand

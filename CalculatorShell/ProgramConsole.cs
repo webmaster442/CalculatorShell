@@ -42,6 +42,18 @@ namespace CalculatorShell
 
         public int BufferHeight => Console.BufferHeight;
 
+        public ConsoleFormat? CurrentFormat
+        {
+            get => _currentFormat;
+            set
+            {
+                if (value == null)
+                    Write(EscapeCodeFactory.Reset);
+
+                _currentFormat = value;
+            }
+        }
+
         public void Clear()
         {
             Console.Write(EscapeCodeFactory.ClearScreen);
@@ -50,16 +62,16 @@ namespace CalculatorShell
 
         public void Error(Exception ex)
         {
-            SetFormat(ErrorFormat);
+            CurrentFormat = ErrorFormat;
             WriteLine(Resources.GeneralError, ex.Message);
-            ClearFormat();
+            CurrentFormat = null;
         }
 
         public void Error(string format, params object[] args)
         {
-            SetFormat(ErrorFormat);
+            CurrentFormat = ErrorFormat;
             WriteLine(format, args);
-            ClearFormat();
+            CurrentFormat = null;
         }
 
         public void Report(float value)
@@ -122,17 +134,6 @@ namespace CalculatorShell
         public void WriteTable<T>(IEnumerable<T> items, int columns = 4)
         {
             Console.WriteLine(TableHelper.WriteTable(items, columns));
-        }
-
-        public void SetFormat(ConsoleFormat format)
-        {
-            _currentFormat = format;
-        }
-
-        public void ClearFormat()
-        {
-            Write(EscapeCodeFactory.Reset);
-            _currentFormat = null;
         }
     }
 }
