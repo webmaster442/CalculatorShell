@@ -11,9 +11,18 @@ namespace CalculatorShell.Maths
 
         public double Imaginary => _complex.Imaginary;
 
+        public double AbsoluteValue => _complex.Magnitude;
+
         public Complex(double real, double imaginary)
         {
             _complex = new System.Numerics.Complex(real, imaginary);
+        }
+
+        public static Complex FromPolar(double absolutevalue, double angle)
+        {
+            double r = absolutevalue * Trigonometry.Cos(angle);
+            double i = absolutevalue * Trigonometry.Sin(angle);
+            return new Complex(r, i);
         }
 
         public static Complex operator + (Complex a, Complex b)

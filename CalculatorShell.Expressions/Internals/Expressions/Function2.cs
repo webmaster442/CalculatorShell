@@ -36,7 +36,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             }
             else
             {
-                return new Log(newLeft, newRight);
+                return new Function2(newLeft, newRight, _function, _name);
             }
         }
 
