@@ -11,24 +11,6 @@ namespace CalculatorShell.Ui
         public static string CreateFormatSting(ConsoleFormat format)
         {
             StringBuilder buffer = new StringBuilder(80);
-            switch (format.TextFormat)
-            {
-                case TextFormat.None:
-                    buffer.Append(Reset);
-                    break;
-                case TextFormat.Bold:
-                    buffer.Append("\x1B[1m");
-                    break;
-                case TextFormat.Italic:
-                    buffer.Append("\x1B[3m");
-                    break;
-                case TextFormat.Underline:
-                    buffer.Append("\x1B[4m");
-                    break;
-                case TextFormat.Strikethrough:
-                    buffer.Append("\x1B[9m");
-                    break;
-            }
 
             if (format.Background != null)
             {
@@ -44,6 +26,25 @@ namespace CalculatorShell.Ui
                                     format.Foreground.R,
                                     format.Foreground.G,
                                     format.Foreground.B);
+            }
+
+            switch (format.TextFormat)
+            {
+                case TextFormat.None:
+                    buffer.Append(Reset);
+                    break;
+                case TextFormat.Bold:
+                    buffer.Append("\x1b[1m");
+                    break;
+                case TextFormat.Italic:
+                    buffer.Append("\x1b[3m");
+                    break;
+                case TextFormat.Underline:
+                    buffer.Append("\x1b[4m");
+                    break;
+                case TextFormat.Strikethrough:
+                    buffer.Append("\x1b[9m");
+                    break;
             }
 
             return buffer.ToString();

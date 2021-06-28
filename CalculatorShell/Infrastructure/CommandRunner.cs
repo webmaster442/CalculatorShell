@@ -48,7 +48,16 @@ namespace CalculatorShell.Infrastructure
         {
             while (true)
             {
-                string prompt = $"\n{ExpressionFactory.CurrentAngleMode} > ";
+                var angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
+                {
+                    TextFormat = TextFormat.Italic,
+                    Foreground = new Base.ConsoleColor
+                    {
+                        R = 0xff, G = 0x00, B =0xff
+                    },
+                });
+
+                string prompt = $"\n{angleMode}{ExpressionFactory.CurrentAngleMode}{EscapeCodeFactory.Reset} > ";
                 string rawLine = _lineReader.Read(prompt);
                 IEnumerable<string> arguments = ParseArguments(rawLine);
                 string cmd = arguments.FirstOrDefault() ?? string.Empty;
