@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CalculatorShell.Base
 {
@@ -8,7 +9,9 @@ namespace CalculatorShell.Base
         void Error(string format, params object[] args);
         void Write(string format, params object[] args);
         void WriteLine(string format, params object[] args);
-        void WriteObjectJson(object obj);
+        void WriteTable<T>(T item);
+        void WriteTable<Tkey, TValue>(IDictionary<Tkey, TValue> dictionary);
+        void WriteTable<T>(IEnumerable<T> items, int columns = 4);
         void Clear();
     }
 }

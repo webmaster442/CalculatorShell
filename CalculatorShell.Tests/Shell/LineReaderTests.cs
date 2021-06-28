@@ -1,4 +1,4 @@
-﻿using CalculatorShell.ReadLine;
+﻿using CalculatorShell.Ui;
 using NUnit.Framework;
 using System.Linq;
 

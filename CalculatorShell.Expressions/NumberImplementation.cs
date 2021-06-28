@@ -1,6 +1,8 @@
 ﻿using CalculatorShell.Maths;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 
 namespace CalculatorShell.Expressions
 {
@@ -39,6 +41,9 @@ namespace CalculatorShell.Expressions
                     break;
                 case bool:
                     NumberType = NumberType.Boolean;
+                    break;
+                default:
+                    NumberType = NumberType.Object;
                     break;
             }
         }
@@ -93,6 +98,29 @@ namespace CalculatorShell.Expressions
         public override string ToString()
         {
             return ToString(CultureInfo.InvariantCulture);
+        }
+
+        public IDictionary<string, object?> GetObjectData()
+        {
+            object o = Value;
+            Dictionary<string, object?> result = new();
+            var properties = o.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in properties)
+            {
+                result.Add(property.Name, property.GetValue(o));
+            }
+            return result;
+        }
+
+        public string GetPropertyValue(string property)
+        {
+            object o = Value;
+            var propertyInfo = o.GetType()?.GetProperty(property);
+            if (propertyInfo != null)
+            {
+                return propertyInfo?.GetValue(o)?.ToString() ?? string.Empty;
+            }
+            return string.Empty;
         }
     }
 }

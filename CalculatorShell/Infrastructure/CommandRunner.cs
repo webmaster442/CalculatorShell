@@ -1,7 +1,7 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Expressions;
 using CalculatorShell.Properties;
-using CalculatorShell.ReadLine;
+using CalculatorShell.Ui;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

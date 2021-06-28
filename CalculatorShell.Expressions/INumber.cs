@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace CalculatorShell.Expressions
 {
@@ -11,5 +12,7 @@ namespace CalculatorShell.Expressions
         (long numerator, long denominator) GetFraction();
         System.Numerics.Complex GetComplex();
         bool GetBooean();
+        IDictionary<string, object?> GetObjectData();
+        string GetPropertyValue(string property);
     }
 }

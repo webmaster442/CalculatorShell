@@ -1,8 +1,8 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Properties;
-using CalculatorShell.ReadLine;
+using CalculatorShell.Ui;
 using System;
-using System.Text.Json;
+using System.Collections.Generic;
 
 namespace CalculatorShell
 {
@@ -93,13 +93,19 @@ namespace CalculatorShell
             Console.WriteLine(format, args);
         }
 
-        public void WriteObjectJson(object obj)
+        public void WriteTable<T>(T item)
         {
-            string result = JsonSerializer.Serialize(obj, obj.GetType(), new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-            WriteLine(result);
+            Console.WriteLine(TableHelper.WriteTable(item));
+        }
+
+        public void WriteTable<Tkey, TValue>(IDictionary<Tkey, TValue> dictionary)
+        {
+            Console.WriteLine(TableHelper.WriteTable(dictionary));
+        }
+
+        public void WriteTable<T>(IEnumerable<T> items, int columns = 4)
+        {
+            Console.WriteLine(TableHelper.WriteTable(items, columns));
         }
     }
 }

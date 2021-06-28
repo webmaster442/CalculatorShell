@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CalculatorShell.ReadLine
+namespace CalculatorShell.Ui
 {
     internal class KeyHandler
     {

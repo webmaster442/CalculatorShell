@@ -52,7 +52,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
             if (Variables.IsConstant(Identifier))
             {
-                return new Constant(Variables[Identifier]);
+                return new Constant((NumberImplementation)Variables[Identifier]);
             }
             return new Variable(Identifier, Variables);
         }

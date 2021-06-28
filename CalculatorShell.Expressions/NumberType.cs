@@ -6,5 +6,6 @@
         Complex,
         Fraction,
         Boolean,
+        Object,
     }
 }

@@ -1,4 +1,4 @@
-namespace CalculatorShell.ReadLine
+namespace CalculatorShell.Ui
 {
     public interface IAutoCompleteHandler
     {

@@ -1,4 +1,4 @@
-﻿using CalculatorShell.ReadLine;
+﻿using CalculatorShell.Ui;
 using Moq;
 using NUnit.Framework;
 using System;

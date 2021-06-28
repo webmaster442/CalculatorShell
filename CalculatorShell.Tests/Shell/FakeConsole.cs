@@ -1,4 +1,4 @@
-﻿using CalculatorShell.ReadLine;
+﻿using CalculatorShell.Ui;
 
 namespace CalculatorShell.Tests.Shell
 {

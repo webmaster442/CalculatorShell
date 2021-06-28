@@ -7,7 +7,8 @@ namespace CalculatorShell.Expressions
         bool IsConstant(string variableName);
         bool IsVariable(string variableName);
         bool IsVariableOrConstant(string variableName) => IsConstant(variableName) || IsVariable(variableName);
-        dynamic this[string variable] { get; set; }
+        INumber this[string variable] { get; set; }
+        string this[string variable, string property] { get; }
         void Clear();
         int Count { get; }
         IEnumerable<string> VariableAndConstantNames { get; }

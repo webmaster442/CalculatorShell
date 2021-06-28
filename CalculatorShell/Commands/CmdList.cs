@@ -2,6 +2,7 @@
 using CalculatorShell.Infrastructure;
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace CalculatorShell.Commands
 {
@@ -13,12 +14,10 @@ namespace CalculatorShell.Commands
             if (Host == null)
                 throw new InvalidOperationException();
 
-            var commands = string.Join(' ', Host.Commands);
-            var functions = string.Join(' ', Host.Functions);
-
-            Console.WriteLine("Known commands: {0}", commands);
-            Console.WriteLine("Known functions: {0}", functions);
-
+            output.WriteLine("Known commands:");
+            output.WriteTable(Host.Commands.OrderBy(x => x), 6);
+            output.WriteLine("Known functions:");
+            output.WriteTable(Host.Functions.OrderBy(x => x), 6);
         }
     }
 }
