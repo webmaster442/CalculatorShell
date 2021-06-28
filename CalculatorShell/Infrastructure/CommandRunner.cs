@@ -144,7 +144,7 @@ namespace CalculatorShell.Infrastructure
             string word = text[index..];
 
             return _commandTable.Keys
-                .Where(c => c.Contains(word, StringComparison.OrdinalIgnoreCase))
+                .Where(c => c.StartsWith(word, StringComparison.OrdinalIgnoreCase))
                 .ToArray();
         }
 

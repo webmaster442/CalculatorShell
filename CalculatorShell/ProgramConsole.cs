@@ -8,6 +8,19 @@ namespace CalculatorShell
 {
     internal class ProgramConsole : ICommandConsole, IConsole
     {
+        private ConsoleFormat? _currentFormat;
+
+        private static readonly ConsoleFormat ErrorFormat = new()
+        {
+            TextFormat = TextFormat.Bold,
+            Foreground = new Base.ConsoleColor
+            {
+                R = 0xFF,
+                G = 0x00,
+                B = 0x00,
+            }
+        };
+
         public ProgramConsole()
         {
             Console.CancelKeyPress += Console_CancelKeyPress;
@@ -17,14 +30,6 @@ namespace CalculatorShell
         {
             e.Cancel = true;
             InterruptRequested?.Invoke(this, EventArgs.Empty);
-        }
-
-        private static void WriteWithColors(ConsoleColor color, Action action)
-        {
-            var currentColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            action.Invoke();
-            Console.ForegroundColor = currentColor;
         }
 
         public event EventHandler? InterruptRequested;
@@ -39,17 +44,22 @@ namespace CalculatorShell
 
         public void Clear()
         {
-            Console.Clear();
+            Console.Write(EscapeCodeFactory.ClearScreen);
+            Console.Write(EscapeCodeFactory.Reset);
         }
 
         public void Error(Exception ex)
         {
-            WriteWithColors(ConsoleColor.Red, () => WriteLine(Resources.GeneralError, ex.Message));
+            SetFormat(ErrorFormat);
+            WriteLine(Resources.GeneralError, ex.Message);
+            ClearFormat();
         }
 
         public void Error(string format, params object[] args)
         {
-            WriteWithColors(ConsoleColor.Red, () => WriteLine(format, args));
+            SetFormat(ErrorFormat);
+            WriteLine(format, args);
+            ClearFormat();
         }
 
         public void Report(float value)
@@ -83,6 +93,9 @@ namespace CalculatorShell
 
         public void Write(string format, params object[] args)
         {
+            if (_currentFormat != null)
+                Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
+
             Console.Write(format, args);
         }
 
@@ -90,6 +103,9 @@ namespace CalculatorShell
 
         public void WriteLine(string format, params object[] args)
         {
+            if (_currentFormat != null)
+                Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
+
             Console.WriteLine(format, args);
         }
 
@@ -106,6 +122,17 @@ namespace CalculatorShell
         public void WriteTable<T>(IEnumerable<T> items, int columns = 4)
         {
             Console.WriteLine(TableHelper.WriteTable(items, columns));
+        }
+
+        public void SetFormat(ConsoleFormat format)
+        {
+            _currentFormat = format;
+        }
+
+        public void ClearFormat()
+        {
+            Write(EscapeCodeFactory.Reset);
+            _currentFormat = null;
         }
     }
 }
