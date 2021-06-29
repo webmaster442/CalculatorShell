@@ -70,6 +70,15 @@ namespace CalculatorShell.Expressions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t know howto convert {0} to {1}.
+        /// </summary>
+        internal static string CantConvert {
+            get {
+                return ResourceManager.GetString("CantConvert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Divide by zero detected in function.
         /// </summary>
         internal static string DivideByZero {
@@ -192,6 +201,15 @@ namespace CalculatorShell.Expressions.Properties {
         internal static string NoVariableValues {
             get {
                 return ResourceManager.GetString("NoVariableValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t parse given value as a number.
+        /// </summary>
+        internal static string NumberParseFailed {
+            get {
+                return ResourceManager.GetString("NumberParseFailed", resourceCulture);
             }
         }
         
