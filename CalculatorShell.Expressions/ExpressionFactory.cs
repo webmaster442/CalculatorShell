@@ -9,6 +9,9 @@ using System.Text;
 
 namespace CalculatorShell.Expressions
 {
+    /// <summary>
+    /// Provides methods to parse string expressions
+    /// </summary>
     public static class ExpressionFactory
     {
         private static CultureInfo _culture = CultureInfo.InvariantCulture;
@@ -22,16 +25,30 @@ namespace CalculatorShell.Expressions
         private static readonly TokenSet FirstMultExp = new(FirstUnaryExp);
         private static readonly TokenSet FirstExpExp = new(FirstUnaryExp);
 
+        /// <summary>
+        /// Current angle mode. Affects Trigonometric and complex functions
+        /// </summary>
         public static AngleMode CurrentAngleMode
         {
             get => Trigonometry.AngleMode;
             set => Trigonometry.AngleMode = value;
         }
+
+        /// <summary>
+        /// Collection of knwon functions
+        /// </summary>
         public static IEnumerable<string> KnownFunctions
         {
             get => FunctionFactory.GetFunctionNames();
         }
 
+        /// <summary>
+        /// parse a string expression
+        /// </summary>
+        /// <param name="function">expression to parse</param>
+        /// <param name="variables">variables to use</param>
+        /// <param name="culture">culture to use for parsing</param>
+        /// <returns>Parsed expression</returns>
         public static IExpression Parse(string function, IVariables variables, CultureInfo? culture)
         {
             if (culture == null)

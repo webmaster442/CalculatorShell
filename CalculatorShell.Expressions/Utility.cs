@@ -4,8 +4,18 @@ using System.Text;
 
 namespace CalculatorShell.Expressions
 {
+    /// <summary>
+    /// Provides various Utility methods for Expressions
+    /// </summary>
     public static class Utility
     {
+        /// <summary>
+        /// Create a polinomial string expression that fits to a given set of points
+        /// </summary>
+        /// <param name="xValues">x values of data to fit</param>
+        /// <param name="yValues">y values of data to fit</param>
+        /// <param name="degree">degree of polinome to use</param>
+        /// <returns>a string expression that fits to the data</returns>
         public static string Fit(IReadOnlyList<double> xValues, IReadOnlyList<double> yValues, int degree = 3)
         {
             int dataCount = Math.Min(xValues.Count, yValues.Count);

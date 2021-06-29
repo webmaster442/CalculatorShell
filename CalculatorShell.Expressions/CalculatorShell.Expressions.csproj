@@ -1,10 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <OutputPath>..\bin\$(Configuration)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DocumentationFile>..\bin\$(Configuration)\CalculatorShell.Expressions.xml</DocumentationFile>
+    <WarningsAsErrors>;NU1605;CS1591</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>

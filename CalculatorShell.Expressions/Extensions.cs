@@ -5,8 +5,16 @@ using System.Linq;
 
 namespace CalculatorShell.Expressions
 {
+    /// <summary>
+    /// Various extension methodts for expressions
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Flatten the expression tree into an enumerable collection
+        /// </summary>
+        /// <param name="expression">Expression to flaten</param>
+        /// <returns>enumerable collection</returns>
         public static IEnumerable<IExpression> Flatten(this IExpression expression)
         {
             Stack<IExpression> expressions = new Stack<IExpression>();
@@ -37,6 +45,11 @@ namespace CalculatorShell.Expressions
             }
         }
 
+        /// <summary>
+        /// Returns true if the given expression is a logical expression.
+        /// </summary>
+        /// <param name="expression">Expression to check</param>
+        /// <returns>true if the given expression is a logical expression.</returns>
         public static bool IsLogicExpression(this IExpression expression)
         {
             return expression
