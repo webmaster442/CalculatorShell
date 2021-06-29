@@ -9,14 +9,14 @@ namespace CalculatorShell.Expressions.Internals
 
         public bool IsBaseUnit => Value == 1M;
 
-        public Func<decimal, decimal, decimal> ToBaseUnit { get; init; }
-        public Func<decimal, decimal, decimal> ToTargetUnit { get; init; }
+        public Func<decimal, decimal, decimal> BaseRelationShip { get; init; }
+        public Func<decimal, decimal, decimal> TargetRelationShip { get; init; }
 
         public ConstantBasedConversion()
         {
             UnitName = string.Empty;
-            ToBaseUnit = NoConversion;
-            ToTargetUnit = NoConversion;
+            BaseRelationShip = NoConversion;
+            TargetRelationShip = NoConversion;
         }
 
         private decimal NoConversion(decimal arg1, decimal arg2)

@@ -84,7 +84,7 @@ namespace CalculatorShell.Expressions.Internals
             if (unitTarget.IsBaseUnit)
                 return inBase;
 
-            return unitTarget.ToTargetUnit(inBase, unitTarget.Value);
+            return unitTarget.TargetRelationShip(inBase, unitTarget.Value);
         }
 
         private decimal ConvertToBaseUnit(decimal sourceValue, ConstantBasedConversion unitSource)
@@ -92,7 +92,7 @@ namespace CalculatorShell.Expressions.Internals
             if (unitSource.IsBaseUnit)
                 return sourceValue;
 
-            return unitSource.ToBaseUnit(sourceValue, unitSource.Value);
+            return unitSource.BaseRelationShip(sourceValue, unitSource.Value);
         }
 
         private ConstantBasedConversion? GetUnit(string inputUnit)
@@ -128,12 +128,12 @@ namespace CalculatorShell.Expressions.Internals
             }
         }
 
-        protected decimal DivideValue(decimal arg1, decimal arg2)
+        protected decimal DivideBase(decimal arg1, decimal arg2)
         {
             return arg1 / arg2;
         }
 
-        protected decimal MultiplyValue(decimal arg1, decimal arg2)
+        protected decimal MultipleOfBase(decimal arg1, decimal arg2)
         {
             return arg1 * arg2;
         }
