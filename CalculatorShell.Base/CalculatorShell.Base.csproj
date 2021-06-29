@@ -5,10 +5,8 @@
     <Nullable>enable</Nullable>
     <OutputPath>..\bin\$(Configuration)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>..\bin\$(Configuration)\CalculatorShell.Base.xml</DocumentationFile>
+    <WarningsAsErrors>;NU1605;CS1591</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
