@@ -127,5 +127,15 @@ namespace CalculatorShell.Expressions.Internals
                 throw new ExpressionEngineException(Resources.NumberParseFailed, ex);
             }
         }
+
+        protected decimal DivideValue(decimal arg1, decimal arg2)
+        {
+            return arg1 / arg2;
+        }
+
+        protected decimal MultiplyValue(decimal arg1, decimal arg2)
+        {
+            return arg1 * arg2;
+        }
     }
 }

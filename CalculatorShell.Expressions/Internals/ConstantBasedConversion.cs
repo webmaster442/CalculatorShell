@@ -7,10 +7,10 @@ namespace CalculatorShell.Expressions.Internals
         public string UnitName { get; init; }
         public decimal Value { get; init; }
 
-        public bool IsBaseUnit => Value == 0M;
+        public bool IsBaseUnit => Value == 1M;
 
-        public Func<decimal, decimal, decimal> ToBaseUnit { get; }
-        public Func<decimal, decimal, decimal> ToTargetUnit { get; }
+        public Func<decimal, decimal, decimal> ToBaseUnit { get; init; }
+        public Func<decimal, decimal, decimal> ToTargetUnit { get; init; }
 
         public ConstantBasedConversion()
         {
