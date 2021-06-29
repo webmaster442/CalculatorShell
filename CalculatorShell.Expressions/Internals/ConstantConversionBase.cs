@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace CalculatorShell.Expressions.Internals
 {
@@ -64,8 +63,8 @@ namespace CalculatorShell.Expressions.Internals
         public string Convert(string inputValue, string inputUnit, string targetUnit)
         {
             decimal sourceValue = Parse(inputValue);
-            ConstantBasedConversion? unitSource = GetUnit(inputUnit);
-            ConstantBasedConversion? unitTarget = GetUnit(targetUnit);
+            ConstantBasedConversion? unitSource = GetUnit(inputUnit, out decimal sourcePrefix);
+            ConstantBasedConversion? unitTarget = GetUnit(targetUnit, out decimal targetPrefix);
 
             if (unitSource == null
                 || unitTarget == null)
@@ -73,30 +72,37 @@ namespace CalculatorShell.Expressions.Internals
                 throw new ExpressionEngineException(Resources.CantConvert, inputUnit, targetUnit);
             }
 
-            decimal inBase = ConvertToBaseUnit(sourceValue, unitSource);
-            decimal inTarget = ConvertToTargetUnit(inBase, unitTarget);
+            decimal inBase = ConvertToBaseUnit(sourceValue, unitSource, sourcePrefix);
+            decimal inTarget = ConvertToTargetUnit(inBase, unitTarget, targetPrefix);
 
             return inTarget.ToString(Culture);
         }
 
-        private decimal ConvertToTargetUnit(decimal inBase, ConstantBasedConversion unitTarget)
+        private decimal ConvertToTargetUnit(decimal inBase, ConstantBasedConversion unitTarget, decimal prefix)
         {
-            if (unitTarget.IsBaseUnit)
+            if (unitTarget.IsBaseUnit && prefix == 1M)
                 return inBase;
 
-            return unitTarget.TargetRelationShip(inBase, unitTarget.Value);
+            return unitTarget.TargetRelationShip(inBase, unitTarget.Value, prefix);
         }
 
-        private decimal ConvertToBaseUnit(decimal sourceValue, ConstantBasedConversion unitSource)
+        private decimal ConvertToBaseUnit(decimal sourceValue, ConstantBasedConversion unitSource, decimal pefix)
         {
-            if (unitSource.IsBaseUnit)
+            if (unitSource.IsBaseUnit && pefix == 1M)
                 return sourceValue;
 
-            return unitSource.BaseRelationShip(sourceValue, unitSource.Value);
+            return unitSource.BaseRelationShip(sourceValue, unitSource.Value, pefix);
         }
 
-        private ConstantBasedConversion? GetUnit(string inputUnit)
+        private ConstantBasedConversion? GetUnit(string inputUnit, out decimal sourceMultiplier)
         {
+            if (inputUnit.Contains("_"))
+            {
+                var parts = inputUnit.Split('_');
+                sourceMultiplier = _prefixTable[parts[0]];
+                return UnitConstants.FirstOrDefault(x => x.UnitName == parts[1]);
+            }
+            sourceMultiplier = 1M;
             return UnitConstants.FirstOrDefault(x => x.UnitName == inputUnit);
         }
 
@@ -104,22 +110,6 @@ namespace CalculatorShell.Expressions.Internals
         {
             try
             {
-                decimal multiplier = 1M;
-                if (inputValue.Contains('_'))
-                {
-                    string[] parts = inputValue.Split('_');
-                    if (_prefixTable.ContainsKey(parts[0]))
-                    {
-                        multiplier = _prefixTable[parts[0]];
-                    }
-                    StringBuilder numbers = new();
-                    for (int i = 1; i < parts.Length; i++)
-                    {
-                        numbers.Append(parts[i]);
-                    }
-                    decimal v = decimal.Parse(numbers.ToString(), Culture);
-                    return v * multiplier;
-                }
                 return decimal.Parse(inputValue, Culture);
             }
             catch (Exception ex)
@@ -128,14 +118,17 @@ namespace CalculatorShell.Expressions.Internals
             }
         }
 
-        protected decimal DivideBase(decimal arg1, decimal arg2)
+        protected decimal DivideBase(decimal rawValue, decimal constantMultiplier, decimal prefix)
         {
-            return arg1 / arg2;
+            if (prefix == 1)
+                return rawValue / constantMultiplier;
+            else
+                return rawValue / constantMultiplier / prefix;
         }
 
-        protected decimal MultipleOfBase(decimal arg1, decimal arg2)
+        protected decimal MultipleOfBase(decimal rawValue, decimal constantMultiplier, decimal prefix)
         {
-            return arg1 * arg2;
+            return rawValue * constantMultiplier * prefix;
         }
     }
 }

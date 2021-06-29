@@ -37,8 +37,17 @@ namespace CalculatorShell.Expressions
         /// <inheritdoc/>
         public string Convert(string inputValue, string inputUnit, string targetUnit)
         {
-            var converter = _subconverters.FirstOrDefault(x => x.KnownUnits.Contains(inputUnit)
-                                                            && x.KnownUnits.Contains(targetUnit));
+            string searchInputUnit = inputUnit;
+            string searchOutputUnit = targetUnit;
+
+            if (inputUnit.Contains('_'))
+                searchInputUnit = inputUnit.Split('_')[1];
+
+            if (targetUnit.Contains('_'))
+                searchOutputUnit = targetUnit.Split('_')[1];
+
+            var converter = _subconverters.FirstOrDefault(x => x.KnownUnits.Contains(searchInputUnit)
+                                                            && x.KnownUnits.Contains(searchOutputUnit));
 
             if (converter == null)
                 throw new ExpressionEngineException(Resources.CantConvert, inputUnit, targetUnit);
