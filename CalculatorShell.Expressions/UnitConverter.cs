@@ -24,6 +24,7 @@ namespace CalculatorShell.Expressions
             _subconverters = new IUnitConverter[]
             {
                 new FileSizeConversion(cultureInfo),
+                new LengthConversions(cultureInfo),
             };
         }
 
