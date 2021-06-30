@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
 using System;
 using System.ComponentModel.Composition;
@@ -11,7 +10,14 @@ namespace CalculatorShell.Commands
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
-            Environment.Exit(0);
+            if (Host != null)
+            {
+                Host?.Shutdown();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }

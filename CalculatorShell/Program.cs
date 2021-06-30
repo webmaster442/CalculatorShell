@@ -12,16 +12,25 @@ namespace CalculatorShell
         {
             PrintVersion();
             var memory = new Memory();
-            var host = new HostEnvironment();
-            var loader = new CommandLoader(memory, host);
-            using var runner = new CommandRunner(loader.Commands, host, CultureInfo.InvariantCulture);
-            await runner.Run();
+            using (var storage = new Storage(GetFileName()))
+            {
+                var host = new HostEnvironment(storage);
+                var loader = new CommandLoader(memory, host);
+                using var runner = new CommandRunner(loader.Commands, host, CultureInfo.InvariantCulture);
+                await runner.Run();
+            }
         }
 
         private static void PrintVersion()
         {
             var name = typeof(Program).Assembly.GetName();
             Console.WriteLine($"{name.Name} [{name.Version}] {Resources.InitText}");
+        }
+
+        private static string GetFileName()
+        {
+            var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            return System.IO.Path.Combine(docs, "calcshell.storage");
         }
     }
 }

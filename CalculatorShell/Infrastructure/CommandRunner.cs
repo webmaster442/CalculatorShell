@@ -46,7 +46,7 @@ namespace CalculatorShell.Infrastructure
 
         public async Task Run()
         {
-            while (true)
+            while (_host.CanRun)
             {
                 var angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
                 {

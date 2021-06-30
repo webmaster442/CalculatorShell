@@ -8,6 +8,11 @@ namespace CalculatorShell.Base
     public interface IHost
     {
         /// <summary>
+        /// Returns true, if the program can run.
+        /// </summary>
+        public bool CanRun { get; }
+
+        /// <summary>
         /// Currently defined commands that the command host understands
         /// </summary>
         IEnumerable<string> Commands { get; }
@@ -15,5 +20,15 @@ namespace CalculatorShell.Base
         /// Currently defined variables that the expresssion parser understands
         /// </summary>
         IEnumerable<string> Functions { get; }
+
+        /// <summary>
+        /// Provides acces to storage
+        /// </summary>
+        IStorage Storage { get; }
+
+        /// <summary>
+        /// Request app shutdown
+        /// </summary>
+        void Shutdown();
     }
 }
