@@ -3,11 +3,13 @@ using System.Globalization;
 
 namespace CalculatorShell.Expressions.Internals.Conversions
 {
-    internal class FileSizeConversion : ConstantConversionBase
+    internal sealed class FileSizeConversion : ConstantConversionBase
     {
         public FileSizeConversion(CultureInfo culture) : base(culture)
         {
         }
+
+        public override string CategoryName => "File size";
 
         public override IEnumerable<ConstantBasedConversion> UnitConstants
         {

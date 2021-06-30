@@ -59,6 +59,8 @@ namespace CalculatorShell.Expressions.Internals
         public CultureInfo Culture { get; }
 
         public abstract IEnumerable<ConstantBasedConversion> UnitConstants { get; }
+        
+        public abstract string CategoryName { get; }
 
         public string Convert(string inputValue, string inputUnit, string targetUnit)
         {

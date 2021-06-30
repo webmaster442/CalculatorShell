@@ -3,11 +3,13 @@ using System.Globalization;
 
 namespace CalculatorShell.Expressions.Internals.Conversions
 {
-    internal class LengthConversions : ConstantConversionBase
+    internal sealed class LengthConversions : ConstantConversionBase
     {
         public LengthConversions(CultureInfo culture) : base(culture)
         {
         }
+
+        public override string CategoryName => "Length";
 
         public override IEnumerable<ConstantBasedConversion> UnitConstants
         {

@@ -14,6 +14,11 @@ namespace CalculatorShell.Expressions
         IEnumerable<string> KnownUnits { get; }
 
         /// <summary>
+        /// Return conversion category name
+        /// </summary>
+        string CategoryName { get; }
+
+        /// <summary>
         /// Current culture of the converter
         /// </summary>
         CultureInfo Culture { get; }

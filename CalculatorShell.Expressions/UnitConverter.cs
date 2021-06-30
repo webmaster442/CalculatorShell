@@ -10,7 +10,7 @@ namespace CalculatorShell.Expressions
     /// <summary>
     /// Unit converter class
     /// </summary>
-    public sealed class UnitConverter : IUnitConverter
+    public sealed class UnitConverter
     {
         private IUnitConverter[] _subconverters;
 
@@ -25,6 +25,7 @@ namespace CalculatorShell.Expressions
             {
                 new FileSizeConversion(cultureInfo),
                 new LengthConversions(cultureInfo),
+                new PowerConversions(cultureInfo),
             };
         }
 
