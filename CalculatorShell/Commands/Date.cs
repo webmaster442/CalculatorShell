@@ -17,7 +17,7 @@ namespace CalculatorShell.Commands
 
         private static string GetDate(DateTime date)
         {
-            return $"{date.Year}.{date.Month}.{date.Day}";
+            return $"{date.Year}/{date.Month}/{date.Day}";
         }
     }
 }

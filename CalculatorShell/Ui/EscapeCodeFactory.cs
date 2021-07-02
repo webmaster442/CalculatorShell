@@ -31,7 +31,6 @@ namespace CalculatorShell.Ui
             switch (format.TextFormat)
             {
                 case TextFormat.None:
-                    buffer.Append(Reset);
                     break;
                 case TextFormat.Bold:
                     buffer.Append("\x1b[1m");

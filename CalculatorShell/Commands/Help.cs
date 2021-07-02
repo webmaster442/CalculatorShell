@@ -1,6 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
-using System;
+using CalculatorShell.Ui;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
@@ -8,9 +8,18 @@ namespace CalculatorShell.Commands
     [Export(typeof(ICommand))]
     internal sealed class Help : CommandBase, ISimpleCommand
     {
+        private static HelpSystem help = new ();
+
         public void Execute(Arguments arguments, ICommandConsole output)
         {
-            throw new NotImplementedException("Reimplementation in progress");
+            arguments.CheckArgumentCount(0, 1);
+            string cmd = "help";
+            if (arguments.Count == 1)
+            {
+                cmd = arguments.Get<string>(0);
+            }
+
+            help.WriteGetFormattetdHelp(cmd, output);
         }
     }
 }

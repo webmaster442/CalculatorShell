@@ -9,6 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CmdHelp.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CmdHelp.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.8.1" />
   </ItemGroup>
