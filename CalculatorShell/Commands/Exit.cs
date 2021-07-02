@@ -14,7 +14,7 @@ namespace CalculatorShell.Commands
 
             if (Host != null)
             {
-                Host?.Shutdown();
+                Host.Shutdown();
             }
             else
             {

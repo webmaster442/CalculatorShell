@@ -56,6 +56,8 @@ namespace CalculatorShell
 
         public IEnumerable<string> VariableNames => _variables.Keys;
 
+        public IEnumerable<string> ExpressionNames => _expressions.Keys;
+
         public INumber this[string variable, string property]
         {
             get

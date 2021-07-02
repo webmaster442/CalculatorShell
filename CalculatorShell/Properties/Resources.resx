@@ -145,6 +145,9 @@ Usage: Mode [Deg or Rad or Grad]</value>
   <data name="NoHelpFound" xml:space="preserve">
     <value>No Help entry found for command: {0}</value>
   </data>
+  <data name="SetExpressions" xml:space="preserve">
+    <value>Currently set expression names:</value>
+  </data>
   <data name="SetVariables" xml:space="preserve">
     <value>Currently set variable names:</value>
   </data>

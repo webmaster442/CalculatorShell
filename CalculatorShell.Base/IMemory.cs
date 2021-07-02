@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Expressions;
+using System.Collections.Generic;
 
 namespace CalculatorShell.Base
 {
@@ -25,5 +26,9 @@ namespace CalculatorShell.Base
         /// <param name="name">expression name</param>
         /// <returns>Parsed expression</returns>
         IExpression GetExpression(string name);
+        /// <summary>
+        /// Get a collection of currently known expression names
+        /// </summary>
+        IEnumerable<string> ExpressionNames { get; }
     }
 }

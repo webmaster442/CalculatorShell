@@ -4,7 +4,6 @@ using CalculatorShell.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace CalculatorShell.Commands
 {
@@ -26,7 +25,7 @@ namespace CalculatorShell.Commands
                     vars.Add(name, Memory[name].ToString());
                 }
                 output.WriteLine(Resources.SetVariables);
-                if (Memory.VariableNames.Any())
+                if (vars.Count > 0)
                     output.WriteTable<string, string>(vars);
             }
             else if (arguments.Count == 1)

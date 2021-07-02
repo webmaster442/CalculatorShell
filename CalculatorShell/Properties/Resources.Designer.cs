@@ -137,6 +137,15 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currently set expression names:.
+        /// </summary>
+        internal static string SetExpressions {
+            get {
+                return ResourceManager.GetString("SetExpressions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currently set variable names:.
         /// </summary>
         internal static string SetVariables {
