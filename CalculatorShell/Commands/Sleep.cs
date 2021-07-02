@@ -11,6 +11,8 @@ namespace CalculatorShell.Commands
     {
         public async Task Execute(Arguments arguments, ICommandConsole output, CancellationToken cancellationToken)
         {
+            arguments.CheckArgumentCount(1);
+
             uint seconds = arguments.Get<uint>(0);
             for (uint i=0; i < seconds; i++)
             {

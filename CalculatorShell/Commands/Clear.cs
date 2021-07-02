@@ -9,6 +9,8 @@ namespace CalculatorShell.Commands
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
+            arguments.CheckArgumentCount(0);
+
             output.Clear();
         }
     }

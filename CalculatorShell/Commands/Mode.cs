@@ -13,6 +13,8 @@ namespace CalculatorShell.Commands
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
+            arguments.CheckArgumentCount(1);
+
             var mode = arguments.Get<string>(0);
             if (Enum.TryParse<AngleMode>(mode, true, out AngleMode parsed))
             {

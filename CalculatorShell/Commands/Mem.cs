@@ -2,7 +2,9 @@
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Properties;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace CalculatorShell.Commands
 {
@@ -14,12 +16,18 @@ namespace CalculatorShell.Commands
             if (Memory == null)
                 throw new InvalidOperationException();
 
+            arguments.CheckArgumentCount(0, 1);
+
             if (arguments.Count == 0)
             {
-                var list = string.Join('\n', Memory.VariableNames);
+                Dictionary<string, string> vars = new();
+                foreach (var name in Memory.VariableNames)
+                {
+                    vars.Add(name, Memory[name].ToString());
+                }
                 output.WriteLine(Resources.SetVariables);
-                if (!string.IsNullOrEmpty(list))
-                    output.WriteLine(list);
+                if (Memory.VariableNames.Any())
+                    output.WriteTable<string, string>(vars);
             }
             else if (arguments.Count == 1)
             {

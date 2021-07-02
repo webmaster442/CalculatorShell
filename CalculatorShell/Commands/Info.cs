@@ -1,4 +1,5 @@
 ﻿using CalculatorShell.Base;
+using CalculatorShell.Expressions;
 using CalculatorShell.Maths;
 using System;
 using System.ComponentModel.Composition;
@@ -11,7 +12,12 @@ namespace CalculatorShell.Commands
     {
         public override void Execute(Arguments arguments, ICommandConsole output)
         {
-            var result = EvaluateExpression(arguments);
+            if (Memory == null)
+                throw new InvalidOperationException();
+
+            arguments.CheckArgumentCount(1);
+
+            var result = EvaluateExpression(arguments, out IExpression parsed);
             output.WriteLine("Number type: {0}", result.NumberType);
             switch (result.NumberType)
             {
@@ -19,6 +25,7 @@ namespace CalculatorShell.Commands
                     PrintDoubleInfo(result.GetDouble(), output);
                     break;
             }
+            Memory.SetExpression("$ans", parsed);
         }
 
         private string Encode(byte[] bytes)

@@ -16,6 +16,8 @@ namespace CalculatorShell.Commands
         public async Task Execute(Arguments arguments, ICommandConsole output, CancellationToken cancellationToken)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
+            arguments.CheckArgumentCount(1);
+
             long number = arguments.Get<long>(0);
             var numbers = new ConcurrentBag<long>();
             var options = new ParallelOptions

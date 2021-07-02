@@ -9,12 +9,17 @@ namespace CalculatorShell.Commands
     [Export(typeof(ICommand))]
     internal class Eval : CommandBase, ISimpleCommand
     {
-        protected INumber EvaluateExpression(Arguments arguments)
+        protected INumber EvaluateExpression(Arguments arguments, out IExpression expression)
         {
             if (Memory == null)
                 throw new InvalidOperationException();
 
-            var expression = ExpressionFactory.Parse(arguments.Get<string>(0), Memory, arguments.CurrentCulture);
+            var expressionString = arguments.Get<string>(0);
+
+            if (expressionString.StartsWith('$'))
+                expression = Memory.GetExpression(expressionString);
+            else
+                expression = ExpressionFactory.Parse(expressionString, Memory, arguments.CurrentCulture);
             return expression.Evaluate();
         }
 
@@ -23,9 +28,12 @@ namespace CalculatorShell.Commands
             if (Memory == null)
                 throw new InvalidOperationException();
 
-            var result = EvaluateExpression(arguments);
-            output.WriteLine("{0}", result);
+            arguments.CheckArgumentCount(1);
 
+            var result = EvaluateExpression(arguments, out IExpression parsed);
+
+            output.WriteLine("{0}", result);
+            Memory.SetExpression("$ans", parsed);
             Memory["ans"] = result;
         }
     }

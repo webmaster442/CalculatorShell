@@ -4,10 +4,11 @@ using CalculatorShell.Infrastructure;
 using System;
 using System.ComponentModel.Composition;
 
+
 namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
-    internal class MemSet : CommandBase, ISimpleCommand
+    internal class Expr : CommandBase, ISimpleCommand
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
@@ -17,7 +18,10 @@ namespace CalculatorShell.Commands
             arguments.CheckArgumentCount(2);
 
             var name = arguments.Get<string>(0);
-            Memory[name] = ExpressionFactory.Parse(arguments.Get<string>(1), Memory, arguments.CurrentCulture).Evaluate();
+
+            var parsed =  ExpressionFactory.Parse(arguments.Get<string>(1), Memory, arguments.CurrentCulture);
+
+            Memory.SetExpression(name, parsed);
         }
     }
 }

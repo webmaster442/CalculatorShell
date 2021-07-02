@@ -11,6 +11,7 @@ namespace CalculatorShell.Commands
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
+            arguments.CheckArgumentCount(0);
             output.WriteLine(Resources.DateFormat, GetDate(DateTime.Now.Date), DateTime.Now.DayOfYear, DateTime.Now.DayOfWeek);
         }
 

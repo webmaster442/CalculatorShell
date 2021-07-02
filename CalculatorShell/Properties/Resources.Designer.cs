@@ -90,6 +90,15 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expression name variables must start with the $ symbol.
+        /// </summary>
+        internal static string ExpressionNameRestrict {
+            get {
+                return ResourceManager.GetString("ExpressionNameRestrict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: {0}.
         /// </summary>
         internal static string GeneralError {

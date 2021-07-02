@@ -9,12 +9,14 @@ namespace CalculatorShell
 {
     internal class Memory : IMemory
     {
-        private Dictionary<string, INumber> _variables;
+        private readonly Dictionary<string, INumber> _variables;
         private readonly Dictionary<string, dynamic> _constants;
+        private readonly Dictionary<string, IExpression> _expressions;
 
         public Memory()
         {
             _variables = new Dictionary<string, INumber>();
+            _expressions = new Dictionary<string, IExpression>();
             _constants = FillConstants();
         }
 
@@ -66,6 +68,7 @@ namespace CalculatorShell
         public void Clear()
         {
             _variables.Clear();
+            _expressions.Clear();
         }
 
         public bool IsConstant(string variableName)
@@ -80,7 +83,26 @@ namespace CalculatorShell
 
         public void Delete(string name)
         {
-            _variables.Remove(name);
+            if (name.StartsWith('$'))
+                _expressions.Remove(name);
+            else
+                _variables.Remove(name);
+        }
+
+        public void SetExpression(string name, IExpression parsed)
+        {
+            if (!name.StartsWith('$'))
+                throw new ExpressionEngineException(Resources.ExpressionNameRestrict);
+
+            _expressions[name] = parsed;
+        }
+
+        public IExpression GetExpression(string name)
+        {
+            if (!name.StartsWith('$'))
+                throw new ExpressionEngineException(Resources.ExpressionNameRestrict);
+
+            return _expressions[name];
         }
     }
 }

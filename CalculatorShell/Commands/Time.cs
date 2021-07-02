@@ -10,6 +10,7 @@ namespace CalculatorShell.Commands
     {
         public void Execute(Arguments arguments, ICommandConsole output)
         {
+            arguments.CheckArgumentCount(0);
             output.WriteLine("{0}:{1}", DateTime.Now.Hour, DateTime.Now.Minute);
         }
     }

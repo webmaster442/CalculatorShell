@@ -16,6 +16,39 @@ namespace CalculatorShell.Base
         public CultureInfo CurrentCulture { get; }
 
         /// <summary>
+        /// Throw an exception if argument count is below or over limit.
+        /// </summary>
+        /// <param name="count">Number of arguments to expect</param>
+        public void CheckArgumentCount(int count)
+        {
+            if (_arguments.Length < count || _arguments.Length > count)
+                throw new InvalidOperationException($"Command expected {count} arguments. {_arguments.Length} was given");
+        }
+
+
+        /// <summary>
+        /// Throw an exception if argument count is not in the given range
+        /// </summary>
+        /// <param name="arguments">Arguments to check</param>
+        public void CheckArgumentCount(params int[] arguments)
+        {
+            bool checkpassed = false;
+            foreach (var argument in arguments)
+            {
+                if (_arguments.Length == argument)
+                {
+                    checkpassed = true;
+                    break;
+                }
+            }
+            if (!checkpassed)
+            {
+                var countString = string.Join(" or ", arguments);
+                throw new InvalidOperationException($"Command expected {countString} arguments. {_arguments.Length} was given");
+            }
+        }
+
+        /// <summary>
         /// Create a new instance of arguments
         /// </summary>
         /// <param name="args">raw tokenized sting arguments</param>

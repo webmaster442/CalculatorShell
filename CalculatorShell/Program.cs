@@ -29,8 +29,8 @@ namespace CalculatorShell
 
         private static string GetFileName()
         {
-            var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            return System.IO.Path.Combine(docs, "calcshell.storage");
+            var appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            return System.IO.Path.Combine(appdata, "calcshell.storage");
         }
     }
 }

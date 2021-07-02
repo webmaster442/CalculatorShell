@@ -15,6 +15,8 @@ namespace CalculatorShell.Commands
             if (Memory == null)
                 throw new InvalidOperationException();
 
+            arguments.CheckArgumentCount(0, 1);
+
             if (arguments.Count == 1)
             {
                 var name = arguments.Get<string>(0);

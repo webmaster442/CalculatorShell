@@ -1,9 +1,7 @@
 {
   "profiles": {
     "CalculatorShell": {
-      "commandName": "Executable",
-      "executablePath": "wt.exe",
-      "commandLineArgs": "E:\\GIT\\CalculatorShell\\CalculatorShell\\bin\\Debug\\net5.0\\CalculatorShell.exe"
+      "commandName": "Project"
     }
   }
 }
