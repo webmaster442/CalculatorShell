@@ -20,7 +20,6 @@ namespace CalculatorShell.Ui
             _preformat = new Base.ConsoleColor(0x91, 0x45, 0xFF);
 
             var assembly = typeof(HelpSystem).Assembly;
-            var names = assembly.GetManifestResourceNames();
 
             using var stream = assembly.GetManifestResourceStream("CalculatorShell.CmdHelp.md");
             _lines = new List<string>();
@@ -106,8 +105,6 @@ namespace CalculatorShell.Ui
                 {
                     AppendRegularText(output, currentline);
                 }
-
-
             }
         }
 

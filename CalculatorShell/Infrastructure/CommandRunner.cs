@@ -27,7 +27,7 @@ namespace CalculatorShell.Infrastructure
             _console = new ProgramConsole();
             _console.InterruptRequested += OnInterruptRequested;
             _lineReader = new LineReader(true, _console, this);
-            _commandTable = commands.ToDictionary(x => x.GetType().Name, x => x);
+            _commandTable = commands.ToDictionary(x => x.GetType().Name.ToLower(), x => x);
             _cancellationTokenSource = new CancellationTokenSource();
             _host = host;
             SetupHosting();
@@ -51,10 +51,7 @@ namespace CalculatorShell.Infrastructure
                 var angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
                 {
                     TextFormat = TextFormat.Italic,
-                    Foreground = new Base.ConsoleColor
-                    {
-                        R = 0xff, G = 0x00, B =0xff
-                    },
+                    Foreground = new Base.ConsoleColor(0xff, 0x00, 0xff),
                 });
 
                 string prompt = $"\n{angleMode}{ExpressionFactory.CurrentAngleMode}{EscapeCodeFactory.Reset} > ";
