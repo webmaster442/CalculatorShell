@@ -25,7 +25,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             if (leftConst != null && rightConst != null)
             {
                 // two constants
-                return new Constant(leftConst.Value.Value + rightConst.Value.Value);
+                return new Constant(new NumberImplementation(leftConst.Value.Value + rightConst.Value.Value));
             }
             if (leftConst?.Value.Value == 0)
             {

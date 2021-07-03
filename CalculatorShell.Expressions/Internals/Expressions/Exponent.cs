@@ -24,8 +24,9 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             {
                 // f(x) = a^g(x)
                 // f'(x) = (ln a) * g'(x) * a^g(x)
-                var a = constant.Value;
-                return new Multiply(new Multiply(new Constant(Math.Log(a.Value)), Right?.Differentiate(byVariable)), new Exponent(simple, Right));
+                NumberImplementation? a = constant.Value;
+                var newleft = new Multiply(new Constant(new NumberImplementation(Math.Log(a.Value))), Right?.Differentiate(byVariable));
+                return new Multiply(newleft, new Exponent(simple, Right));
             }
             throw new ExpressionEngineException(Resources.CanotDifferentiate);
         }
