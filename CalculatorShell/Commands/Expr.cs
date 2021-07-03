@@ -2,42 +2,46 @@
 using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Properties;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-
+using System.Globalization;
+using System.Linq;
 
 namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
-    internal class Expr : CommandBase, ISimpleCommand
+    internal class Expr : MemoryCommandBase
     {
-        public void Execute(Arguments arguments, ICommandConsole output)
+        protected override void PrintMemory(ICommandConsole output)
         {
-            if (Memory == null)
-                throw new InvalidOperationException();
-
-            arguments.CheckArgumentCount(0, 2);
-
-            if (arguments.Count == 0)
+            Dictionary<string, IExpression> expressions = new();
+            foreach (var name in Memory!.ExpressionNames)
             {
-                Dictionary<string, IExpression> expressions = new();
-                foreach (var name in Memory.ExpressionNames)
+                expressions.Add(name, Memory!.GetExpression(name));
+            }
+            output.WriteLine(Resources.SetExpressions);
+            if (expressions.Count > 0)
+                output.WriteTable<string, IExpression>(expressions);
+        }
+
+        protected override void PrintSpecificMemory(string varName, ICommandConsole output)
+        {
+            if (Memory!.ExpressionNames.Any(x => x == varName))
+            {
+                IExpression expr = Memory!.GetExpression(varName);
+                if (expr != null)
                 {
-                    expressions.Add(name, Memory.GetExpression(name));
+                    output.WriteLine(expr.ToString() ?? string.Empty);
                 }
-                output.WriteLine(Resources.SetExpressions);
-                if (expressions.Count > 0)
-                    output.WriteTable<string, IExpression>(expressions);
             }
             else
-            {
-                var name = arguments.Get<string>(0);
+                throw new ExpressionEngineException(Resources.UndefinedExpression, varName);
+        }
 
-                var parsed = ExpressionFactory.Parse(arguments.Get<string>(1), Memory, arguments.CurrentCulture);
-
-                Memory.SetExpression(name, parsed);
-            }
+        protected override void SetMemory(string varName, string valueString, CultureInfo culture)
+        {
+            var parsed = ExpressionFactory.Parse(valueString, Memory!, culture);
+            Memory!.SetExpression(varName, parsed);
         }
     }
 }

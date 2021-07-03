@@ -151,6 +151,9 @@ Usage: Mode [Deg or Rad or Grad]</value>
   <data name="SetVariables" xml:space="preserve">
     <value>Currently set variable names:</value>
   </data>
+  <data name="UndefinedExpression" xml:space="preserve">
+    <value>Undefined Expression: {0}</value>
+  </data>
   <data name="UndefinedVariable" xml:space="preserve">
     <value>Undefined Variable: {0}</value>
   </data>

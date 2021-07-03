@@ -155,6 +155,15 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Undefined Expression: {0}.
+        /// </summary>
+        internal static string UndefinedExpression {
+            get {
+                return ResourceManager.GetString("UndefinedExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Undefined Variable: {0}.
         /// </summary>
         internal static string UndefinedVariable {
