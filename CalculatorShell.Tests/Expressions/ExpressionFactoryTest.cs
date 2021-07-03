@@ -105,6 +105,16 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("cplx(10; 20) * cplx(10; 20)", "(-300 + 400i)")]
         [TestCase("cplx(10; 20) / cplx(10; 20)", "(1 + 0i)")]
         [TestCase("cplx(10; 20) / 10", "(1 + 2i)")]
+        [TestCase("arcsin(1)", "90")]
+        [TestCase("arccos(0)", "90")]
+        [TestCase("arctan(1)", "45")]
+        [TestCase("arcctg(0)", "0")]
+        [TestCase("deg2rad(360)", "6.283185307179586")]
+        [TestCase("rad2deg(0)", "0")]
+        [TestCase("deg2grad(360)", "400")]
+        [TestCase("grad2deg(400)", "360")]
+        [TestCase("grad2rad(0)", "0")]
+        [TestCase("rad2grad(0)", "0")]
         public void TestsParseAndEvalute(string expression, string expected)
         {
             ExpressionFactory.CurrentAngleMode = CalculatorShell.Maths.AngleMode.Deg;
