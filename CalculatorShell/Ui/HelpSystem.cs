@@ -46,14 +46,17 @@ namespace CalculatorShell.Ui
                 {
                     start = i;
                 }
-                else if (_lines[i].StartsWith($"# "))
+                else if (start != -1 && _lines[i].StartsWith($"# "))
                 {
                     end = i;
                     break;
                 }
             }
 
-            if (start == -1 ||end == -1)
+            if (end == -1)
+                end = _lines.Count;
+
+            if (start == -1)
             {
                 start = -1;
                 end = -1;
