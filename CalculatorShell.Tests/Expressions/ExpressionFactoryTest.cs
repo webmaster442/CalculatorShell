@@ -18,6 +18,9 @@ namespace CalculatorShell.Tests.Expressions
             _xValue = new NumberImplementation(0.0);
             _variablesMock = new Mock<IVariables>(MockBehavior.Strict);
             _variablesMock.SetupGet(x => x["a"]).Returns(new NumberImplementation(44));
+            _variablesMock.SetupGet(x => x["one"]).Returns(new NumberImplementation(1));
+            _variablesMock.SetupGet(x => x["minusone"]).Returns(new NumberImplementation(-1));
+            _variablesMock.SetupGet(x => x["zero"]).Returns(new NumberImplementation(0));
             _variablesMock.SetupGet(x => x["b"]).Returns(new NumberImplementation(new Fraction(3, 4)));
             _variablesMock.SetupGet(x => x["b", "Denominator"]).Returns(new NumberImplementation(4));
             _variablesMock.SetupGet(x => x["b", "denominator"]).Returns(new NumberImplementation(4));
@@ -30,7 +33,7 @@ namespace CalculatorShell.Tests.Expressions
         }
 
         [TestCase("1!2")]
-        [TestCase("1%2")]
+        [TestCase("1x")]
         [TestCase("1'2")]
         [TestCase("**")]
         [TestCase("1Ö2")]
@@ -66,6 +69,7 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("1+-2", "-1")]
         [TestCase("-2", "-2")]
         [TestCase("33-11", "22")]
+        [TestCase("3%2", "1")]
         [TestCase("10^2", "100")]
         [TestCase("(1/27)", "1/27")]
         [TestCase("1/27", "1/27")]
@@ -157,6 +161,39 @@ namespace CalculatorShell.Tests.Expressions
             IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
 
             var result = parsed.Differentiate("x").Simplify();
+
+            Assert.AreEqual(expected, result.ToString());
+        }
+
+        [TestCase("1+1", "2")]
+        [TestCase("0+one", "one")]
+        [TestCase("one+0", "one")]
+        [TestCase("one+-one", "(one - one)")]
+        [TestCase("-one+-one", "((-one) - one)")]
+        [TestCase("-one+one", "(one - one)")]
+        [TestCase("1-1", "0")]
+        [TestCase("0-one", "(-one)")]
+        [TestCase("one-0", "one")]
+        [TestCase("one--one", "(one + one)")]
+        [TestCase("4/2", "2")]
+        [TestCase("3.1/0.1", "31")]
+        [TestCase("0/one", "0")]
+        [TestCase("one/1", "one")]
+        [TestCase("one/-1", "(-one)")]
+        [TestCase("-one/-one", "(one / one)")]
+        [TestCase("3*2", "6")]
+        [TestCase("0*one", "0")]
+        [TestCase("one*0", "0")]
+        [TestCase("1*one", "one")]
+        [TestCase("one*1", "one")]
+        [TestCase("-1*one", "(-one)")]
+        [TestCase("one*-1", "(-one)")]
+        [TestCase("-one*-one", "(one * one)")]
+        public void TestSimplify(string expression, string expected)
+        {
+            IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
+
+            var result = parsed.Simplify();
 
             Assert.AreEqual(expected, result.ToString());
         }
