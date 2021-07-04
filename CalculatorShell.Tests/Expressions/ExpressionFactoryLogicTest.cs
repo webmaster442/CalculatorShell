@@ -21,8 +21,13 @@ namespace CalculatorShell.Tests.Expressions
             _variablesMock = new Mock<IVariables>();
         }
 
-        /*[TestCase("(a & b)", 3)]
-        [TestCase("(a | b)", 1, 2, 3)]*/
+        [TestCase("((!a) & (!b))", 0)]
+        [TestCase("((!a) & b)", 1)]
+        [TestCase("(a & (!b))", 2)]
+        [TestCase("(a & b)", 3)]
+        [TestCase("(a | b)", 1, 2, 3)]
+        [TestCase("((a & (!b)) | ((!a) & b))", 1, 2)]
+        [TestCase("((a & b) | ((!a) & (!b)))", 0, 3)]
         public void TestMintermParsing(string expected, params int[] input)
         {
             IExpression parsed = ExpressionFactory.ParseLogic(input, null, new ParseLogicOptions

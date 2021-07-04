@@ -83,39 +83,9 @@ namespace CalculatorShell.Expressions.Internals.Logic
         public static string GetBinaryValue(int number, int chars)
         {
             string bin = Convert.ToString(number, 2);
-            return bin.PadLeft(chars, '0');
-        }
-
-
-        public static string GetMintermExpression(string binary, bool msbA = true)
-        {
-            StringBuilder sb = new StringBuilder(binary.Length * 2);
-            int variable = 'A';
-
-            if (!msbA)
-                variable += (binary.Length -1);
-
-            int cnt = 0;
-            sb.Append("(");
-            foreach (var bin in binary)
-            {
-                if (bin == '0')
-                    sb.AppendFormat("!{0}", (char)variable);
-                else
-                    sb.Append((char)variable);
-
-                if (cnt < binary.Length -1)
-                    sb.Append('&');
-
-                if (msbA)
-                    ++variable;
-                else
-                    --variable;
-
-                ++cnt;
-            }
-            sb.Append(")");
-            return sb.ToString();
+            if (bin.Length < chars)
+                return bin.PadLeft(chars, '0');
+            return bin;
         }
 
         internal static int GetVariableCount(IEnumerable<int> terms, IEnumerable<int> notCared)
@@ -123,7 +93,12 @@ namespace CalculatorShell.Expressions.Internals.Logic
             var merged = terms.Union(notCared);
             int max = merged.Max();
 
-            return (int)Math.Ceiling(Math.Log2(max));
+            int variables = (int)Math.Ceiling(Math.Log2(max));
+
+            if (variables < 2)
+                return 2;
+
+            return variables;
         }
     }
 }

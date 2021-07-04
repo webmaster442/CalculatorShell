@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace CalculatorShell.Expressions.Internals.Logic
 {
@@ -126,21 +127,21 @@ namespace CalculatorShell.Expressions.Internals.Logic
         private static string GetFinalExpression(List<Implicant> implicants, bool lsba = false, bool negate = false)
         {
             int longest = 0;
-            string final = string.Empty;
+            StringBuilder final = new();
 
-            foreach (Implicant m in implicants)
-            {
-                if (m.Mask.Length > longest)
-                    longest = m.Mask.Length;
-            }
+            longest = implicants.Max(m => m.Mask.Length);
 
             for (int i = implicants.Count - 1; i >= 0; i--)
             {
-                if (negate) final += implicants[i].ToString(longest, lsba, negate) + " & ";
-                else final += implicants[i].ToString(longest, lsba, negate) + " | ";
+                string s = ImplicantStringFactory.Create(implicants[i], longest, lsba, negate);
+                final.Append(s);
+                if (negate)
+                    final.Append(" & ");
+                else
+                    final.Append(" | ");
             }
 
-            string ret = final.Length > 3 ? final[0..^3] : final;
+            string ret = final.Length > 3 ? final.ToString()[0..^3] : final.ToString();
             switch (ret)
             {
                 case " + ":
@@ -175,7 +176,6 @@ namespace CalculatorShell.Expressions.Internals.Logic
                 implicants.Add(m);
             }
 
-            //int count = 0;
             while (Simplify(ref implicants))
             {
                 //Populate a matrix.
