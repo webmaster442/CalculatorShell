@@ -144,7 +144,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
             string ret = final.Length > 3 ? final.ToString()[0..^3] : final.ToString();
             switch (ret)
             {
-                case " + ":
+                case " | ":
                     return "true";
                 case "":
                     return "false";

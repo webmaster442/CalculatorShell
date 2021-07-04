@@ -28,11 +28,33 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("(a | b)", 1, 2, 3)]
         [TestCase("((a & (!b)) | ((!a) & b))", 1, 2)]
         [TestCase("((a & b) | ((!a) & (!b)))", 0, 3)]
-        public void TestMintermParsing(string expected, params int[] input)
+        [TestCase("True", 0, 1, 2, 3)]
+        public void TestMintermParsingMsb(string expected, params int[] input)
         {
             IExpression parsed = ExpressionFactory.ParseLogic(input, null, new ParseLogicOptions
             {
                 LsbDirection = Lsb.AisMsb,
+                Variables = _variablesMock.Object,
+                Culture = CultureInfo.InvariantCulture,
+                GenerateHazardFree = false,
+                TermKind = TermKind.Minterm,
+            });
+            Assert.AreEqual(expected, parsed.ToString());
+        }
+
+        [TestCase("((!b) & (!a))", 0)]
+        [TestCase("((!b) & a)", 1)]
+        [TestCase("(b & (!a))", 2)]
+        [TestCase("(b & a)", 3)]
+        [TestCase("(b | a)", 1, 2, 3)]
+        [TestCase("((b & (!a)) | ((!b) & a))", 1, 2)]
+        [TestCase("((b & a) | ((!b) & (!a)))", 0, 3)]
+        [TestCase("True", 0, 1, 2, 3)]
+        public void TestMintermParsingLsb(string expected, params int[] input)
+        {
+            IExpression parsed = ExpressionFactory.ParseLogic(input, null, new ParseLogicOptions
+            {
+                LsbDirection = Lsb.AisLsb,
                 Variables = _variablesMock.Object,
                 Culture = CultureInfo.InvariantCulture,
                 GenerateHazardFree = false,

@@ -14,7 +14,10 @@ namespace CalculatorShell.Expressions.Internals.Logic
             else
                 result = CreateMsb(negate, mask);
 
-            return $"({result[0..^1]})";
+            if (!string.IsNullOrWhiteSpace(result))
+                return $"({result[0..^1]})";
+
+            return result;
         }
 
         private static string CreateMsb(bool negate, string mask)
@@ -50,7 +53,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
                 else
                 {
                     if (mask[i] == '0') builder.AppendFormat("!{0} &", GetChar(length, i));
-                    else if (mask[i] == '1') builder.AppendFormat("!{0} &", GetChar(length, i));
+                    else if (mask[i] == '1') builder.AppendFormat("{0} &", GetChar(length, i));
                 }
             }
 
