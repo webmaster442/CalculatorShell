@@ -1,10 +1,12 @@
 ﻿using CalculatorShell.Expressions.Internals;
 using CalculatorShell.Expressions.Internals.Expressions;
+using CalculatorShell.Expressions.Internals.Logic;
 using CalculatorShell.Expressions.Properties;
 using CalculatorShell.Maths;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace CalculatorShell.Expressions
@@ -49,11 +51,8 @@ namespace CalculatorShell.Expressions
         /// <param name="variables">variables to use</param>
         /// <param name="culture">culture to use for parsing</param>
         /// <returns>Parsed expression</returns>
-        public static IExpression Parse(string function, IVariables variables, CultureInfo? culture)
+        public static IExpression Parse(string function, IVariables variables, CultureInfo culture)
         {
-            if (culture == null)
-                throw new ArgumentNullException(nameof(culture));
-
             _culture = culture;  
             _tokenizer = new Tokenizer(function, culture);
             _currentToken = new Token("", TokenType.None);
@@ -75,6 +74,35 @@ namespace CalculatorShell.Expressions
                 throw new ExpressionEngineException(Resources.TrailingChars);
             }
             return exp;
+        }
+
+        /// <summary>
+        /// Parse a given set of minterms or maxterms to a logic expression
+        /// </summary>
+        /// <param name="terms">Collection of terms that are cared</param>
+        /// <param name="dontcareTerms">Collection of terms that don't count</param>
+        /// <param name="options">parsing options</param>
+        /// <returns>A parsed expression</returns>
+        public static IExpression ParseLogic(IEnumerable<int> terms, 
+                                             IEnumerable<int>? dontcareTerms, 
+                                             ParseLogicOptions options)
+        {
+            IEnumerable<int> notCared = Enumerable.Empty<int>();
+            if (dontcareTerms != null)
+                notCared = dontcareTerms;
+
+
+            string logic = QuineMcclusky.GetSimplified(terms, notCared, Utilities.GetVariableCount(terms, notCared), new QuineMcCluskeyConfig
+            {
+                AIsLsb = options.LsbDirection == Lsb.AisLsb,
+                HazardFree = options.GenerateHazardFree,
+                Negate = options.TermKind == TermKind.Maxterm,
+            });
+
+            if (options.Variables == null)
+                throw new ArgumentNullException(nameof(options.Variables));
+
+            return Parse(logic, options.Variables, options.Culture);
         }
 
         private static bool Next()
@@ -351,7 +379,6 @@ namespace CalculatorShell.Expressions
             Eat(TokenType.CloseParen);
 
             return FunctionFactory.Create(function, arguments);
-
         }
     }
 }
