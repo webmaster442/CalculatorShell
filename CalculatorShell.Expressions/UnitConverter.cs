@@ -12,7 +12,7 @@ namespace CalculatorShell.Expressions
     /// </summary>
     public sealed class UnitConverter
     {
-        private IUnitConverter[] _subconverters;
+        private readonly IUnitConverter[] _subconverters;
 
         /// <summary>
         /// Creates a new instance of UnitConverter

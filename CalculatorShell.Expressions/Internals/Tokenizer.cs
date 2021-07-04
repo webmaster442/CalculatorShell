@@ -57,6 +57,8 @@ namespace CalculatorShell.Expressions.Internals
                         return new Token("*", TokenType.Multiply);
                     case '/':
                         return new Token("/", TokenType.Divide);
+                    case '%':
+                        return new Token("%", TokenType.Mod);
                     case '^':
                         return new Token("^", TokenType.Exponent);
                     case '(':

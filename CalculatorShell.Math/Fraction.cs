@@ -70,12 +70,12 @@ namespace CalculatorShell.Maths
             return ToString(CultureInfo.InvariantCulture);
         }
 
-        public string ToString(CultureInfo cultureInfo)
+        public string ToString(IFormatProvider formatProvider)
         {
             if (Denominator == 1)
-                return Numerator.ToString(cultureInfo);
+                return Numerator.ToString(formatProvider);
             else
-                return $"{Numerator.ToString(cultureInfo)}/{Denominator.ToString(cultureInfo)}";
+                return $"{Numerator.ToString(formatProvider)}/{Denominator.ToString(formatProvider)}";
         }
 
         public override bool Equals(object? obj)
