@@ -27,9 +27,21 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 // two constants
                 return new Constant(new NumberImplementation(leftConst.Value.Value & rightConst.Value.Value));
             }
-            if (leftConst?.Value.Value || rightConst?.Value.Value)
+            if (leftConst?.Value.Value == true)
             {
                 return new Constant(new NumberImplementation(true));
+            }
+            else if (leftConst?.Value.Value == false)
+            {
+                return newRight ?? throw new ExpressionEngineException(Resources.InternalError);
+            }
+            else if (rightConst?.Value.Value == true)
+            {
+                return new Constant(new NumberImplementation(true));
+            }
+            else if (rightConst?.Value.Value == false)
+            {
+                return newLeft ?? throw new ExpressionEngineException(Resources.InternalError);
             }
 
             return new Or(newLeft, newRight);

@@ -146,7 +146,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
             {
                 case " | ":
                     return "true";
-                case "":
+                case " & ":
                     return "false";
                 default:
                     return ret;

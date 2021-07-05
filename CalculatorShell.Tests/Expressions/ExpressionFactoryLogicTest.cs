@@ -62,5 +62,41 @@ namespace CalculatorShell.Tests.Expressions
             });
             Assert.AreEqual(expected, parsed.ToString());
         }
+
+        [TestCase("(a | b)", 0)]
+        [TestCase("(a | (!b))", 1)]
+        [TestCase("((!a) | b)", 2)]
+        [TestCase("((!a) | (!b))", 3)]
+        [TestCase("False", 0, 1, 2, 3)]
+        public void TestMaxtermPArsingMsb(string expected, params int[] input)
+        {
+            IExpression parsed = ExpressionFactory.ParseLogic(input, null, new ParseLogicOptions
+            {
+                LsbDirection = Lsb.AisMsb,
+                Variables = _variablesMock.Object,
+                Culture = CultureInfo.InvariantCulture,
+                GenerateHazardFree = false,
+                TermKind = TermKind.Maxterm,
+            });
+            Assert.AreEqual(expected, parsed.ToString());
+        }
+
+        [TestCase("(b | a)", 0)]
+        [TestCase("(b | (!a))", 1)]
+        [TestCase("((!b) | a)", 2)]
+        [TestCase("((!b) | (!a))", 3)]
+        [TestCase("False", 0, 1, 2, 3)]
+        public void TestMaxtermPArsingLsb(string expected, params int[] input)
+        {
+            IExpression parsed = ExpressionFactory.ParseLogic(input, null, new ParseLogicOptions
+            {
+                LsbDirection = Lsb.AisLsb,
+                Variables = _variablesMock.Object,
+                Culture = CultureInfo.InvariantCulture,
+                GenerateHazardFree = false,
+                TermKind = TermKind.Maxterm,
+            });
+            Assert.AreEqual(expected, parsed.ToString());
+        }
     }
 }

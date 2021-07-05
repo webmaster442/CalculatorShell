@@ -48,7 +48,6 @@ namespace CalculatorShell.Expressions.Internals.Logic
                 {
                     if (mask[i] == '0') builder.AppendFormat("{0} |", GetChar(length, i));
                     else if (mask[i] == '1') builder.AppendFormat("!{0} |", GetChar(length, i));
-                    if (i != mask.Length - 1) builder.Append("|");
                 }
                 else
                 {

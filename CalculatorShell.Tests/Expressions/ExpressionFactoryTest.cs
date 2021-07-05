@@ -19,8 +19,7 @@ namespace CalculatorShell.Tests.Expressions
             _variablesMock = new Mock<IVariables>(MockBehavior.Strict);
             _variablesMock.SetupGet(x => x["a"]).Returns(new NumberImplementation(44));
             _variablesMock.SetupGet(x => x["one"]).Returns(new NumberImplementation(1));
-            _variablesMock.SetupGet(x => x["minusone"]).Returns(new NumberImplementation(-1));
-            _variablesMock.SetupGet(x => x["zero"]).Returns(new NumberImplementation(0));
+            _variablesMock.SetupGet(x => x["logic"]).Returns(new NumberImplementation(false));
             _variablesMock.SetupGet(x => x["b"]).Returns(new NumberImplementation(new Fraction(3, 4)));
             _variablesMock.SetupGet(x => x["b", "Denominator"]).Returns(new NumberImplementation(4));
             _variablesMock.SetupGet(x => x["b", "denominator"]).Returns(new NumberImplementation(4));
@@ -189,6 +188,14 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("-1*one", "(-one)")]
         [TestCase("one*-1", "(-one)")]
         [TestCase("-one*-one", "(one * one)")]
+        [TestCase("logic&true", "logic")]
+        [TestCase("true&logic", "logic")]
+        [TestCase("false&logic", "False")]
+        [TestCase("logic&false", "False")]
+        [TestCase("logic|true", "True")]
+        [TestCase("true|logic", "True")]
+        [TestCase("logic|false", "logic")]
+        [TestCase("false|logic", "logic")]
         public void TestSimplify(string expression, string expected)
         {
             IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
