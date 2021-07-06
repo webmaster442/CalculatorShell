@@ -13,6 +13,7 @@ namespace CalculatorShell.Base
         /// </summary>
         /// <param name="ex">Exception to display</param>
         void Error(Exception ex);
+
         /// <summary>
         /// Display an error message.
         /// </summary>
@@ -37,6 +38,12 @@ namespace CalculatorShell.Base
         /// <exception cref="System.ArgumentNullException">format or arg is null</exception>
         /// <exception cref="System.FormatException">The format specification in format is invalid</exception>
         void WriteLine(string format, params object[] args);
+        /// <summary>
+        /// Write multiple lines to the console
+        /// </summary>
+        /// <typeparam name="T">Type of object</typeparam>
+        /// <param name="items">collection of items</param>
+        void WriteLines<T>(IEnumerable<T> items);
         /// <summary>
         /// Write an objects properties and values as a table to the console
         /// </summary>

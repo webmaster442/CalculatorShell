@@ -20,8 +20,12 @@ namespace CalculatorShell.Infrastructure
         private readonly CultureInfo _culture;
         private CancellationTokenSource? _cancellationTokenSource;
         private readonly HostEnvironment _host;
+        private readonly IFsHost _fsHost;
 
-        public CommandRunner(IEnumerable<ICommand> commands, HostEnvironment host, CultureInfo culture)
+        public CommandRunner(IEnumerable<ICommand> commands,
+                             HostEnvironment host,
+                             IFsHost fsHost,
+                             CultureInfo culture)
         {
             _culture = culture;
             _console = new ProgramConsole();
@@ -30,6 +34,7 @@ namespace CalculatorShell.Infrastructure
             _commandTable = commands.ToDictionary(x => x.GetType().Name.ToLower(), x => x);
             _cancellationTokenSource = new CancellationTokenSource();
             _host = host;
+            _fsHost = fsHost;
             SetupHosting();
         }
 
@@ -48,13 +53,7 @@ namespace CalculatorShell.Infrastructure
         {
             while (_host.CanRun)
             {
-                var angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
-                {
-                    TextFormat = TextFormat.Italic,
-                    Foreground = new Base.ConsoleColor(0xff, 0x00, 0xff),
-                });
-
-                string prompt = $"\n{angleMode}{ExpressionFactory.CurrentAngleMode}{EscapeCodeFactory.Reset} > ";
+                string prompt = CreatePrompt(_fsHost.CurrentDirectory);
                 string rawLine = _lineReader.Read(prompt);
                 IEnumerable<string> arguments = ParseArguments(rawLine);
                 string cmd = arguments.FirstOrDefault() ?? string.Empty;
@@ -78,6 +77,13 @@ namespace CalculatorShell.Infrastructure
                                 await taskCommand.Execute(new Arguments(args, _culture), _console, _cancellationTokenSource.Token).ConfigureAwait(false);
                                 ResetToken();
                             }
+                            else if (_commandTable[cmd] is IFsTaskCommand fsTaskCommand
+                                && _cancellationTokenSource != null)
+                            {
+                                _console.WriteLine(Resources.BackgroundJobStart);
+                                await fsTaskCommand.Execute(new Arguments(args, _culture), _console, _fsHost, _cancellationTokenSource.Token).ConfigureAwait(false);
+                                ResetToken();
+                            }
                             else
                             {
                                 // Missing entry proint for command
@@ -98,6 +104,24 @@ namespace CalculatorShell.Infrastructure
                     }
                 }
             }
+        }
+
+        private static string CreatePrompt(string currentDirectory)
+        {
+            var angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
+            {
+                TextFormat = TextFormat.Italic,
+                Foreground = new Base.ConsoleColor(0xff, 0x00, 0xff),
+            });
+
+            var dir = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
+            {
+                Foreground = new Base.ConsoleColor(0xF2, 0xC5, 0x1F),
+                TextFormat = TextFormat.None,
+            });
+
+            return $"\n{dir}{currentDirectory}{EscapeCodeFactory.Reset}\n"
+                   + $"↪ {angleMode}{ExpressionFactory.CurrentAngleMode}{EscapeCodeFactory.Reset} > ";
         }
 
         private void ResetToken()

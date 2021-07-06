@@ -123,17 +123,35 @@ namespace CalculatorShell
 
         public void WriteTable<T>(T item)
         {
+            if (_currentFormat != null)
+                Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
+
             Console.WriteLine(TableHelper.WriteTable(item));
         }
 
         public void WriteTable<Tkey, TValue>(IDictionary<Tkey, TValue> dictionary)
         {
+            if (_currentFormat != null)
+                Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
+
             Console.WriteLine(TableHelper.WriteTable(dictionary));
         }
 
         public void WriteTable<T>(IEnumerable<T> items, int columns = 4)
         {
+            if (_currentFormat != null)
+                Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
+
             Console.WriteLine(TableHelper.WriteTable(items, columns));
+        }
+
+        public void WriteLines<T>(IEnumerable<T> items)
+        {
+            if (_currentFormat != null)
+                Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
+
+            string result = string.Join('\n', items);
+            Console.WriteLine(result);
         }
     }
 }
