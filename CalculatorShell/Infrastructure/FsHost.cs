@@ -11,7 +11,7 @@ namespace CalculatorShell.Infrastructure
 
         public FsHost()
         {
-            _currentDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            _currentDirectory = Home;
         }
 
         public string CurrentDirectory
@@ -28,6 +28,8 @@ namespace CalculatorShell.Infrastructure
                     throw new InvalidOperationException("Path doesn't exist");
             }
         }
+
+        public string Home => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
         public IEnumerable<string> GetDirectories()
         {

@@ -1,5 +1,7 @@
 ﻿using CalculatorShell.Base;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -10,5 +12,7 @@ namespace CalculatorShell.Infrastructure
 
         [Import(typeof(IHost))]
         public IHost? Host { get; set; }
+
+        public virtual IEnumerable<string> Aliases => Enumerable.Empty<string>();
     }
 }

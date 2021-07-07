@@ -43,7 +43,8 @@ namespace CalculatorShell.Base
         /// </summary>
         /// <typeparam name="T">Type of object</typeparam>
         /// <param name="items">collection of items</param>
-        void WriteLines<T>(IEnumerable<T> items);
+        /// <param name="itemFormatter">Single item formatter function, that convert the item to a line of string</param>
+        void WriteLines<T>(IEnumerable<T> items, Func<T, string> itemFormatter);
         /// <summary>
         /// Write an objects properties and values as a table to the console
         /// </summary>

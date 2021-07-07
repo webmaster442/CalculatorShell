@@ -11,11 +11,18 @@ namespace CalculatorShell.Base
         /// Get or set current directory
         /// </summary>
         string CurrentDirectory { get; set; }
+
+        /// <summary>
+        /// Home directory
+        /// </summary>
+        string Home { get; }
+
         /// <summary>
         /// Get Current dirs subdirs
         /// </summary>
         /// <returns>Directories</returns>
         IEnumerable<string> GetDirectories();
+        
         /// <summary>
         /// Get current dirs files
         /// </summary>

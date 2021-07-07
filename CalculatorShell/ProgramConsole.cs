@@ -3,6 +3,7 @@ using CalculatorShell.Properties;
 using CalculatorShell.Ui;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CalculatorShell
 {
@@ -145,13 +146,17 @@ namespace CalculatorShell
             Console.WriteLine(TableHelper.WriteTable(items, columns));
         }
 
-        public void WriteLines<T>(IEnumerable<T> items)
+        public void WriteLines<T>(IEnumerable<T> items, Func<T, string> itemFormatter)
         {
             if (_currentFormat != null)
                 Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
 
-            string result = string.Join('\n', items);
-            Console.WriteLine(result);
+            StringBuilder buffer = new();
+            foreach (var item in items)
+            {
+                buffer.AppendLine(itemFormatter.Invoke(item));
+            }
+            Console.WriteLine(buffer.ToString());
         }
     }
 }

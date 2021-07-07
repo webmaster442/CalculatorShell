@@ -1,4 +1,6 @@
-﻿namespace CalculatorShell.Base
+﻿using System.Collections.Generic;
+
+namespace CalculatorShell.Base
 {
     /// <summary>
     /// Base interface for a shell command
@@ -13,5 +15,10 @@
         /// Provides API for memory (variable) management
         /// </summary>
         IMemory? Memory { get; set; }
+
+        /// <summary>
+        /// Return a list of alternative names for the command
+        /// </summary>
+        IEnumerable<string> Aliases { get; }
     }
 }

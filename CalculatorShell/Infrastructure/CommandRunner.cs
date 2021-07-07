@@ -31,11 +31,25 @@ namespace CalculatorShell.Infrastructure
             _console = new ProgramConsole();
             _console.InterruptRequested += OnInterruptRequested;
             _lineReader = new LineReader(true, _console, this);
-            _commandTable = commands.ToDictionary(x => x.GetType().Name.ToLower(), x => x);
+            _commandTable = CreateCommandsTable(commands);
             _cancellationTokenSource = new CancellationTokenSource();
             _host = host;
             _fsHost = fsHost;
             SetupHosting();
+        }
+
+        private Dictionary<string, ICommand> CreateCommandsTable(IEnumerable<ICommand> commands)
+        {
+            var ret = new Dictionary<string, ICommand>();
+            foreach (var cmd in commands)
+            {
+                ret.Add(cmd.GetType().Name.ToLower(), cmd);
+                foreach (var alias in cmd.Aliases)
+                {
+                    ret.Add(alias.ToLower(), cmd);
+                }
+            }
+            return ret;
         }
 
         private void SetupHosting()
