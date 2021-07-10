@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CalculatorShell.Infrastructure
 {
-    public class HostEnvironment : IHost
+    public class HostEnvironment : IHostEx
     {
         public HostEnvironment(IStorage storage)
         {
@@ -14,13 +14,23 @@ namespace CalculatorShell.Infrastructure
             CanRun = true;
         }
 
-        public IEnumerable<string> Commands { get; set; }
+        public IEnumerable<string> Commands { get; private set; }
 
-        public IEnumerable<string> Functions { get; set; }
+        public IEnumerable<string> Functions { get; private set; }
 
         public IStorage Storage { get; }
 
         public bool CanRun { get; private set; }
+
+        public void SetCommands(IEnumerable<string> commands)
+        {
+            Commands = commands;
+        }
+
+        public void SetFunctions(IEnumerable<string> functions)
+        {
+            Functions = functions;
+        }
 
         public void Shutdown()
         {

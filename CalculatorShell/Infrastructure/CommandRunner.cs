@@ -19,11 +19,11 @@ namespace CalculatorShell.Infrastructure
         private readonly Dictionary<string, ICommand> _commandTable;
         private readonly CultureInfo _culture;
         private CancellationTokenSource? _cancellationTokenSource;
-        private readonly HostEnvironment _host;
+        private readonly IHostEx _host;
         private readonly IFsHost _fsHost;
 
         public CommandRunner(IEnumerable<ICommand> commands,
-                             HostEnvironment host,
+                             IHostEx host,
                              IFsHost fsHost,
                              CultureInfo culture)
         {
@@ -54,8 +54,8 @@ namespace CalculatorShell.Infrastructure
 
         private void SetupHosting()
         {
-            _host.Commands = _commandTable.Keys;
-            _host.Functions = ExpressionFactory.KnownFunctions;
+            _host.SetCommands(_commandTable.Keys);
+            _host.SetFunctions(ExpressionFactory.KnownFunctions);
         }
 
         private void OnInterruptRequested(object? sender, EventArgs e)
@@ -63,59 +63,65 @@ namespace CalculatorShell.Infrastructure
             _cancellationTokenSource?.Cancel();
         }
 
-        public async Task Run()
+        public async Task RunShell()
         {
             while (_host.CanRun)
             {
                 string prompt = CreatePrompt(_fsHost.CurrentDirectory);
                 string rawLine = _lineReader.Read(prompt);
-                IEnumerable<string> arguments = ParseArguments(rawLine);
-                string cmd = arguments.FirstOrDefault() ?? string.Empty;
-                string[] args = arguments.Skip(1).ToArray();
 
-                if (!string.IsNullOrEmpty(cmd))
+                await RunSingleCommand(rawLine, _console).ConfigureAwait(false);
+            }
+        }
+
+        public async Task RunSingleCommand(string rawLine, ICommandConsole console)
+        {
+            IEnumerable<string> arguments = ParseArguments(rawLine);
+            string cmd = arguments.FirstOrDefault() ?? string.Empty;
+            string[] args = arguments.Skip(1).ToArray();
+
+            if (!string.IsNullOrEmpty(cmd))
+            {
+                if (_commandTable.ContainsKey(cmd))
                 {
-                    if (_commandTable.ContainsKey(cmd))
+                    try
                     {
-                        try
+                        if (_commandTable[cmd] is ISimpleCommand simpleCommand)
                         {
-                            if (_commandTable[cmd] is ISimpleCommand simpleCommand)
-                            {
 
-                                simpleCommand.Execute(new Arguments(args, _culture), _console);
-                            }
-                            else if (_commandTable[cmd] is ITaskCommand taskCommand
-                                && _cancellationTokenSource != null)
-                            {
-                                _console.WriteLine(Resources.BackgroundJobStart);
-                                await taskCommand.Execute(new Arguments(args, _culture), _console, _cancellationTokenSource.Token).ConfigureAwait(false);
-                                ResetToken();
-                            }
-                            else if (_commandTable[cmd] is IFsTaskCommand fsTaskCommand
-                                && _cancellationTokenSource != null)
-                            {
-                                _console.WriteLine(Resources.BackgroundJobStart);
-                                await fsTaskCommand.Execute(new Arguments(args, _culture), _console, _fsHost, _cancellationTokenSource.Token).ConfigureAwait(false);
-                                ResetToken();
-                            }
-                            else
-                            {
-                                // Missing entry proint for command
-#if DEBUG
-                                System.Diagnostics.Debugger.Break();
-#endif
-                                throw new InvalidOperationException($"Don't know how to run command: {cmd}");
-                            }
+                            simpleCommand.Execute(new Arguments(args, _culture), console);
                         }
-                        catch (Exception ex)
+                        else if (_commandTable[cmd] is ITaskCommand taskCommand
+                            && _cancellationTokenSource != null)
                         {
-                            _console.Error(ex);
+                            _console.WriteLine(Resources.BackgroundJobStart);
+                            await taskCommand.Execute(new Arguments(args, _culture), console, _cancellationTokenSource.Token).ConfigureAwait(false);
+                            ResetToken();
+                        }
+                        else if (_commandTable[cmd] is IFsTaskCommand fsTaskCommand
+                            && _cancellationTokenSource != null)
+                        {
+                            _console.WriteLine(Resources.BackgroundJobStart);
+                            await fsTaskCommand.Execute(new Arguments(args, _culture), console, _fsHost, _cancellationTokenSource.Token).ConfigureAwait(false);
+                            ResetToken();
+                        }
+                        else
+                        {
+                            // Missing entry proint for command
+#if DEBUG
+                            System.Diagnostics.Debugger.Break();
+#endif
+                            throw new InvalidOperationException($"Don't know how to run command: {cmd}");
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        _console.Error(Resources.UnknownCommand, cmd);
+                        _console.Error(ex);
                     }
+                }
+                else
+                {
+                    _console.Error(Resources.UnknownCommand, cmd);
                 }
             }
         }

@@ -18,7 +18,7 @@ namespace CalculatorShell
                 var fshost = new FsHost();
                 var loader = new CommandLoader(memory, host);
                 using var runner = new CommandRunner(loader.Commands, host, fshost, CultureInfo.InvariantCulture);
-                await runner.Run();
+                await runner.RunShell();
             }
         }
 

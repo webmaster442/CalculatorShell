@@ -31,4 +31,21 @@ namespace CalculatorShell.Base
         /// </summary>
         void Shutdown();
     }
+
+    /// <summary>
+    /// Extended host inteface
+    /// </summary>
+    public interface IHostEx : IHost
+    {
+        /// <summary>
+        /// Set commands
+        /// </summary>
+        /// <param name="commands">commands</param>
+        void SetCommands(IEnumerable<string> commands);
+        /// <summary>
+        /// Set functions
+        /// </summary>
+        /// <param name="functions">functions</param>
+        void SetFunctions(IEnumerable<string> functions);
+    }
 }
