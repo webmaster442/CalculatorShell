@@ -1,4 +1,8 @@
-﻿namespace CalculatorShell.Maths
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CalculatorShell.Maths
 {
     public static class Statistics
     {
@@ -28,7 +32,19 @@
                 ret.Sum += numbers[i];
             }
 
+            ret.Median = ComputeMedian(numbers);
+
             return ret;
+        }
+
+        private static double ComputeMedian(double[] numbers)
+        {
+            int halfindex = numbers.Length / 2;
+            var sorted = numbers.OrderBy(x => x);
+            if ((numbers.Length %2) == 0)
+                return (sorted.ElementAt(halfindex) + sorted.ElementAt(halfindex - 1)) / 2;
+            else
+                return sorted.ElementAt(halfindex);
         }
     }
 }
