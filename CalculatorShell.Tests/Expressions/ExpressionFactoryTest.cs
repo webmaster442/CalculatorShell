@@ -164,6 +164,35 @@ namespace CalculatorShell.Tests.Expressions
             Assert.AreEqual(expected, result.ToString());
         }
 
+        [TestCase("arcsin(x)")]
+        [TestCase("arccos(x)")]
+        [TestCase("arctan(x)")]
+        [TestCase("deg2rad(x)")]
+        [TestCase("rad2deg(x)")]
+        [TestCase("grad2deg(x)")]
+        [TestCase("deg2grad(x)")]
+        [TestCase("grad2rad(x)")]
+        [TestCase("rad2grad(x)")]
+        [TestCase("floor(x)")]
+        [TestCase("ceil(x)")]
+        [TestCase("sign(x)")]
+        [TestCase("not(x)")]
+        [TestCase("and(x;x)")]
+        [TestCase("or(x;x)")]
+        [TestCase("xor(x;x)")]
+        [TestCase("shl(x;x)")]
+        [TestCase("shr(x;x)")]
+        [TestCase("cplx(x;x)")]
+        public void TestNonDerivable(string expression)
+        {
+            IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
+
+            Assert.Throws<ExpressionEngineException>(() =>
+            {
+                parsed.Differentiate("x");
+            });
+        }
+
         [TestCase("1+1", "2")]
         [TestCase("0+one", "one")]
         [TestCase("one+0", "one")]
