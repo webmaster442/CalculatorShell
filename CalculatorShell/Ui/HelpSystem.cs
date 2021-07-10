@@ -42,11 +42,14 @@ namespace CalculatorShell.Ui
             int end = -1;
             for (int i=0; i<_lines.Count; i++)
             {
-                if (start == -1 && _lines[i].StartsWith($"# {command}"))
+                if (start == -1 
+                    && _lines[i].StartsWith("# ")
+                    && _lines[i].Contains(command))
                 {
                     start = i;
                 }
-                else if (start != -1 && _lines[i].StartsWith($"# "))
+                else if (start != -1 
+                    && _lines[i].StartsWith("# "))
                 {
                     end = i;
                     break;

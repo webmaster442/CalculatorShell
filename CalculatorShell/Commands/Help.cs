@@ -1,6 +1,7 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Ui;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
@@ -9,6 +10,14 @@ namespace CalculatorShell.Commands
     internal sealed class Help : CommandBase, ISimpleCommand
     {
         private static HelpSystem help = new ();
+
+        public override IEnumerable<string> Aliases
+        {
+            get
+            {
+                yield return "man";
+            }
+        }
 
         public void Execute(Arguments arguments, ICommandConsole output)
         {

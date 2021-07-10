@@ -1,4 +1,23 @@
-﻿# clear
+﻿# cd/cwd
+
+Change the current directory
+
+## Usage
+
+```
+cd [directory]
+cd ..
+cd ~
+```
+
+The Directory can be a subdirectory of the current directory or a full path.
+If the directory is .. then the new directory will be the parent dir of the
+current directory.
+
+If the Directory is the ~ symbol, then the work directory will be the current
+users profile directory
+
+# clear/cls
 
 Clear the Screen.
 
@@ -80,7 +99,7 @@ expr [expression name]
 expr [expression name] [expression value]
 ```
 
-# help
+# help/man
 
 Get help on usage of specific commands.
 
@@ -108,6 +127,16 @@ binary and hex. Also, the number of bytes also displayed.
 
 ```
 info [expression]
+```
+
+# ls/dir
+
+List files and directories of the current working directory
+
+## Usage
+
+```
+ls
 ```
 
 # mem
