@@ -159,6 +159,9 @@
   <data name="MissingToken" xml:space="preserve">
     <value>Missing {0} token</value>
   </data>
+  <data name="NotLogicExpression" xml:space="preserve">
+    <value>Only Logical expressions are supported for this operation</value>
+  </data>
   <data name="NoVariables" xml:space="preserve">
     <value>Variables not set on expression</value>
   </data>

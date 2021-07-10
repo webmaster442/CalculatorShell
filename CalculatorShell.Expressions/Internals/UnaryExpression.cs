@@ -5,7 +5,16 @@ namespace CalculatorShell.Expressions.Internals
 {
     internal abstract class UnaryExpression : IExpression
     {
-        public IVariables? Variables { get; }
+        public IVariables? Variables
+        {
+            get
+            {
+                if (Child?.Variables != null)
+                    return Child.Variables;
+                else
+                    return null;
+            }
+        }
 
         protected UnaryExpression(IExpression? child)
         {

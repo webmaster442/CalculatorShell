@@ -187,6 +187,15 @@ namespace CalculatorShell.Expressions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only Logical expressions are supported for this operation.
+        /// </summary>
+        internal static string NotLogicExpression {
+            get {
+                return ResourceManager.GetString("NotLogicExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Variables not set on expression.
         /// </summary>
         internal static string NoVariables {

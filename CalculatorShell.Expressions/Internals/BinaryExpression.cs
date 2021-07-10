@@ -5,7 +5,18 @@ namespace CalculatorShell.Expressions.Internals
 {
     internal abstract class BinaryExpression : IExpression
     {
-        public IVariables? Variables { get; }
+        public IVariables? Variables
+        {
+            get
+            {
+                if (Left?.Variables != null)
+                    return Left.Variables;
+                else if (Right?.Variables != null)
+                    return Right.Variables;
+                else
+                    return null;
+            }
+        }
 
         protected BinaryExpression(IExpression? left, IExpression? right)
         {

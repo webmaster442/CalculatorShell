@@ -1,5 +1,6 @@
 ﻿using CalculatorShell.Expressions.Internals;
 using CalculatorShell.Expressions.Internals.Expressions;
+using CalculatorShell.Expressions.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,13 +73,13 @@ namespace CalculatorShell.Expressions
         /// </summary>
         /// <param name="expression">Expression to check</param>
         /// <returns>Minterms of the expression</returns>
-        public static IEnumerable<int> GetLogicTable(this IExpression expression)
+        public static IEnumerable<int> GetMinterms(this IExpression expression)
         {
             if (!expression.IsLogicExpression())
-                throw new ExpressionEngineException("Only logical expressions");
+                throw new ExpressionEngineException(Resources.NotLogicExpression);
 
             if (expression.Variables == null)
-                throw new ExpressionEngineException();
+                throw new ExpressionEngineException(Resources.NoVariableValues);
 
             var varialbes = expression.Flatten().OfType<Variable>().ToArray();
             checked

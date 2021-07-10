@@ -196,6 +196,8 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("true|logic", "True")]
         [TestCase("logic|false", "logic")]
         [TestCase("false|logic", "logic")]
+        [TestCase("!true", "False")]
+        [TestCase("!logic", "(!logic)")]
         public void TestSimplify(string expression, string expected)
         {
             IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
