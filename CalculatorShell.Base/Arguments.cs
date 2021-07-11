@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace CalculatorShell.Base
@@ -15,6 +16,7 @@ namespace CalculatorShell.Base
         /// </summary>
         public CultureInfo CurrentCulture { get; }
 
+
         /// <summary>
         /// Throw an exception if argument count is below or over limit.
         /// </summary>
@@ -24,7 +26,6 @@ namespace CalculatorShell.Base
             if (_arguments.Length < count || _arguments.Length > count)
                 throw new InvalidOperationException($"Command expected {count} arguments. {_arguments.Length} was given");
         }
-
 
         /// <summary>
         /// Throw an exception if argument count is not in the given range
@@ -49,6 +50,16 @@ namespace CalculatorShell.Base
         }
 
         /// <summary>
+        /// Throw an exception if argument count is below a limit.
+        /// </summary>
+        /// <param name="count">Number of arguments to expect</param>
+        public void CheckMinimumArgumentCount(int count)
+        {
+            if (_arguments.Length < count)
+                throw new InvalidOperationException($"Command expected at least {count} arguments.");
+        }
+
+        /// <summary>
         /// Create a new instance of arguments
         /// </summary>
         /// <param name="args">raw tokenized sting arguments</param>
@@ -65,13 +76,31 @@ namespace CalculatorShell.Base
         /// <typeparam name="T">Target type</typeparam>
         /// <param name="index">argument index</param>
         /// <param name="result">converted ouptut</param>
+        /// <param name="ignore">string to ignore at the begining of the argument</param>
         /// <returns>true, if conversion was successfull, othwerwise false</returns>
-        public bool TryGet<T>(int index, out T? result) where T : IConvertible
+        public bool TryGet<T>(int index, out T? result, string? ignore = "") where T : IConvertible
         {
+            var preprocessed = _arguments[index];
+            if (!string.IsNullOrEmpty(ignore)
+                && preprocessed.StartsWith(ignore))
+            {
+                preprocessed = preprocessed.Substring(ignore.Length);
+            }
+
             try
             {
-                result = (T)Convert.ChangeType(_arguments[index], typeof(T), CurrentCulture);
-                return true;
+                if (typeof(T).IsEnum
+                    && Enum.TryParse(typeof(T), preprocessed, true, out object? enumObject)
+                    && enumObject != null)
+                {
+                    result = (T)enumObject;
+                    return true;
+                }
+                else
+                {
+                    result = (T)Convert.ChangeType(preprocessed, typeof(T), CurrentCulture);
+                    return true;
+                }
             }
             catch (Exception)
             {
@@ -85,20 +114,46 @@ namespace CalculatorShell.Base
         /// </summary>
         /// <typeparam name="T">Target type</typeparam>
         /// <param name="index">argument index</param>
-        /// <param name="failMsg">Message of the Exception, when the conversion failed</param>
+        /// <param name="ignore">string to ignore at the begining of the argument</param>
         /// <returns>Converted value</returns>
-        public T Get<T>(int index, string? failMsg = null) where T : IConvertible
+        public T Get<T>(int index, string? ignore = null) where T : IConvertible
         {
+            var preprocessed = _arguments[index];
+            if (!string.IsNullOrEmpty(ignore)
+                && preprocessed.StartsWith(ignore))
+            {
+                preprocessed = preprocessed.Substring(ignore.Length);
+            }
+
             try
             {
-                return (T)Convert.ChangeType(_arguments[index], typeof(T), CurrentCulture);
+                if (typeof(T).IsEnum
+                    && Enum.TryParse(typeof(T), preprocessed, true, out object? enumObject)
+                    && enumObject != null)
+                {
+                    return (T)enumObject;
+                }
+
+                return (T)Convert.ChangeType(preprocessed, typeof(T), CurrentCulture);
             }
             catch (Exception ex)
             {
-                if (string.IsNullOrEmpty(failMsg))
-                    throw new InvalidOperationException(ex.Message, ex);
-                else
-                    throw new InvalidOperationException(failMsg, ex);
+                throw new InvalidOperationException(ex.Message, ex);
+            }
+        }
+
+        /// <summary>
+        /// Get a converted value of the given indexes. If conversion fails, an InvalidOperationException is thrown
+        /// </summary>
+        /// <typeparam name="T">Target type</typeparam>
+        /// <param name="start">start index</param>
+        /// <param name="end">end index</param>
+        /// <returns>an enumerable of converted values</returns>
+        public IEnumerable<T> GetRange<T>(int start, int end) where T : IConvertible
+        {
+            for (int i = start; i < end; i++)
+            {
+                yield return Get<T>(i);
             }
         }
 

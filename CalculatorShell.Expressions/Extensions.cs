@@ -81,7 +81,9 @@ namespace CalculatorShell.Expressions
             if (expression.Variables == null)
                 throw new ExpressionEngineException(Resources.NoVariableValues);
 
-            var varialbes = expression.Flatten().OfType<Variable>().ToArray();
+            //distinct by name
+            var varialbes = GetDistinctVariables(expression.Flatten().OfType<Variable>()).ToArray();
+
             checked
             {
                 int combinations = 1 << varialbes.Length;
@@ -97,6 +99,19 @@ namespace CalculatorShell.Expressions
                     {
                         yield return i;
                     }
+                }
+            }
+        }
+
+        private static IEnumerable<Variable> GetDistinctVariables(IEnumerable<Variable> enumerable)
+        {
+            HashSet<string> names = new HashSet<string>();
+            foreach (var variable in enumerable)
+            {
+                if (!names.Contains(variable.Name))
+                {
+                    names.Add(variable.Name);
+                    yield return variable;
                 }
             }
         }
