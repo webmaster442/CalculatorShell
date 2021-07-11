@@ -3,6 +3,7 @@ using CalculatorShell.Expressions.Internals.Expressions;
 using CalculatorShell.Expressions.Properties;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace CalculatorShell.Expressions
@@ -79,7 +80,7 @@ namespace CalculatorShell.Expressions
                 throw new ExpressionEngineException(Resources.NotLogicExpression);
 
             if (expression.Variables == null)
-                throw new ExpressionEngineException(Resources.NoVariableValues);
+                yield break;
 
             //distinct by name
             var varialbes = GetDistinctVariables(expression.Flatten().OfType<Variable>()).ToArray();
@@ -100,6 +101,38 @@ namespace CalculatorShell.Expressions
                         yield return i;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Extended simplification that handles logic expressions correctly
+        /// </summary>
+        /// <param name="expression">Expression to simplify</param>
+        /// <param name="culture">Culture to use</param>
+        /// <returns>Simplified expression</returns>
+        public static IExpression ExtendedSimplify(this IExpression expression, CultureInfo culture)
+        {
+            if (expression.IsLogicExpression())
+            {
+                var simplified = expression.Simplify();
+                var minterms = simplified.GetMinterms();
+
+                if (simplified.Variables == null)
+                    return simplified;
+
+                return ExpressionFactory.ParseLogic(minterms, null, new ParseLogicOptions
+                {
+                    Culture = culture,
+                    GenerateHazardFree = false,
+                    TermKind = TermKind.Minterm,
+                    LsbDirection = Lsb.AisMsb,
+                    Variables = expression.Variables,
+                    MinVariableCount = 1,
+                });
+            }
+            else
+            {
+                return expression.Simplify();
             }
         }
 

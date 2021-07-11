@@ -41,5 +41,19 @@ namespace CalculatorShell.Tests.Expressions
             var result = parsed.GetMinterms().ToArray();
             CollectionAssert.AreEqual(expected, result);
         }
+
+        [TestCase("a|b|b", "(a | b)")]
+        [TestCase("a|!a", "True")]
+        [TestCase("a&!a", "False")]
+        [TestCase("true|false", "True")]
+        [TestCase("true&false", "False")]
+        public void TestExtendedSimplify(string expression, string expected)
+        {
+            var parsed = ExpressionFactory.Parse(expression, _testVars, CultureInfo.InvariantCulture);
+            var simplified = parsed.ExtendedSimplify(CultureInfo.InvariantCulture);
+
+            Assert.AreEqual(expected, simplified.ToString());
+
+        }
     }
 }

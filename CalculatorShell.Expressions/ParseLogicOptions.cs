@@ -59,5 +59,10 @@ namespace CalculatorShell.Expressions
         /// Expression parsing culture
         /// </summary>
         public CultureInfo Culture { get; init; } = CultureInfo.InvariantCulture;
+
+        /// <summary>
+        /// Minimum number of variables
+        /// </summary>
+        public int MinVariableCount { get; init; } = 1;
     }
 }

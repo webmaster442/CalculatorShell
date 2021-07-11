@@ -1,12 +1,7 @@
 ﻿using CalculatorShell.Expressions;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Tests.Expressions
 {
@@ -38,6 +33,7 @@ namespace CalculatorShell.Tests.Expressions
                 Culture = CultureInfo.InvariantCulture,
                 GenerateHazardFree = false,
                 TermKind = TermKind.Minterm,
+                MinVariableCount = 2,
             });
             Assert.AreEqual(expected, parsed.ToString());
         }
@@ -59,6 +55,7 @@ namespace CalculatorShell.Tests.Expressions
                 Culture = CultureInfo.InvariantCulture,
                 GenerateHazardFree = false,
                 TermKind = TermKind.Minterm,
+                MinVariableCount = 2,
             });
             Assert.AreEqual(expected, parsed.ToString());
         }
@@ -77,6 +74,7 @@ namespace CalculatorShell.Tests.Expressions
                 Culture = CultureInfo.InvariantCulture,
                 GenerateHazardFree = false,
                 TermKind = TermKind.Maxterm,
+                MinVariableCount = 2,
             });
             Assert.AreEqual(expected, parsed.ToString());
         }
@@ -95,6 +93,7 @@ namespace CalculatorShell.Tests.Expressions
                 Culture = CultureInfo.InvariantCulture,
                 GenerateHazardFree = false,
                 TermKind = TermKind.Maxterm,
+                MinVariableCount = 2,
             });
             Assert.AreEqual(expected, parsed.ToString());
         }

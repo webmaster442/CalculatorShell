@@ -16,6 +16,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override IExpression Simplify()
         {
+#pragma warning disable S1125 // Boolean literals should not be redundant
             var newLeft = Left?.Simplify();
             var newRight = Right?.Simplify();
 
@@ -43,6 +44,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             {
                 return new Constant(new NumberImplementation(false));
             }
+#pragma warning restore S1125 // Boolean literals should not be redundant
 
             return new And(newLeft, newRight);
         }

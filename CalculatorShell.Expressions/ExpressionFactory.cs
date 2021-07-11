@@ -92,15 +92,21 @@ namespace CalculatorShell.Expressions
                 notCared = dontcareTerms;
 
 
-            string logic = QuineMcclusky.GetSimplified(terms, notCared, Utilities.GetVariableCount(terms, notCared), new QuineMcCluskeyConfig
-            {
-                AIsLsb = options.LsbDirection == Lsb.AisLsb,
-                HazardFree = options.GenerateHazardFree,
-                Negate = options.TermKind == TermKind.Maxterm,
-            });
+            string logic = QuineMcclusky.GetSimplified(terms, 
+                                                       notCared, 
+                                                       Utilities.GetVariableCount(terms, notCared, options.MinVariableCount),
+                                                       new QuineMcCluskeyConfig
+                                                       {
+                                                           AIsLsb = options.LsbDirection == Lsb.AisLsb,
+                                                           HazardFree = options.GenerateHazardFree,
+                                                           Negate = options.TermKind == TermKind.Maxterm,
+                                                       });
 
             if (options.Variables == null)
                 throw new ArgumentNullException(nameof(options.Variables));
+
+            if (string.IsNullOrEmpty(logic))
+                logic = "false";
 
             return Parse(logic, options.Variables, options.Culture);
         }

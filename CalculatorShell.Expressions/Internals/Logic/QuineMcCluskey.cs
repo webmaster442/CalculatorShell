@@ -94,7 +94,6 @@ namespace CalculatorShell.Expressions.Internals.Logic
             int runnumber = 0;
             while (lstToRemove.Count != 0)
             {
-                //Implicant[] weightedTerms = WeightImplicants(implicants, final, lstToRemove);
                 foreach (var m in implicants)
                 {
                     bool add = false;
@@ -106,9 +105,11 @@ namespace CalculatorShell.Expressions.Internals.Logic
                     }
                     else add = false;
 
-                    if (((lstToRemove.Count <= m.Minterms.Count) && !add) || runnumber > 5)
+                    if ((((lstToRemove.Count <= m.Minterms.Count) && !add) || runnumber > 5)
+                        && Utilities.ContainsAtleastOne(lstToRemove, m.Minterms)
+                        && runnumber > 5)
                     {
-                        if (Utilities.ContainsAtleastOne(lstToRemove, m.Minterms) && runnumber > 5) add = true;
+                        add = true;
                     }
 
                     if (add)
@@ -129,7 +130,8 @@ namespace CalculatorShell.Expressions.Internals.Logic
             int longest = 0;
             StringBuilder final = new();
 
-            longest = implicants.Max(m => m.Mask.Length);
+            if (implicants.Any())
+                longest = implicants.Max(m => m.Mask.Length);
 
             for (int i = implicants.Count - 1; i >= 0; i--)
             {

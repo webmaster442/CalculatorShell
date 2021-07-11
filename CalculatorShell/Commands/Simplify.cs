@@ -43,26 +43,10 @@ namespace CalculatorShell.Commands
         private void ExecuteEpressionMode(Arguments arguments, ICommandConsole output)
         {
             var expression = ParseExpression(arguments, 0);
-            if (expression.IsLogicExpression())
-            {
-                var minterms = expression.GetMinterms();
-                var reparsed = ExpressionFactory.ParseLogic(minterms, null, new ParseLogicOptions
-                {
-                    Culture = arguments.CurrentCulture,
-                    GenerateHazardFree = false,
-                    TermKind = TermKind.Minterm,
-                    LsbDirection = Lsb.AisMsb,
-                    Variables = Memory,
-                });
-                Memory?.SetExpression("$ans", reparsed);
-                output.WriteLine("{0}", reparsed);
-            }
-            else
-            {
-                var simplified = expression.Simplify();
-                Memory?.SetExpression("$ans", simplified);
-                output.WriteLine("{0}", simplified);
-            }
+            var simplified = expression.ExtendedSimplify(arguments.CurrentCulture);
+
+            Memory?.SetExpression("$ans", simplified);
+            output.WriteLine("{0}", simplified);
         }
     }
 }

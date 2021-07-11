@@ -88,15 +88,20 @@ namespace CalculatorShell.Expressions.Internals.Logic
             return bin;
         }
 
-        internal static int GetVariableCount(IEnumerable<int> terms, IEnumerable<int> notCared)
+        internal static int GetVariableCount(IEnumerable<int> terms, IEnumerable<int> notCared, int minimumVars)
         {
             var merged = terms.Union(notCared);
-            int max = merged.Max();
+
+            int max = 0;
+            if (merged.Any())
+            {
+                max = merged.Max();
+            }
 
             int variables = (int)Math.Ceiling(Math.Log2(max));
 
-            if (variables < 2)
-                return 2;
+            if (variables < minimumVars)
+                return minimumVars;
 
             return variables;
         }
