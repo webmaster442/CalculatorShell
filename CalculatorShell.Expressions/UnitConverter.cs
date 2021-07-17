@@ -12,16 +12,17 @@ namespace CalculatorShell.Expressions
     /// </summary>
     public sealed class UnitConverter
     {
-        private readonly IUnitConverter[] _subconverters;
+        private readonly List<IUnitConverter> _subconverters;
 
         /// <summary>
         /// Creates a new instance of UnitConverter
         /// </summary>
         /// <param name="cultureInfo">culture to use</param>
-        public UnitConverter(CultureInfo cultureInfo)
+        /// <param name="converters">Additional converters</param>
+        public UnitConverter(CultureInfo cultureInfo, IEnumerable<IUnitConverter>? converters = null)
         {
             Culture = cultureInfo;
-            _subconverters = new IUnitConverter[]
+            _subconverters = new List<IUnitConverter>()
             {
                 new FileSizeConversion(cultureInfo),
                 new LengthConversions(cultureInfo),
@@ -34,7 +35,10 @@ namespace CalculatorShell.Expressions
                 new MassConversions(cultureInfo),
                 new VolumeConversions(cultureInfo),
                 new TimeConversions(cultureInfo),
+                new TemperatureConversions(cultureInfo),
             };
+            if (converters != null)
+                _subconverters.AddRange(converters);
         }
 
         /// <inheritdoc/>

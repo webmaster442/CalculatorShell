@@ -64,7 +64,7 @@ namespace CalculatorShell.Expressions.Internals
 
         public string Convert(string inputValue, string inputUnit, string targetUnit)
         {
-            decimal sourceValue = Parse(inputValue);
+            decimal sourceValue = Parse(inputValue, Culture);
             ConstantBasedConversion? unitSource = GetUnit(inputUnit, out decimal sourcePrefix);
             ConstantBasedConversion? unitTarget = GetUnit(targetUnit, out decimal targetPrefix);
 
@@ -108,11 +108,11 @@ namespace CalculatorShell.Expressions.Internals
             return UnitConstants.FirstOrDefault(x => x.UnitName == inputUnit);
         }
 
-        private decimal Parse(string inputValue)
+        public static decimal Parse(string inputValue, CultureInfo culture)
         {
             try
             {
-                return decimal.Parse(inputValue, Culture);
+                return decimal.Parse(inputValue, culture);
             }
             catch (Exception ex)
             {
