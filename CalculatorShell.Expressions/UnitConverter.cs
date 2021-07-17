@@ -26,6 +26,10 @@ namespace CalculatorShell.Expressions
                 new FileSizeConversion(cultureInfo),
                 new LengthConversions(cultureInfo),
                 new PowerConversions(cultureInfo),
+                new FlowConversions(cultureInfo),
+                new AreaConversions(cultureInfo),
+                new AccelerationConversions(cultureInfo),
+                new SpeedConversions(cultureInfo),
             };
         }
 
