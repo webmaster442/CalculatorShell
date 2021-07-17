@@ -149,8 +149,10 @@ namespace CalculatorShell.Base
         /// <param name="start">start index</param>
         /// <param name="end">end index</param>
         /// <returns>an enumerable of converted values</returns>
-        public IEnumerable<T> GetRange<T>(int start, int end) where T : IConvertible
+        public IEnumerable<T> GetRange<T>(int start = 0, int end = -1) where T : IConvertible
         {
+            if (end == -1)
+                end = _arguments.Length;
             for (int i = start; i < end; i++)
             {
                 yield return Get<T>(i);

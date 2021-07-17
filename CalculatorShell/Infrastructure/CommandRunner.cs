@@ -141,7 +141,7 @@ namespace CalculatorShell.Infrastructure
             });
 
             return $"\n{dir}{currentDirectory}{EscapeCodeFactory.Reset}\n"
-                   + $"↪ {angleMode}{ExpressionFactory.CurrentAngleMode}{EscapeCodeFactory.Reset} > ";
+                   + $"→ {angleMode}{ExpressionFactory.CurrentAngleMode}{EscapeCodeFactory.Reset} > ";
         }
 
         private void ResetToken()

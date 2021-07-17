@@ -182,6 +182,16 @@ Sleep for given seconds.
 sleep [seconds to sleep]
 ```
 
+# stat
+
+Display various statistical data of a given set of numbers
+
+## Usage
+
+```
+stat [numbers]
+```
+
 # time
 
 Print out the current time
