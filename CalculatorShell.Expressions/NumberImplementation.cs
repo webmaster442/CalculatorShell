@@ -121,7 +121,7 @@ namespace CalculatorShell.Expressions
                 .FirstOrDefault(x => x.Name.Equals(property, StringComparison.InvariantCultureIgnoreCase));
             if (propertyInfo != null)
             {
-                var result = propertyInfo?.GetValue(o);
+                var result = propertyInfo.GetValue(o);
                 if (result != null)
                 {
                     return new NumberImplementation(result);

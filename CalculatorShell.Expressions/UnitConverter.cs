@@ -30,6 +30,10 @@ namespace CalculatorShell.Expressions
                 new AreaConversions(cultureInfo),
                 new AccelerationConversions(cultureInfo),
                 new SpeedConversions(cultureInfo),
+                new PressureConversions(cultureInfo),
+                new MassConversions(cultureInfo),
+                new VolumeConversions(cultureInfo),
+                new TimeConversions(cultureInfo),
             };
         }
 
