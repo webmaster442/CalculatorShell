@@ -6,9 +6,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 {
     internal class Cplx : BinaryExpression
     {
-        public Cplx(IExpression? left, IExpression? right) : base(left, right)
+        public Cplx(IExpression? left, IExpression? right, bool polar) : base(left, right)
         {
+            Polar = polar;
         }
+
+        public bool Polar { get; }
 
         public override IExpression Differentiate(string byVariable)
         {
@@ -28,7 +31,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             }
             else
             {
-                return new Cplx(newLeft, newRight);
+                return new Cplx(newLeft, newRight, Polar);
             }
         }
 
@@ -39,7 +42,10 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         protected override NumberImplementation Evaluate(NumberImplementation number1, NumberImplementation number2)
         {
-            return new NumberImplementation(new Complex(number1.Value, number2.Value));
+            if (Polar)
+                return new NumberImplementation(Complex.FromPolar(number1.Value, number2.Value));
+            else
+                return new NumberImplementation(new Complex(number1.Value, number2.Value));
         }
     }
 }
