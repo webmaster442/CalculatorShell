@@ -33,6 +33,9 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("1", "kilo_watt", "watt", "1000")]
         [TestCase("1", "kilo_watt", "horsepower", "1.35962161730390432")]
         [TestCase("1", "kilo_watt", "btu/s", "0.9478171203133172")]
+        [TestCase("0", "kelvin", "celsius", "-273.15")]
+        [TestCase("0", "farenheit", "celsius", "-17.77777")]
+        [TestCase("30", "celsius", "farenheit", "86")]
         public void ConvertTest(string inputValue, string inputUnit, string targetUnit, string expected)
         {
             var result = _sut.Convert(inputValue, inputUnit, targetUnit);
