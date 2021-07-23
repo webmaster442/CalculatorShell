@@ -30,5 +30,10 @@ namespace CalculatorShell.Base
         /// Get a collection of currently known expression names
         /// </summary>
         IEnumerable<string> ExpressionNames { get; }
+
+        /// <summary>
+        /// Clear all expressions
+        /// </summary>
+        void ClearExpressions();
     }
 }
