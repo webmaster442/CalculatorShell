@@ -133,5 +133,11 @@ namespace CalculatorShell.Expressions
             }
             return new NumberImplementation(double.NaN);
         }
+
+        public (double x, double y) GetVector()
+        {
+            var v = (Vector2)Value;
+            return (v.X, v.Y);
+        }
     }
 }

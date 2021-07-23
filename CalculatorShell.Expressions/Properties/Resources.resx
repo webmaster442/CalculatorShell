@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnonymusTypeNotSerialized" xml:space="preserve">
+    <value>Anonymus types are not serialized for safety reasons</value>
+  </data>
   <data name="CanotDifferentiate" xml:space="preserve">
     <value>The specified expression can't be differentiated</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="OutOfTokens" xml:space="preserve">
     <value>Parsed past the end of the function. Expected more tokens</value>
+  </data>
+  <data name="SerializationError" xml:space="preserve">
+    <value>Serialization error occured</value>
   </data>
   <data name="TrailingChars" xml:space="preserve">
     <value>Some chars are left that can't be parsed</value>

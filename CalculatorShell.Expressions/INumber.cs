@@ -49,7 +49,7 @@ namespace CalculatorShell.Expressions
         /// <summary>
         /// Get the numbers properties and values in string representation
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Object properties as dictionary</returns>
         IDictionary<string, string> GetObjectData();
         /// <summary>
         /// Get a property of the underlying type as a Number
@@ -57,5 +57,10 @@ namespace CalculatorShell.Expressions
         /// <param name="property">property to get</param>
         /// <returns>Property value to acces</returns>
         INumber GetPropertyValue(string property);
+        /// <summary>
+        /// Convert the number to a Value tuple describing a 2d Vector
+        /// </summary>
+        /// <returns>Value tuple describing a fraction</returns>
+        (double x, double y) GetVector();
     }
 }

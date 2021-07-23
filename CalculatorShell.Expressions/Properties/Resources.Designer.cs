@@ -61,6 +61,15 @@ namespace CalculatorShell.Expressions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anonymus types are not serialized for safety reasons.
+        /// </summary>
+        internal static string AnonymusTypeNotSerialized {
+            get {
+                return ResourceManager.GetString("AnonymusTypeNotSerialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified expression can&apos;t be differentiated.
         /// </summary>
         internal static string CanotDifferentiate {
@@ -228,6 +237,15 @@ namespace CalculatorShell.Expressions.Properties {
         internal static string OutOfTokens {
             get {
                 return ResourceManager.GetString("OutOfTokens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serialization error occured.
+        /// </summary>
+        internal static string SerializationError {
+            get {
+                return ResourceManager.GetString("SerializationError", resourceCulture);
             }
         }
         

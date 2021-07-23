@@ -1,0 +1,95 @@
+﻿using CalculatorShell.Expressions.Properties;
+using CalculatorShell.Maths;
+using System;
+using System.Text;
+
+namespace CalculatorShell.Expressions
+{
+    /// <summary>
+    /// Number serialization helpers
+    /// </summary>
+    public static class NumberSerializerFactory
+    {
+        private static string GetString(bool input)
+        {
+            return input.ToString()?.ToLower() ?? "";
+        }
+
+        private static string GetString(double input)
+        {
+            return input.ToString("G17") ?? "";
+        }
+
+        /// <summary>
+        /// Serializes a number to string
+        /// </summary>
+        /// <param name="number">number to serialize</param>
+        /// <returns>serialized value</returns>
+        public static string Serialize(INumber number)
+        {
+            var builder = new StringBuilder(1024);
+            builder.AppendFormat("{0};", number.NumberType.ToString());
+            switch (number.NumberType)
+            {
+                case NumberType.Boolean:
+                    builder.AppendFormat("{0}", GetString(number.GetBooean()));
+                    break;
+                case NumberType.Double:
+                    builder.AppendFormat("{0}", GetString(number.GetDouble()));
+                    break;
+                case NumberType.Fraction:
+                    var fraction = number.GetFraction();
+                    builder.AppendFormat("{0};{1}", fraction.numerator, fraction.denominator);
+                    break;
+                case NumberType.Vector:
+                    var vect2 = number.GetVector();
+                    builder.AppendFormat("{0};{1}", GetString(vect2.x), GetString(vect2.y));
+                    break;
+                case NumberType.Object:
+                    builder.Append("");
+                    break;
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Deserializes a number from string
+        /// </summary>
+        /// <param name="value">string value to deserialize</param>
+        /// <returns>Deserialized value</returns>
+        public static INumber Deserialize(string value)
+        {
+            var tokens = value.Split(";");
+            if (tokens.Length < 1)
+                throw new ExpressionEngineException(Resources.SerializationError);
+
+            var type = Enum.Parse<NumberType>(tokens[0], true);
+
+            try
+            {
+                switch (type)
+                {
+                    case NumberType.Boolean:
+                        return new NumberImplementation(bool.Parse(tokens[1]));
+                    case NumberType.Complex:
+                        return new NumberImplementation(new Complex(double.Parse(tokens[1]), double.Parse(tokens[2])));
+                    case NumberType.Double:
+                        return new NumberImplementation(double.Parse(tokens[1]));
+                    case NumberType.Fraction:
+                        return new NumberImplementation(new Fraction(long.Parse(tokens[1]), long.Parse(tokens[1])));
+                    case NumberType.Vector:
+                        return new NumberImplementation(new Vector2(double.Parse(tokens[1]), double.Parse(tokens[2])));
+                    case NumberType.Object:
+                        return new NumberImplementation(new NotSerializedObject());
+                    default:
+                        throw new ExpressionEngineException(Resources.SerializationError);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ExpressionEngineException(Resources.SerializationError, e);
+            }
+
+        }
+    }
+}
