@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace CalculatorShell.Maths
 {
-    public sealed class Complex : IEquatable<Complex?>
+    public sealed class Complex : IEquatable<Complex?>, ICalculatorType
     {
         private readonly System.Numerics.Complex _complex;
 
@@ -105,9 +105,9 @@ namespace CalculatorShell.Maths
             return ToString(CultureInfo.InvariantCulture);
         }
 
-        public string ToString(CultureInfo culture)
+        public string ToString(IFormatProvider format)
         {
-            return $"({_complex.Real.ToString(culture)} + {_complex.Imaginary.ToString(culture)}i)";
+            return $"({_complex.Real.ToString(format)} + {_complex.Imaginary.ToString(format)}i)";
         }
     }
 }

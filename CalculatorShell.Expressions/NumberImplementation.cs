@@ -43,6 +43,9 @@ namespace CalculatorShell.Expressions
                 case bool:
                     NumberType = NumberType.Boolean;
                     break;
+                case Vector2:
+                    NumberType = NumberType.Vector;
+                    break;
                 default:
                     NumberType = NumberType.Object;
                     break;

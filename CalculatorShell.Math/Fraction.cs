@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace CalculatorShell.Maths
 {
-    public sealed class Fraction : IEquatable<Fraction?>
+    public sealed class Fraction : IEquatable<Fraction?>, ICalculatorType
     {
         /// <summary>
         /// Constructors
@@ -70,12 +70,12 @@ namespace CalculatorShell.Maths
             return ToString(CultureInfo.InvariantCulture);
         }
 
-        public string ToString(IFormatProvider formatProvider)
+        public string ToString(IFormatProvider format)
         {
             if (Denominator == 1)
-                return Numerator.ToString(formatProvider);
+                return Numerator.ToString(format);
             else
-                return $"{Numerator.ToString(formatProvider)}/{Denominator.ToString(formatProvider)}";
+                return $"{Numerator.ToString(format)}/{Denominator.ToString(format)}";
         }
 
         public override bool Equals(object? obj)

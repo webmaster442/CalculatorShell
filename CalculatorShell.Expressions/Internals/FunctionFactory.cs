@@ -11,7 +11,8 @@ namespace CalculatorShell.Expressions.Internals
         private static Dictionary<string, int> TypeFunctionTable = new()
         {
             { "cplx", 2 },
-            { "cplxp", 2 }
+            { "cplxp", 2 },
+            { "vect2", 2 }
         };
 
         private static readonly Dictionary<string, Func<IExpression?, IExpression>> SingleParamFunctions = new()
@@ -75,9 +76,11 @@ namespace CalculatorShell.Expressions.Internals
             else if (arguments.Length == 2)
             {
                 if (function == "cplx")
-                    return new Cplx(arguments[0], arguments[1], false);
+                    return new Cplx(false, arguments[0], arguments[1]);
                 else if (function == "cplxp")
-                    return new Cplx(arguments[0], arguments[1], true);
+                    return new Cplx(true, arguments[0], arguments[1]);
+                else if (function == "vect2")
+                    return new Vect2(arguments[0], arguments[1]);
                 else
                     return TwoParamFunctions[function](arguments[0], arguments[1]);
             }

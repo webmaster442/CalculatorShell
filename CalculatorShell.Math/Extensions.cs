@@ -30,5 +30,15 @@ namespace CalculatorShell.Maths
             DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return baseDate.AddSeconds(unixTime);
         }
+
+        public static Vector2 GetUnitVector(Vector2 vector)
+        {
+            return vector / vector.Magnitude;
+        }
+
+        public static double ScalarMultiply(Vector2 left, Vector2 right, double angle)
+        {
+            return left.Magnitude * right.Magnitude * Trigonometry.Cos(angle);
+        }
     }
 }
