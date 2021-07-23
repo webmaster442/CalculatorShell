@@ -106,5 +106,10 @@ namespace CalculatorShell
 
             return _expressions[name];
         }
+
+        public void ClearExpressions()
+        {
+            _expressions.Clear();
+        }
     }
 }
