@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace CalculatorShell.Base
 {
@@ -28,5 +29,26 @@ namespace CalculatorShell.Base
         /// </summary>
         /// <returns>Files</returns>
         IEnumerable<string> GetFiles();
+
+        /// <summary>
+        /// Returns true if a given file exists or not
+        /// </summary>
+        /// <param name="name">file name</param>
+        /// <returns>true, if file exists</returns>
+        bool FileExists(string name);
+
+        /// <summary>
+        /// Create a file for writing
+        /// </summary>
+        /// <param name="name">file name to create</param>
+        /// <returns>Stream</returns>
+        Stream CreateOrOverwrite(string name);
+
+        /// <summary>
+        /// Open a file for reading
+        /// </summary>
+        /// <param name="name">file name to read</param>
+        /// <returns>Stream</returns>
+        Stream OpenRead(string name);
     }
 }

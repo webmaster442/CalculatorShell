@@ -31,6 +31,18 @@ namespace CalculatorShell.Infrastructure
 
         public string Home => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
+        public Stream CreateOrOverwrite(string name)
+        {
+            var full = Path.Combine(CurrentDirectory, name);
+            return File.Create(full);
+        }
+
+        public bool FileExists(string name)
+        {
+            var full = Path.Combine(CurrentDirectory, name);
+            return File.Exists(full);
+        }
+
         public IEnumerable<string> GetDirectories()
         {
             return Directory.GetDirectories(CurrentDirectory);
@@ -39,6 +51,12 @@ namespace CalculatorShell.Infrastructure
         public IEnumerable<string> GetFiles()
         {
             return Directory.GetFiles(CurrentDirectory);
+        }
+
+        public Stream OpenRead(string name)
+        {
+            var full = Path.Combine(CurrentDirectory, name);
+            return File.OpenRead(full);
         }
     }
 }
