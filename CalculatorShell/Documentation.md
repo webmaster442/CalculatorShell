@@ -9,11 +9,9 @@
 * Floating point values in Scientific notation: `10E3`
 * Floating point values with SI prefixes.
 
-
 ### Grouping
 
 Number digits can be grouped via the `_` char. E.g: `1_000` and `10_00` with both parse to 1000. The `_` char can used regardless of the system. E.g: `0b_10_00`, `0hff_ad`.
-
 
 ### Prefixes
 Numbers can be given with prefixes: `1000_p` will parse to 1000 pico which will be 1000E-12. Note: the SI prefix and the number must be spepperated by the `_` char.
