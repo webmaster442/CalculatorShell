@@ -6,6 +6,9 @@
     <Nullable>enable</Nullable>
     <OutputPath>..\bin\$(Configuration)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Version>$([System.DateTime]::UtcNow.ToString("yyyy")).$([System.DateTime]::UtcNow.ToString("MM")).$([System.DateTime]::UtcNow.ToString("dd")).$([System.DateTime]::UtcNow.ToString("mmss"))</Version>
+    <AssemblyVersion>$([System.DateTime]::UtcNow.ToString("yyyy")).$([System.DateTime]::UtcNow.ToString("MM")).$([System.DateTime]::UtcNow.ToString("dd")).$([System.DateTime]::UtcNow.ToString("mmss"))</AssemblyVersion>
+    <FileVersion>$([System.DateTime]::UtcNow.ToString("yyyy")).$([System.DateTime]::UtcNow.ToString("MM")).$([System.DateTime]::UtcNow.ToString("dd")).$([System.DateTime]::UtcNow.ToString("mmss"))</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
