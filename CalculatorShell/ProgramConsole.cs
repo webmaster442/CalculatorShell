@@ -158,5 +158,11 @@ namespace CalculatorShell
             }
             Console.WriteLine(buffer.ToString());
         }
+
+        public ConsoleKey ReadKey()
+        {
+            var key = Console.ReadKey(true);
+            return key.Key;
+        }
     }
 }

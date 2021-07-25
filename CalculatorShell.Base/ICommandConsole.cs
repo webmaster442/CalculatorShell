@@ -73,5 +73,11 @@ namespace CalculatorShell.Base
         /// Get or set the current format. If null, then all formating is cleared.
         /// </summary>
         ConsoleFormat? CurrentFormat { get; set; }
+
+        /// <summary>
+        /// Read a key
+        /// </summary>
+        /// <returns>Read key</returns>
+        ConsoleKey ReadKey();
     }
 }
