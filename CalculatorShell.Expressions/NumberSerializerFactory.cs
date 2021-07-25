@@ -42,9 +42,13 @@ namespace CalculatorShell.Expressions
                     var fraction = number.GetFraction();
                     builder.AppendFormat("{0};{1}", fraction.numerator.ToString(CultureInfo.InvariantCulture), fraction.denominator.ToString(CultureInfo.InvariantCulture));
                     break;
-                case NumberType.Vector:
-                    var vect2 = number.GetVector();
+                case NumberType.Vector2:
+                    var vect2 = number.GetVector2();
                     builder.AppendFormat("{0};{1}", GetString(vect2.x), GetString(vect2.y));
+                    break;
+                case NumberType.Vector3:
+                    var vect3 = number.GetVector3();
+                    builder.AppendFormat("{0};{1};{2}", GetString(vect3.x), GetString(vect3.y), GetString(vect3.z));
                     break;
                 case NumberType.Complex:
                     var cplx = number.GetComplex();
@@ -82,8 +86,10 @@ namespace CalculatorShell.Expressions
                         return new NumberImplementation(double.Parse(tokens[1], CultureInfo.InvariantCulture));
                     case NumberType.Fraction:
                         return new NumberImplementation(new Fraction(long.Parse(tokens[1], CultureInfo.InvariantCulture), long.Parse(tokens[2], CultureInfo.InvariantCulture)));
-                    case NumberType.Vector:
+                    case NumberType.Vector2:
                         return new NumberImplementation(new Vector2(double.Parse(tokens[1], CultureInfo.InvariantCulture), double.Parse(tokens[2], CultureInfo.InvariantCulture)));
+                    case NumberType.Vector3:
+                        return new NumberImplementation(new Vector3(double.Parse(tokens[1], CultureInfo.InvariantCulture), double.Parse(tokens[2], CultureInfo.InvariantCulture), double.Parse(tokens[3], CultureInfo.InvariantCulture)));
                     case NumberType.Object:
                         return new NumberImplementation(new NotSerializedObject());
                     default:

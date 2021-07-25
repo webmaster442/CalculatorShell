@@ -22,9 +22,13 @@
         /// </summary>
         Boolean,
         /// <summary>
-        /// the number is a 2d or 3d vector
+        /// the number is a 2d vector
         /// </summary>
-        Vector,
+        Vector2,
+        /// <summary>
+        /// the number is a 3d vector
+        /// </summary>
+        Vector3,
         /// <summary>
         /// The number is an object
         /// </summary>

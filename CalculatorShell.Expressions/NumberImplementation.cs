@@ -44,7 +44,10 @@ namespace CalculatorShell.Expressions
                     NumberType = NumberType.Boolean;
                     break;
                 case Vector2:
-                    NumberType = NumberType.Vector;
+                    NumberType = NumberType.Vector2;
+                    break;
+                case Vector3:
+                    NumberType = NumberType.Vector3;
                     break;
                 default:
                     NumberType = NumberType.Object;
@@ -134,10 +137,16 @@ namespace CalculatorShell.Expressions
             return new NumberImplementation(double.NaN);
         }
 
-        public (double x, double y) GetVector()
+        public (double x, double y) GetVector2()
         {
             var v = (Vector2)Value;
             return (v.X, v.Y);
+        }
+
+        public (double x, double y, double z) GetVector3()
+        {
+            var v = (Vector3)Value;
+            return (v.X, v.Y, v.Z);
         }
     }
 }

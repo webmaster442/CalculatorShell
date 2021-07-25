@@ -61,6 +61,11 @@ namespace CalculatorShell.Expressions
         /// Convert the number to a Value tuple describing a 2d Vector
         /// </summary>
         /// <returns>Value tuple describing a fraction</returns>
-        (double x, double y) GetVector();
+        (double x, double y) GetVector2();
+        /// <summary>
+        /// Convert the number to a Value tuple describing a 3d Vector
+        /// </summary>
+        /// <returns>Value tuple describing a fraction</returns>
+        (double x, double y, double z) GetVector3();
     }
 }

@@ -12,7 +12,8 @@ namespace CalculatorShell.Expressions.Internals
         {
             { "cplx", 2 },
             { "cplxp", 2 },
-            { "vect2", 2 }
+            { "vect2", 2 },
+            { "vect3", 3 }
         };
 
         private static readonly Dictionary<string, Func<IExpression?, IExpression>> SingleParamFunctions = new()
@@ -83,6 +84,11 @@ namespace CalculatorShell.Expressions.Internals
                     return new Vect2(arguments[0], arguments[1]);
                 else
                     return TwoParamFunctions[function](arguments[0], arguments[1]);
+            }
+            else if (arguments.Length == 3 &&
+                     function == "vect3")
+            {
+                return new Vect3(arguments[0], arguments[1], arguments[2]);
             }
             throw new InvalidOperationException();
         }
