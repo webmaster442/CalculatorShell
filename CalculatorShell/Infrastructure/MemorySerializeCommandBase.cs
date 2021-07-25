@@ -1,15 +1,34 @@
 ﻿using CalculatorShell.Base.Domain;
 using CalculatorShell.Expressions;
+using CalculatorShell.Properties;
 using System;
 using System.Globalization;
+using System.IO;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CalculatorShell.Infrastructure
 {
     internal abstract class MemorySerializeCommandBase : CommandBase
     {
-
-        protected void Load(MemoryData data)
+        private static JsonSerializerOptions CreateOptions()
         {
+            return new JsonSerializerOptions
+            {
+                IncludeFields = false,
+                WriteIndented = true,
+            };
+        }
+
+        protected async ValueTask Deserialize(Stream source, CancellationToken token)
+        {
+
+            var data = await JsonSerializer.DeserializeAsync<MemoryData>(source, CreateOptions(), token);
+
+            if (data == null)
+                throw new InvalidOperationException(Resources.FileLoadError);
+
             if (Memory == null)
                 throw new InvalidOperationException();
 
@@ -28,7 +47,7 @@ namespace CalculatorShell.Infrastructure
             }
         }
 
-        protected MemoryData Save()
+        protected async ValueTask Serialize(Stream target, CancellationToken token)
         {
             if (Memory == null)
                 throw new InvalidOperationException();
@@ -45,7 +64,7 @@ namespace CalculatorShell.Infrastructure
                 result.Expressions[name] = value;
             }
 
-            return result;
+            await JsonSerializer.SerializeAsync(target, result, CreateOptions(), token);
         }
     }
 }

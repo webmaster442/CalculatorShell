@@ -19,10 +19,10 @@ namespace CalculatorShell.Infrastructure
                     PrintMemory(output);
                     break;
                 case 1:
-                    PrintSpecificMemory(arguments.Get<string>(1), output);
+                    PrintSpecificMemory(arguments.Get<string>(0), output);
                     break;
                 case 2:
-                    SetMemory(arguments.Get<string>(1), arguments.Get<string>(2), arguments.CurrentCulture);
+                    SetMemory(arguments.Get<string>(0), arguments.Get<string>(1), arguments.CurrentCulture);
                     break;
 
             }

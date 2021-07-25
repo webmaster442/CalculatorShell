@@ -99,6 +99,15 @@ namespace CalculatorShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Load/Save error occured.
+        /// </summary>
+        internal static string FileLoadError {
+            get {
+                return ResourceManager.GetString("FileLoadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: {0}.
         /// </summary>
         internal static string GeneralError {

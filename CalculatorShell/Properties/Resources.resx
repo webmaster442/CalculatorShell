@@ -131,6 +131,9 @@ Day of week: {2}</value>
   <data name="ExpressionNameRestrict" xml:space="preserve">
     <value>Expression name variables must start with the $ symbol</value>
   </data>
+  <data name="FileLoadError" xml:space="preserve">
+    <value>File Load/Save error occured</value>
+  </data>
   <data name="GeneralError" xml:space="preserve">
     <value>Error: {0}</value>
   </data>

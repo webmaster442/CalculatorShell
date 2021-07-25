@@ -1,6 +1,7 @@
 ﻿using CalculatorShell.Expressions.Properties;
 using CalculatorShell.Maths;
 using System;
+using System.Globalization;
 using System.Text;
 
 namespace CalculatorShell.Expressions
@@ -12,12 +13,12 @@ namespace CalculatorShell.Expressions
     {
         private static string GetString(bool input)
         {
-            return input.ToString()?.ToLower() ?? "";
+            return input.ToString(CultureInfo.InvariantCulture);
         }
 
         private static string GetString(double input)
         {
-            return input.ToString("G17") ?? "";
+            return input.ToString("G17", CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -39,11 +40,15 @@ namespace CalculatorShell.Expressions
                     break;
                 case NumberType.Fraction:
                     var fraction = number.GetFraction();
-                    builder.AppendFormat("{0};{1}", fraction.numerator, fraction.denominator);
+                    builder.AppendFormat("{0};{1}", fraction.numerator.ToString(CultureInfo.InvariantCulture), fraction.denominator.ToString(CultureInfo.InvariantCulture));
                     break;
                 case NumberType.Vector:
                     var vect2 = number.GetVector();
                     builder.AppendFormat("{0};{1}", GetString(vect2.x), GetString(vect2.y));
+                    break;
+                case NumberType.Complex:
+                    var cplx = number.GetComplex();
+                    builder.AppendFormat("{0};{1}", GetString(cplx.Real), GetString(cplx.Imaginary));
                     break;
                 case NumberType.Object:
                     builder.Append("");
@@ -72,13 +77,13 @@ namespace CalculatorShell.Expressions
                     case NumberType.Boolean:
                         return new NumberImplementation(bool.Parse(tokens[1]));
                     case NumberType.Complex:
-                        return new NumberImplementation(new Complex(double.Parse(tokens[1]), double.Parse(tokens[2])));
+                        return new NumberImplementation(new Complex(double.Parse(tokens[1], CultureInfo.InvariantCulture), double.Parse(tokens[2], CultureInfo.InvariantCulture)));
                     case NumberType.Double:
-                        return new NumberImplementation(double.Parse(tokens[1]));
+                        return new NumberImplementation(double.Parse(tokens[1], CultureInfo.InvariantCulture));
                     case NumberType.Fraction:
-                        return new NumberImplementation(new Fraction(long.Parse(tokens[1]), long.Parse(tokens[1])));
+                        return new NumberImplementation(new Fraction(long.Parse(tokens[1], CultureInfo.InvariantCulture), long.Parse(tokens[2], CultureInfo.InvariantCulture)));
                     case NumberType.Vector:
-                        return new NumberImplementation(new Vector2(double.Parse(tokens[1]), double.Parse(tokens[2])));
+                        return new NumberImplementation(new Vector2(double.Parse(tokens[1], CultureInfo.InvariantCulture), double.Parse(tokens[2], CultureInfo.InvariantCulture)));
                     case NumberType.Object:
                         return new NumberImplementation(new NotSerializedObject());
                     default:
