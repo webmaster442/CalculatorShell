@@ -9,8 +9,6 @@ namespace CalculatorShell.Commands
     [Export(typeof(ICommand))]
     internal sealed class Help : CommandBase, ISimpleCommand
     {
-        private static HelpSystem help = new ();
-
         public override IEnumerable<string> Aliases
         {
             get
@@ -28,7 +26,8 @@ namespace CalculatorShell.Commands
                 cmd = arguments.Get<string>(0);
             }
 
-            help.WriteGetFormattetdHelp(cmd, output);
+            TextViewer help = new(output, "CalculatorShell.Documents.CmdHelp.md");
+            help.Show(cmd);
         }
     }
 }

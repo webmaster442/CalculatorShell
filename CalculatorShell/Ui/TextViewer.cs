@@ -22,7 +22,7 @@ namespace CalculatorShell.Ui
             _regular = new Base.ConsoleColor(0xF4, 0xF5, 0xE3);
             _preformat = new Base.ConsoleColor(0x91, 0x45, 0xFF);
 
-            var assembly = typeof(HelpSystem).Assembly;
+            var assembly = typeof(TextViewer).Assembly;
 
             using var stream = assembly.GetManifestResourceStream(manifestResourceName);
             _lines = new List<string>();

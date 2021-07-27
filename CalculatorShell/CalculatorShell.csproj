@@ -5,19 +5,29 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <OutputPath>..\bin\$(Configuration)\</OutputPath>
+    <PackageOutputPath>..\bin\$(Configuration)\nupkg</PackageOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Version>$([System.DateTime]::UtcNow.ToString("yyyy")).$([System.DateTime]::UtcNow.ToString("MM")).$([System.DateTime]::UtcNow.ToString("dd")).0</Version>
     <AssemblyVersion>$([System.DateTime]::UtcNow.ToString("yyyy")).$([System.DateTime]::UtcNow.ToString("MM")).$([System.DateTime]::UtcNow.ToString("dd")).0</AssemblyVersion>
     <FileVersion>$([System.DateTime]::UtcNow.ToString("yyyy")).$([System.DateTime]::UtcNow.ToString("MM")).$([System.DateTime]::UtcNow.ToString("dd")).0</FileVersion>
+    <RepositoryUrl>https://github.com/webmaster442/CalculatorShell</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>calculator,shell,expression,evaluator,vt100</PackageTags>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>CalculatorShell</ToolCommandName>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="CmdHelp.md" />
+    <None Remove="Documents\Documentation.md" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="CmdHelp.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <EmbeddedResource Include="Documents\CmdHelp.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documents\Documentation.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 
@@ -43,12 +53,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Documentation.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

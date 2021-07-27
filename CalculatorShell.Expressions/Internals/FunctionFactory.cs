@@ -42,7 +42,9 @@ namespace CalculatorShell.Expressions.Internals
 
         internal static IEnumerable<string> GetFunctionNames()
         {
-            return SingleParamFunctions.Keys.Union(TwoParamFunctions.Keys);
+            return SingleParamFunctions.Keys
+                .Union(TwoParamFunctions.Keys)
+                .Union(TypeFunctionTable.Keys);
         }
 
         private static readonly Dictionary<string, Func<IExpression?, IExpression?, IExpression>> TwoParamFunctions = new()
