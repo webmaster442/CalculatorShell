@@ -53,8 +53,13 @@ namespace CalculatorShell.Expressions
         /// <returns>Parsed expression</returns>
         public static IExpression Parse(string function, IVariables variables, CultureInfo culture)
         {
-            _culture = culture;  
-            _tokenizer = new Tokenizer(function, culture);
+            if (function == null)
+            {
+                function = string.Empty;
+            }
+
+            _culture = culture;
+            _tokenizer = new Tokenizer(function.ToLower(culture), culture);
             _currentToken = new Token("", TokenType.None);
             _variables = variables;
 

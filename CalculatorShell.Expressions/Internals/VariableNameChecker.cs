@@ -14,6 +14,9 @@ namespace CalculatorShell.Expressions.Internals
             if (char.IsNumber(name[0]))
                 return false;
 
+            if (name.Contains("[") && name.Contains("]"))
+                name = name.Replace("[", "]").Replace("]", "");
+
             return validator.IsMatch(name);
         }
     }
