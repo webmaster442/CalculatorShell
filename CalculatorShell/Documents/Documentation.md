@@ -11,10 +11,14 @@
 
 ## Grouping
 
-Number digits can be grouped via the `_` char. E.g: `1_000` and `10_00` with both parse to 1000. The `_` char can used regardless of the system. E.g: `0b_10_00`, `0hff_ad`.
+Number digits can be grouped via the `_` char. E.g: `1_000` and `10_00` with
+both parse to 1000. The `_` char can used regardless of the system. 
+E.g: `0b_10_00`, `0hff_ad`.
 
 ## Prefixes
-Numbers can be given with prefixes: `1000_p` will parse to 1000 pico which will be 1000E-12. Note: the SI prefix and the number must be spepperated by the `_` char.
+Numbers can be given with prefixes: `1000_p` will parse to 1000 pico which will
+be 1000E-12. Note: the SI prefix and the number must be spepperated 
+by the `_` char.
 
 Currently recognized SI prefixes:
 
@@ -33,9 +37,9 @@ Currently recognized SI prefixes:
 
 # Variables
 
-Variable names can contain the letters of the english alphabet (a-z), numbers (0-9) and the following symbols:
-`_` `$` `-` `*`
+Variable names can contain the letters of the english alphabet (a-z),
+numbers (0-9) and the undercore `_` symbol. A variable name 
+can't start with numbers.
 
-A variable name can't start with numbers.
-
-If a variable name starts with the `$` char, then it's treated as an expression.
+If a variable name starts with the `$` char, then it's treated as 
+an expression.
