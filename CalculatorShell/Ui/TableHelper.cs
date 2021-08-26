@@ -44,17 +44,21 @@ namespace CalculatorShell.Ui
             List<string> cols = new(columns);
             foreach (var item in items)
             {
-
-                if (cols.Count < columns)
-                {
-                    cols.Add(item?.ToString() ?? string.Empty);
-                }
-                else
+                if (cols.Count > columns -1)
                 {
                     table.AddRow(cols.ToArray());
                     cols.Clear();
                 }
-
+                cols.Add(item?.ToString() ?? string.Empty);
+            }
+            if (cols.Count > 0)
+            {
+                int pad = columns - cols.Count;
+                for (int i=0; i<pad; i++)
+                {
+                    cols.Add(string.Empty);
+                }
+                table.AddRow(cols.ToArray());
             }
             return table.ToMinimalString();
         }

@@ -23,7 +23,7 @@ namespace CalculatorShell.Expressions.Internals
             { "cos", (child) => new Cos(child) },
             { "tan", (child) => new Tan(child) },
             { "abs", (child) => new Abs(child) },
-            {  "ctg", (child) => new Ctg(child) },
+            { "ctg", (child) => new Ctg(child) },
             { "arcsin", (child) => new Function(child, Trigonometry.ArcSin, "arcsin") },
             { "arccos", (child) => new Function(child, Trigonometry.ArcCos, "arccos") },
             { "arctan", (child) => new Function(child, Trigonometry.ArcTan, "arctan") },
@@ -42,9 +42,10 @@ namespace CalculatorShell.Expressions.Internals
 
         internal static IEnumerable<string> GetFunctionNames()
         {
-            return SingleParamFunctions.Keys
-                .Union(TwoParamFunctions.Keys)
-                .Union(TypeFunctionTable.Keys);
+            var x = SingleParamFunctions.Keys.ToList();
+            x.AddRange(TwoParamFunctions.Keys);
+            x.AddRange(TypeFunctionTable.Keys);
+            return x.Distinct();
         }
 
         private static readonly Dictionary<string, Func<IExpression?, IExpression?, IExpression>> TwoParamFunctions = new()
