@@ -99,20 +99,6 @@ expr [expression name]
 expr [expression name] [expression value]
 ```
 
-# help/man
-
-Get help on usage of specific commands.
-
-If no command name is given as argument the command prints out the usage of
-the help command.
-
-## Usage
-
-```
-help
-help [command name]
-```
-
 # info
 
 Get detailed info on an expressions result. In function it's identical to the

@@ -12,20 +12,21 @@ namespace CalculatorShell.Ui
         private readonly Base.ConsoleColor _heading;
         private readonly Base.ConsoleColor _preformat;
         private readonly Base.ConsoleColor _regular;
-        private readonly ICommandConsole _output;
 
-        public TextViewer(ICommandConsole output, string manifestResourceName)
+        public TextViewer()
         {
-            _output = output;
             _error = new Base.ConsoleColor(0xff, 0, 0);
             _heading = new Base.ConsoleColor(0x27, 0xb3, 48);
             _regular = new Base.ConsoleColor(0xF4, 0xF5, 0xE3);
             _preformat = new Base.ConsoleColor(0x91, 0x45, 0xFF);
+            _lines = new List<string>();
+        }
 
+        public void LoadText(string manifestResourceName)
+        {
             var assembly = typeof(TextViewer).Assembly;
 
             using var stream = assembly.GetManifestResourceStream(manifestResourceName);
-            _lines = new List<string>();
             if (stream == null)
             {
                 return;
@@ -46,8 +47,7 @@ namespace CalculatorShell.Ui
             for (int i = 0; i < _lines.Count; i++)
             {
                 if (start == -1
-                    && _lines[i].StartsWith("# ")
-                    && _lines[i].Contains(command))
+                    && _lines[i].StartsWith($"# {command}"))
                 {
                     start = i;
                 }
@@ -79,27 +79,27 @@ namespace CalculatorShell.Ui
                 Console.Write("\x1b[?1049l");
         }
 
-        private void AppendRegularText(string currentline)
+        private void AppendRegularText(ICommandConsole output, string currentline)
         {
-            _output.CurrentFormat = new ConsoleFormat
+            output.CurrentFormat = new ConsoleFormat
             {
                 Foreground = _regular
             };
-            _output.WriteLine(currentline);
-            _output.CurrentFormat = null;
+            output.WriteLine(currentline);
+            output.CurrentFormat = null;
         }
 
-        private void AppendHeading(string currentline)
+        private void AppendHeading(ICommandConsole output, string currentline)
         {
-            _output.CurrentFormat = new ConsoleFormat
+            output.CurrentFormat = new ConsoleFormat
             {
                 Foreground = _heading
             };
-            _output.WriteLine(currentline);
-            _output.CurrentFormat = null;
+            output.WriteLine(currentline);
+            output.CurrentFormat = null;
         }
 
-        private void WriteLines(int start, int end, int screenMax)
+        private bool WriteLines(ICommandConsole output, int start, int end, int maxRowCount)
         {
             int written = 0;
             bool isPreFormatted = false;
@@ -108,12 +108,12 @@ namespace CalculatorShell.Ui
                 string currentline = _lines[i];
                 if (currentline.StartsWith("#"))
                 {
-                    AppendHeading(currentline);
+                    AppendHeading(output, currentline);
                 }
                 else if (currentline.StartsWith("```") && !isPreFormatted)
                 {
                     isPreFormatted = true;
-                    _output.CurrentFormat = new ConsoleFormat
+                    output.CurrentFormat = new ConsoleFormat
                     {
                         Foreground = _preformat
                     };
@@ -121,36 +121,37 @@ namespace CalculatorShell.Ui
                 else if (currentline.StartsWith("```") && isPreFormatted)
                 {
                     isPreFormatted = false;
-                    _output.CurrentFormat = null;
+                    output.CurrentFormat = null;
                 }
                 else if (isPreFormatted)
                 {
-                    _output.WriteLine(currentline);
+                    output.WriteLine(currentline);
 
                 }
                 else
                 {
-                    AppendRegularText(currentline);
+                    AppendRegularText(output, currentline);
                 }
-                written += currentline.Length + 1;
-                if (written > screenMax)
+                ++written;
+                if (written > maxRowCount)
                 {
-                    _output.WriteLine("\nPress a key to contine");
-                    var key = _output.ReadKey();
+                    output.WriteLine("\nPress a key to contine or ESC to exit...");
+                    var key = output.ReadKey();
                     if (key == ConsoleKey.Escape)
                     {
-                        break;
+                        return false;
                     }
                     Console.Clear();
                     written = 0;
                 }
             }
+            return true;
         }
 
-        public void Show(string? chapter = null)
+        public void Show(ICommandConsole output, string? chapter = null)
         {
-            BufferSwap(true);
-            int screenMax = (Console.WindowHeight - 2) * Console.WindowWidth;
+            BufferSwap(alternate: true);
+            int screenRows = (Console.WindowHeight - 2);
 
             (int start, int end) pos = (0, _lines.Count);
 
@@ -159,21 +160,23 @@ namespace CalculatorShell.Ui
                 pos = GetLines(chapter);
                 if (pos.start == -1 || pos.end == -1)
                 {
-                    _output.CurrentFormat = new ConsoleFormat
+                    output.CurrentFormat = new ConsoleFormat
                     {
                         Foreground = _error
                     };
-                    _output.WriteLine(Resources.NoHelpFound, chapter);
-                    _output.CurrentFormat = null;
+                    output.WriteLine(Resources.NoHelpFound, chapter);
+                    output.CurrentFormat = null;
                     return;
                 }
             }
 
-            WriteLines(pos.start, pos.end, screenMax);
-            _output.WriteLine("\nPress a key to exit");
-            _output.ReadKey();
+            if (WriteLines(output, pos.start, pos.end, screenRows))
+            {
+                output.WriteLine("\nPress a key to exit...");
+                output.ReadKey();
+            }
 
-            BufferSwap(false);
+            BufferSwap(alternate: false);
         }
     }
 }

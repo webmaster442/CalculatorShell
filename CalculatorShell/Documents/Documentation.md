@@ -1,4 +1,16 @@
-# Supported number formats
+# help/man
+
+Get help on usage of specific commands. If no command name is given as argument 
+the command prints out the usage of the help command.
+
+## Usage
+
+```
+help
+help [command name]
+```
+
+## Supported number formats
 
 * Binary - `0b1010`
 * Octal - `0o777`
@@ -35,11 +47,10 @@ Currently recognized SI prefixes:
 | _G     | 1E9   |
 | _T     | 1E12  |
 
-# Variables
+## Variables
 
 Variable names can contain the letters of the english alphabet (a-z),
 numbers (0-9) and the undercore `_` symbol. A variable name 
 can't start with numbers.
-
 If a variable name starts with the `$` char, then it's treated as 
 an expression.

@@ -20,6 +20,7 @@
   <ItemGroup>
     <None Remove="CmdHelp.md" />
     <None Remove="Documents\Documentation.md" />
+    <None Remove="Documents\FunctionHelp.md" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documents\Documentation.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documents\FunctionHelp.md">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
