@@ -91,8 +91,10 @@ namespace CalculatorShell.Expressions.Internals
             }
             else if (FunctionFactory.GetParameterCount(identifier) > 0)
                 return new Token(identifier, TokenType.Function);
-            else
+            else if (VariableNameChecker.IsValidVariableName(identifier))
                 return new Token(identifier, TokenType.Variable);
+            else
+                throw new ExpressionEngineException(Resources.InvalidToken);
 
         }
 
