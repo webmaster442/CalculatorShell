@@ -1,4 +1,4 @@
-name: .NET
+name: Unit test runner
 
 on:
   push:
