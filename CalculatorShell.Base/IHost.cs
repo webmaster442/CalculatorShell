@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CalculatorShell.Base
 {
@@ -23,6 +24,11 @@ namespace CalculatorShell.Base
         /// Request app shutdown
         /// </summary>
         void Shutdown();
+
+        /// <summary>
+        /// Get the running hosts version
+        /// </summary>
+        Version HostVersion { get; }
     }
 
     /// <summary>

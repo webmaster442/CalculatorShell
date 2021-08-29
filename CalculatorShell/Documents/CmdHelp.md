@@ -203,3 +203,13 @@ unset
 unset [variable name]
 unset [expression name]
 ```
+
+# version
+
+Displays the current program version.
+
+## Usage
+
+```
+version
+```
