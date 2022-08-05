@@ -127,7 +127,7 @@ namespace CalculatorShell.Maths
         /// The function takes a floating point number as an argument
         /// and returns its corresponding reduced fraction
         /// </summary>
-        public static Fraction ToFraction(double dValue)
+        public static Fraction ToFraction(double dValue, int maxDigits = 32)
         {
             try
             {
@@ -152,8 +152,16 @@ namespace CalculatorShell.Maths
                         }
                         int i = 0;
                         while (strTemp[i] != '.')
+                        {
                             i++;
+                        }
                         int iDigitsAfterDecimal = strTemp.Length - i - 1;
+
+                        if (iDigitsAfterDecimal > maxDigits)
+                        {
+                            iDigitsAfterDecimal = maxDigits;
+                        }
+
                         while (iDigitsAfterDecimal > 0)
                         {
                             dTemp *= 10;
