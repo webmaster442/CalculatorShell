@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CalculatorShell.Expressions.Internals.Conversions
+﻿namespace CalculatorShell.Expressions.Internals.Conversions
 {
     internal class FlowConversions : ConstantConversionBase
     {
@@ -32,7 +30,7 @@ namespace CalculatorShell.Expressions.Internals.Conversions
                     TargetRelationShip = DivideBase,
                 };
                 yield return new ConstantBasedConversion
-                { 
+                {
                     UnitName = "Gallons/hour",
                     Value = 951.0193885M,
                     BaseRelationShip = MultipleOfBase,
@@ -40,29 +38,29 @@ namespace CalculatorShell.Expressions.Internals.Conversions
                 };
                 yield return new ConstantBasedConversion
                 {
-                    UnitName = "Gallons/minute", 
-                    Value = 15.85032314M, 
-                    BaseRelationShip = MultipleOfBase, 
-                    TargetRelationShip = DivideBase
-                };
-                yield return new ConstantBasedConversion
-                { 
-                    UnitName = "Gallons/second",
-                    Value = 0.264172052M, 
-                    BaseRelationShip = MultipleOfBase, 
-                    TargetRelationShip = DivideBase
-                };
-                yield return new ConstantBasedConversion
-                {
-                    UnitName = "Meters3/hour", 
-                    Value = 39878M, 
+                    UnitName = "Gallons/minute",
+                    Value = 15.85032314M,
                     BaseRelationShip = MultipleOfBase,
                     TargetRelationShip = DivideBase
                 };
                 yield return new ConstantBasedConversion
-                { 
+                {
+                    UnitName = "Gallons/second",
+                    Value = 0.264172052M,
+                    BaseRelationShip = MultipleOfBase,
+                    TargetRelationShip = DivideBase
+                };
+                yield return new ConstantBasedConversion
+                {
+                    UnitName = "Meters3/hour",
+                    Value = 39878M,
+                    BaseRelationShip = MultipleOfBase,
+                    TargetRelationShip = DivideBase
+                };
+                yield return new ConstantBasedConversion
+                {
                     UnitName = "Meters3/minute",
-                    Value = 0.06M, 
+                    Value = 0.06M,
                     BaseRelationShip = MultipleOfBase,
                     TargetRelationShip = DivideBase
                 };

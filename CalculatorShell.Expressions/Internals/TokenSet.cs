@@ -7,7 +7,7 @@
         public TokenSet(params TokenType[] tokens)
         {
             _tokens = 0;
-            foreach (var token in tokens)
+            foreach (TokenType token in tokens)
             {
                 _tokens |= (uint)token;
             }

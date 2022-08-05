@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -19,13 +18,12 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override IExpression Simplify()
         {
-            var newLeft = Left?.Simplify();
-            var newRight = Right?.Simplify();
+            IExpression? newLeft = Left?.Simplify();
+            IExpression? newRight = Right?.Simplify();
 
-            var leftConst = newLeft as Constant;
-            var rightConst = newRight as Constant;
-            var leftNegate = newLeft as Negate;
-            var rightNegate = newRight as Negate;
+            Constant? leftConst = newLeft as Constant;
+            Constant? rightConst = newRight as Constant;
+            Negate? leftNegate = newLeft as Negate;
 
             if (leftConst != null && rightConst != null)
             {
@@ -76,7 +74,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                     return new Negate(newLeft);
                 }
             }
-            else if (leftNegate != null && rightNegate != null)
+            else if (leftNegate != null && newRight is Negate rightNegate)
             {
                 // -x / -y
                 return new Divide(leftNegate.Child, rightNegate.Child);

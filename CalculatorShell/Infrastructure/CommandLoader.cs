@@ -1,8 +1,6 @@
 ﻿using CalculatorShell.Base;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -22,10 +20,10 @@ namespace CalculatorShell.Infrastructure
             Commands = Enumerable.Empty<ICommand>();
             _memory = memory;
             _host = host;
-            using var catalog = new AggregateCatalog();
-            using var ac = new AssemblyCatalog(typeof(CommandLoader).Assembly);
+            using AggregateCatalog? catalog = new AggregateCatalog();
+            using AssemblyCatalog? ac = new AssemblyCatalog(typeof(CommandLoader).Assembly);
             catalog.Catalogs.Add(ac);
-            using var container = new CompositionContainer(catalog);
+            using CompositionContainer? container = new CompositionContainer(catalog);
             container.ComposeParts(this);
             container.SatisfyImportsOnce(this);
 

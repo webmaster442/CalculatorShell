@@ -1,9 +1,7 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Expressions;
 using CalculatorShell.Maths;
-using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace CalculatorShell.Commands
 {
@@ -17,7 +15,7 @@ namespace CalculatorShell.Commands
 
             arguments.CheckArgumentCount(1);
 
-            var result = EvaluateExpression(arguments, out IExpression parsed);
+            INumber? result = EvaluateExpression(arguments, out IExpression parsed);
             output.WriteLine("Number type: {0}", result.NumberType);
             switch (result.NumberType)
             {

@@ -1,7 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
-using System;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
@@ -21,12 +20,12 @@ namespace CalculatorShell.Commands
 
             if (expression.StartsWith('$'))
             {
-                var exp = Memory.GetExpression(expression);
+                IExpression? exp = Memory.GetExpression(expression);
                 Memory.SetExpression("$ans", exp.Differentiate(byVariable));
             }
             else
             {
-                var exp = ExpressionFactory.Parse(expression, Memory, arguments.CurrentCulture);
+                IExpression? exp = ExpressionFactory.Parse(expression, Memory, arguments.CurrentCulture);
                 Memory.SetExpression("$ans", exp.Differentiate(byVariable));
             }
         }

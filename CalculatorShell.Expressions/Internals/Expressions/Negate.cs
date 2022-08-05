@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell.Expressions.Internals.Expressions
+﻿namespace CalculatorShell.Expressions.Internals.Expressions
 {
     internal sealed class Negate : UnaryExpression
     {
@@ -15,7 +13,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override IExpression Simplify()
         {
-            var newChild = Child?.Simplify();
+            IExpression? newChild = Child?.Simplify();
             if (newChild is Constant childConst)
             {
                 // child is constant

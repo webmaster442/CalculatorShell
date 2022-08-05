@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell.Expressions.Internals
+﻿namespace CalculatorShell.Expressions.Internals
 {
     internal sealed class ConstantBasedConversion
     {

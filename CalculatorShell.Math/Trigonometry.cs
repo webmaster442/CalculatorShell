@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell.Maths
+﻿namespace CalculatorShell.Maths
 {
     /// <summary>
     /// Trigonometic functions

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace CalculatorShell.Expressions.Internals.Logic
 {
@@ -7,7 +6,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
     {
         public static string Create(Implicant implicant, int length, bool lsba, bool negate)
         {
-            var mask = implicant.Mask.PadLeft(length, '0');
+            string? mask = implicant.Mask.PadLeft(length, '0');
             string result = string.Empty;
             if (lsba)
                 result = CreateLsb(negate, mask, length);

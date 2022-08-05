@@ -1,12 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Commands
 {
@@ -18,7 +12,7 @@ namespace CalculatorShell.Commands
             arguments.CheckArgumentCount(1);
             string fileName = arguments.Get<string>(0);
 
-            using (var fss = fs.CreateOrOverwrite(fileName))
+            using (Stream? fss = fs.CreateOrOverwrite(fileName))
             {
                 await Serialize(fss, cancellationToken);
             }

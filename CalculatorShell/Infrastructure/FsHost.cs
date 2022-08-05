@@ -1,7 +1,4 @@
 ﻿using CalculatorShell.Base;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -17,7 +14,7 @@ namespace CalculatorShell.Infrastructure
         public string CurrentDirectory
         {
             get { return _currentDirectory; }
-            set 
+            set
             {
                 string parsed = Environment.ExpandEnvironmentVariables(value);
                 if (Directory.Exists(parsed))
@@ -33,13 +30,13 @@ namespace CalculatorShell.Infrastructure
 
         public Stream CreateOrOverwrite(string name)
         {
-            var full = Path.Combine(CurrentDirectory, name);
+            string? full = Path.Combine(CurrentDirectory, name);
             return File.Create(full);
         }
 
         public bool FileExists(string name)
         {
-            var full = Path.Combine(CurrentDirectory, name);
+            string? full = Path.Combine(CurrentDirectory, name);
             return File.Exists(full);
         }
 
@@ -55,7 +52,7 @@ namespace CalculatorShell.Infrastructure
 
         public Stream OpenRead(string name)
         {
-            var full = Path.Combine(CurrentDirectory, name);
+            string? full = Path.Combine(CurrentDirectory, name);
             return File.OpenRead(full);
         }
     }

@@ -1,6 +1,5 @@
 ﻿using CalculatorShell.Ui;
 using NUnit.Framework;
-using System.Linq;
 
 namespace CalculatorShell.Tests.Shell
 {

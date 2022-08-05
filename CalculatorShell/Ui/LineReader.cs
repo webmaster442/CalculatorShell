@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CalculatorShell.Ui
+﻿namespace CalculatorShell.Ui
 {
     internal class LineReader
     {
@@ -28,7 +25,7 @@ namespace CalculatorShell.Ui
             _console.Write(prompt);
             string text = GetText(_keyHandler);
 
-            if (string.IsNullOrWhiteSpace(text) 
+            if (string.IsNullOrWhiteSpace(text)
                 && !string.IsNullOrWhiteSpace(@default))
             {
                 text = @default;

@@ -35,7 +35,7 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("0o7_77", 511)]
         public void TestDoubleParsing(string input, double expected)
         {
-            bool succes = NumberParser.TryParse(input, out var result, CultureInfo.InvariantCulture);
+            bool succes = NumberParser.TryParse(input, out NumberImplementation result, CultureInfo.InvariantCulture);
             Assert.IsTrue(succes);
             Assert.AreEqual(NumberType.Double, result.NumberType);
             Assert.AreEqual(expected, result.Value);
@@ -49,7 +49,7 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("fAlSe", false)]
         public void TestBooleanParsing(string input, bool expected)
         {
-            bool succes = NumberParser.TryParse(input, out var result, CultureInfo.InvariantCulture);
+            bool succes = NumberParser.TryParse(input, out NumberImplementation result, CultureInfo.InvariantCulture);
             Assert.IsTrue(succes);
             Assert.AreEqual(NumberType.Boolean, result.NumberType);
             Assert.AreEqual(expected, result.Value);

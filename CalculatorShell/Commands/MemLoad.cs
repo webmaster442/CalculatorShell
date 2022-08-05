@@ -1,8 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
 using System.ComponentModel.Composition;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Commands
 {
@@ -14,7 +12,7 @@ namespace CalculatorShell.Commands
             arguments.CheckArgumentCount(1);
             string fileName = arguments.Get<string>(0);
 
-            using (var fss = fs.OpenRead(fileName))
+            using (Stream? fss = fs.OpenRead(fileName))
             {
                 await Deserialize(fss, cancellationToken);
             }

@@ -7,6 +7,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DocumentationFile>..\bin\$(Configuration)\CalculatorShell.Expressions.xml</DocumentationFile>
     <WarningsAsErrors>;NU1605;CS1591</WarningsAsErrors>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,7 +3,6 @@ using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Maths;
 using CalculatorShell.Properties;
-using System;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
@@ -15,7 +14,7 @@ namespace CalculatorShell.Commands
         {
             arguments.CheckArgumentCount(1);
 
-            var mode = arguments.Get<string>(0);
+            string? mode = arguments.Get<string>(0);
             if (Enum.TryParse<AngleMode>(mode, true, out AngleMode parsed))
             {
                 ExpressionFactory.CurrentAngleMode = parsed;

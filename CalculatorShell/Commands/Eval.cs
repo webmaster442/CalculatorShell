@@ -1,7 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
-using System;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
@@ -22,7 +21,7 @@ namespace CalculatorShell.Commands
 
             arguments.CheckArgumentCount(1);
 
-            var result = EvaluateExpression(arguments, out IExpression parsed);
+            INumber? result = EvaluateExpression(arguments, out IExpression parsed);
 
             output.WriteLine("{0}", result);
             Memory.SetExpression("$ans", parsed);

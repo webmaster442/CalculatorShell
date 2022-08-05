@@ -1,8 +1,5 @@
 ﻿using CalculatorShell.Ui;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace CalculatorShell.Tests.Shell
 {
@@ -12,11 +9,11 @@ namespace CalculatorShell.Tests.Shell
         [Test]
         public void ShouldBeToStringFromList()
         {
-            var users = new List<User>
+            List<User> users = new List<User>
             {
                 new User { Name = "Alexandre" , Age = 36 }
             };
-            var table = ConsoleTable.From(users).ToString();
+            string table = ConsoleTable.From(users).ToString();
 
             Assert.AreEqual(
 $@" ------------------- 
@@ -31,7 +28,7 @@ $@" -------------------
         [Test]
         public void ShouldBeAvoidErrorOnToStringFromAddRows()
         {
-            var table = new ConsoleTable("one", "two", "three")
+            string table = new ConsoleTable("one", "two", "three")
                 .AddRow(1, 2, 3)
                 .AddRow("this line should be longer", "yes it is", "oh")
                 .Configure(o => o.NumberAlignment = CellAlignment.Right)
@@ -52,11 +49,11 @@ $@" --------------------------------------------------
         [Test]
         public void NumberShouldBeRightAligned()
         {
-            var users = new List<User>
+            List<User> users = new List<User>
             {
                 new User { Name = "Alexandre" , Age = 36 }
             };
-            var table = ConsoleTable
+            string table = ConsoleTable
                 .From(users)
                 .Configure(o => o.NumberAlignment = CellAlignment.Right)
                 .ToString();
@@ -74,11 +71,11 @@ $@" -------------------
         [Test]
         public void NumberShouldBeRightAlignedOnMarkDown()
         {
-            var users = new List<User>
+            List<User> users = new List<User>
             {
                 new User { Name = "Alexandre" , Age = 36 }
             };
-            var table = ConsoleTable
+            string table = ConsoleTable
                 .From(users)
                 .Configure(o => o.NumberAlignment = CellAlignment.Right)
                 .ToMarkDownString();
@@ -93,12 +90,12 @@ $@"| Name      | Age |
         [Test]
         public void OutputShouldDefaultToConsoleOut()
         {
-            var users = new List<User>
+            List<User> users = new List<User>
             {
                 new User { Name = "Alexandre" , Age = 36 }
             };
 
-            var table = ConsoleTable.From(users);
+            ConsoleTable table = ConsoleTable.From(users);
 
             Assert.AreEqual(table.Options.OutputTo, Console.Out);
         }
@@ -106,12 +103,12 @@ $@"| Name      | Age |
         [Test]
         public void OutputShouldGoToConfiguredOutputWriter()
         {
-            var users = new List<User>
+            List<User> users = new List<User>
             {
                 new User { Name = "Alexandre" , Age = 36 }
             };
 
-            var testWriter = new StringWriter();
+            StringWriter testWriter = new StringWriter();
 
             ConsoleTable
                .From(users)
@@ -121,7 +118,7 @@ $@"| Name      | Age |
             Assert.IsNotEmpty(testWriter.ToString());
         }
 
-        class User
+        private class User
         {
             public string Name { get; set; }
             public int Age { get; set; }

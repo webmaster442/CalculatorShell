@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CalculatorShell.Maths
 {
@@ -26,51 +24,51 @@ namespace CalculatorShell.Maths
             return new Complex(r, i);
         }
 
-        public static Complex operator + (Complex a, Complex b)
+        public static Complex operator +(Complex a, Complex b)
         {
-            var calculated = a._complex + b._complex;
+            System.Numerics.Complex calculated = a._complex + b._complex;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
         public static Complex operator +(Complex a, double b)
         {
-            var calculated = a._complex + b;
+            System.Numerics.Complex calculated = a._complex + b;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
-        public static Complex operator - (Complex a, Complex b)
+        public static Complex operator -(Complex a, Complex b)
         {
-            var calculated = a._complex - b._complex;
+            System.Numerics.Complex calculated = a._complex - b._complex;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
         public static Complex operator -(Complex a, double b)
         {
-            var calculated = a._complex - b;
+            System.Numerics.Complex calculated = a._complex - b;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
-        public static Complex operator * (Complex a, Complex b)
+        public static Complex operator *(Complex a, Complex b)
         {
-            var calculated = a._complex * b._complex;
+            System.Numerics.Complex calculated = a._complex * b._complex;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
         public static Complex operator *(Complex a, double b)
         {
-            var calculated = a._complex * b;
+            System.Numerics.Complex calculated = a._complex * b;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
-        public static Complex operator / (Complex a, Complex b)
+        public static Complex operator /(Complex a, Complex b)
         {
-            var calculated = a._complex / b._complex;
+            System.Numerics.Complex calculated = a._complex / b._complex;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
-        public static Complex operator / (Complex a, double b)
+        public static Complex operator /(Complex a, double b)
         {
-            var calculated = a._complex / b;
+            System.Numerics.Complex calculated = a._complex / b;
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 

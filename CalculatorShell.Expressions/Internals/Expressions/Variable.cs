@@ -1,10 +1,5 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -24,7 +19,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             if (identifier.Contains('[') &&
                 identifier.Contains(']'))
             {
-                var parts = identifier.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+                string[]? parts = identifier.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length != 2)
                     throw new ExpressionEngineException(Resources.InvalidToken);
 
@@ -74,7 +69,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
             if (Variables == null)
                 throw new ExpressionEngineException(Resources.NoVariableValues);
 
-            if (Variables.IsConstant(Name) 
+            if (Variables.IsConstant(Name)
                 && string.IsNullOrEmpty(PropertyName))
             {
                 return new Constant((NumberImplementation)Variables[Name]);

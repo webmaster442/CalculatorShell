@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace CalculatorShell.Ui
+﻿namespace CalculatorShell.Ui
 {
     public sealed class ConsoleTableOptions
     {

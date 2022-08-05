@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Security.Cryptography;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -10,10 +6,10 @@ namespace CalculatorShell.Infrastructure
     {
         public static async Task<byte[]> ComputeHash(string file, HashAlgorithm algorithm, IProgress<double> progress, CancellationToken cancellationToken)
         {
-            var buffer = new byte[1024 * 4];
+            byte[]? buffer = new byte[1024 * 4];
             int read = 0;
             long processed = 0;
-            using (var fileStream = File.OpenRead(file))
+            using (FileStream? fileStream = File.OpenRead(file))
             {
                 long fileSize = fileStream.Length;
                 do

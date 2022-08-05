@@ -1,6 +1,5 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
-using System;
 using System.ComponentModel.Composition;
 
 

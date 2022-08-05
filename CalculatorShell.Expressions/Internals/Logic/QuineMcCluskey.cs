@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace CalculatorShell.Expressions.Internals.Logic
 {
@@ -8,7 +6,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
     {
         private static Dictionary<int, List<Implicant>> Group(List<Implicant> implicants)
         {
-            var group = new Dictionary<int, List<Implicant>>();
+            Dictionary<int, List<Implicant>>? group = new Dictionary<int, List<Implicant>>();
             foreach (Implicant m in implicants)
             {
                 int count = Utilities.GetOneCount(m.Mask);
@@ -25,17 +23,17 @@ namespace CalculatorShell.Expressions.Internals.Logic
         private static bool Simplify(ref List<Implicant> implicants)
         {
             //Group by number of 1's and determine relationships by comparing.
-            var groups = Group(implicants).OrderBy(i => i.Key).ToDictionary(i => i.Key, i => i.Value);
+            Dictionary<int, List<Implicant>>? groups = Group(implicants).OrderBy(i => i.Key).ToDictionary(i => i.Key, i => i.Value);
 
-            var relationships = new List<ImplicantRelationship>();
+            List<ImplicantRelationship>? relationships = new List<ImplicantRelationship>();
             for (int i = 0; i < groups.Keys.Count; i++)
             {
                 if (i == (groups.Keys.Count - 1)) break;
 
-                var q = from a in groups[groups.Keys.ElementAt(i)]
-                        from b in groups[groups.Keys.ElementAt(i + 1)]
-                        where Utilities.GetDifferences(a.Mask, b.Mask) == 1
-                        select new ImplicantRelationship(a, b);
+                IEnumerable<ImplicantRelationship>? q = from a in groups[groups.Keys.ElementAt(i)]
+                                                        from b in groups[groups.Keys.ElementAt(i + 1)]
+                                                        where Utilities.GetDifferences(a.Mask, b.Mask) == 1
+                                                        select new ImplicantRelationship(a, b);
 
                 relationships.AddRange(q);
             }
@@ -46,7 +44,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
              */
             foreach (ImplicantRelationship r in relationships)
             {
-                var rmList = new List<Implicant>();
+                List<Implicant>? rmList = new List<Implicant>();
 
                 foreach (Implicant m in implicants)
                 {
@@ -55,7 +53,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
 
                 foreach (Implicant m in rmList) implicants.Remove(m);
 
-                var newImplicant = new Implicant();
+                Implicant? newImplicant = new Implicant();
                 newImplicant.Mask = Utilities.GetMask(r.A.Mask, r.B.Mask);
                 newImplicant.Minterms.AddRange(r.A.Minterms);
                 newImplicant.Minterms.AddRange(r.B.Minterms);
@@ -89,12 +87,12 @@ namespace CalculatorShell.Expressions.Internals.Logic
 
         private static List<Implicant> SelectImplicants(List<Implicant> implicants, List<int> inputs)
         {
-            var lstToRemove = new List<int>(inputs);
-            var final = new List<Implicant>();
+            List<int>? lstToRemove = new List<int>(inputs);
+            List<Implicant>? final = new List<Implicant>();
             int runnumber = 0;
             while (lstToRemove.Count != 0)
             {
-                foreach (var m in implicants)
+                foreach (Implicant? m in implicants)
                 {
                     bool add = false;
 
@@ -118,7 +116,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
                         foreach (int r in m.Minterms) lstToRemove.Remove(r);
                     }
                 }
-                foreach (var item in final) implicants.Remove(item); //ami benne van már 1x, az még 1x ne
+                foreach (Implicant? item in final) implicants.Remove(item); //ami benne van már 1x, az még 1x ne
                 ++runnumber;
             }
 
@@ -144,15 +142,12 @@ namespace CalculatorShell.Expressions.Internals.Logic
             }
 
             string ret = final.Length > 3 ? final.ToString()[0..^3] : final.ToString();
-            switch (ret)
+            return ret switch
             {
-                case " | ":
-                    return "true";
-                case " & ":
-                    return "false";
-                default:
-                    return ret;
-            }
+                " | " => "true",
+                " & " => "false",
+                _ => ret,
+            };
         }
 
         public static string GetSimplified(IEnumerable<int> care, IEnumerable<int> dontcre, int variables, QuineMcCluskeyConfig? config = null)
@@ -163,14 +158,14 @@ namespace CalculatorShell.Expressions.Internals.Logic
             }
 
 
-            var implicants = new List<Implicant>();
+            List<Implicant>? implicants = new List<Implicant>();
 
-            var all = care.Concat(dontcre).OrderBy(x => x).Distinct().ToList();
+            List<int>? all = care.Concat(dontcre).OrderBy(x => x).Distinct().ToList();
 
 
-            foreach (var item in all)
+            foreach (int item in all)
             {
-                var m = new Implicant
+                Implicant? m = new Implicant
                 {
                     Mask = Utilities.GetBinaryValue(item, variables),
                 };

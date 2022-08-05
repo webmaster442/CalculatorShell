@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace CalculatorShell.Ui
 {
@@ -9,8 +7,8 @@ namespace CalculatorShell.Ui
         public static string WriteTable<T>(T item)
         {
             Dictionary<string, string> items = new();
-            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var property in properties)
+            PropertyInfo[]? properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo? property in properties)
             {
                 items.Add(property.Name, property.GetValue(item)?.ToString() ?? string.Empty);
             }
@@ -26,7 +24,7 @@ namespace CalculatorShell.Ui
                 NumberAlignment = CellAlignment.Left,
                 EnableCount = false,
             });
-            foreach (var entry in dictionary)
+            foreach (KeyValuePair<Tkey, TValue> entry in dictionary)
             {
                 table.AddRow(entry.Key, entry.Value);
             }
@@ -42,9 +40,9 @@ namespace CalculatorShell.Ui
                 EnableCount = false,
             });
             List<string> cols = new(columns);
-            foreach (var item in items)
+            foreach (T? item in items)
             {
-                if (cols.Count > columns -1)
+                if (cols.Count > columns - 1)
                 {
                     table.AddRow(cols.ToArray());
                     cols.Clear();
@@ -54,7 +52,7 @@ namespace CalculatorShell.Ui
             if (cols.Count > 0)
             {
                 int pad = columns - cols.Count;
-                for (int i=0; i<pad; i++)
+                for (int i = 0; i < pad; i++)
                 {
                     cols.Add(string.Empty);
                 }

@@ -1,6 +1,5 @@
 ﻿using CalculatorShell.Maths;
 using NUnit.Framework;
-using System;
 
 namespace CalculatorShell.Tests.Maths
 {

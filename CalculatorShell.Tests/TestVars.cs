@@ -1,6 +1,4 @@
 ﻿using CalculatorShell.Expressions;
-using System;
-using System.Collections.Generic;
 
 namespace CalculatorShell.Tests
 {

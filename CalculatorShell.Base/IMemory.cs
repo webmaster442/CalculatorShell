@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Expressions;
-using System.Collections.Generic;
 
 namespace CalculatorShell.Base
 {

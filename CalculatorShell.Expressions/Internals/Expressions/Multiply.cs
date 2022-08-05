@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -17,13 +16,13 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override IExpression Simplify()
         {
-            var newLeft = Left?.Simplify();
-            var newRight = Right?.Simplify();
+            IExpression? newLeft = Left?.Simplify();
+            IExpression? newRight = Right?.Simplify();
 
-            var leftConst = newLeft as Constant;
-            var rightConst = newRight as Constant;
-            var leftNegate = newLeft as Negate;
-            var rightNegate = newRight as Negate;
+            Constant? leftConst = newLeft as Constant;
+            Constant? rightConst = newRight as Constant;
+            Negate? leftNegate = newLeft as Negate;
+            Negate? rightNegate = newRight as Negate;
 
             if (leftConst != null && rightConst != null)
             {

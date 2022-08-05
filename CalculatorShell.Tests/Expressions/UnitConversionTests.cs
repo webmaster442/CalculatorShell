@@ -14,7 +14,7 @@ namespace CalculatorShell.Tests.Expressions
         {
             _sut = new UnitConverter(CultureInfo.InvariantCulture);
         }
-        
+
         [TestCase("1", "kiB", "byte", "1024")]
         [TestCase("1", "MiB", "kiB", "1024")]
         [TestCase("1", "GiB", "MiB", "1024")]
@@ -38,7 +38,7 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("30", "celsius", "farenheit", "86")]
         public void ConvertTest(string inputValue, string inputUnit, string targetUnit, string expected)
         {
-            var result = _sut.Convert(inputValue, inputUnit, targetUnit);
+            string result = _sut.Convert(inputValue, inputUnit, targetUnit);
             if (result.StartsWith(expected))
             {
                 Assert.Pass();

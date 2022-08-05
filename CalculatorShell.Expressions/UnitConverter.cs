@@ -1,9 +1,6 @@
 ﻿using CalculatorShell.Expressions.Internals.Conversions;
 using CalculatorShell.Expressions.Properties;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace CalculatorShell.Expressions
 {
@@ -59,7 +56,7 @@ namespace CalculatorShell.Expressions
             if (targetUnit.Contains('_'))
                 searchOutputUnit = targetUnit.Split('_')[1];
 
-            var converter = _subconverters.FirstOrDefault(x => x.KnownUnits.Contains(searchInputUnit)
+            IUnitConverter? converter = _subconverters.FirstOrDefault(x => x.KnownUnits.Contains(searchInputUnit)
                                                             && x.KnownUnits.Contains(searchOutputUnit));
 
             if (converter == null)

@@ -159,7 +159,7 @@ namespace CalculatorShell.Tests.Expressions
         {
             IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
 
-            var result = parsed.Differentiate("x").Simplify();
+            IExpression result = parsed.Differentiate("x").Simplify();
 
             Assert.AreEqual(expected, result.ToString());
         }
@@ -231,7 +231,7 @@ namespace CalculatorShell.Tests.Expressions
         {
             IExpression parsed = ExpressionFactory.Parse(expression, _variablesMock.Object, CultureInfo.InvariantCulture);
 
-            var result = parsed.Simplify();
+            IExpression result = parsed.Simplify();
 
             Assert.AreEqual(expected, result.ToString());
         }

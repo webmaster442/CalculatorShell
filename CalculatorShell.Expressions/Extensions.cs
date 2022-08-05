@@ -1,10 +1,7 @@
 ﻿using CalculatorShell.Expressions.Internals;
 using CalculatorShell.Expressions.Internals.Expressions;
 using CalculatorShell.Expressions.Properties;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace CalculatorShell.Expressions
 {
@@ -26,7 +23,7 @@ namespace CalculatorShell.Expressions
 
             while (expressions.Count > 0)
             {
-                var n = expressions.Pop();
+                IExpression? n = expressions.Pop();
 
                 if (n != null)
                 {
@@ -40,7 +37,7 @@ namespace CalculatorShell.Expressions
                     if (bin.Right != null)
                         expressions.Push(bin.Right);
                 }
-                else if (n is UnaryExpression un 
+                else if (n is UnaryExpression un
                     && un.Child != null)
                 {
                     expressions.Push(un.Child);
@@ -83,19 +80,19 @@ namespace CalculatorShell.Expressions
                 yield break;
 
             //distinct by name
-            var varialbes = GetDistinctVariables(expression.Flatten().OfType<Variable>()).ToArray();
+            Variable[]? varialbes = GetDistinctVariables(expression.Flatten().OfType<Variable>()).ToArray();
 
             checked
             {
                 int combinations = 1 << varialbes.Length;
-                for (int i=0; i<combinations; i++)
+                for (int i = 0; i < combinations; i++)
                 {
                     bool[] values = GetValues(i, varialbes.Length);
-                    for (int j=0; j<values.Length; j++)
+                    for (int j = 0; j < values.Length; j++)
                     {
                         expression.Variables[varialbes[j].Name] = new NumberImplementation(values[j]);
                     }
-                    var result = expression.Evaluate().GetBooean();
+                    bool result = expression.Evaluate().GetBooean();
                     if (result)
                     {
                         yield return i;
@@ -114,8 +111,8 @@ namespace CalculatorShell.Expressions
         {
             if (expression.IsLogicExpression())
             {
-                var simplified = expression.Simplify();
-                var minterms = simplified.GetMinterms();
+                IExpression? simplified = expression.Simplify();
+                IEnumerable<int>? minterms = simplified.GetMinterms();
 
                 if (simplified.Variables == null)
                     return simplified;
@@ -139,7 +136,7 @@ namespace CalculatorShell.Expressions
         private static IEnumerable<Variable> GetDistinctVariables(IEnumerable<Variable> enumerable)
         {
             HashSet<string> names = new HashSet<string>();
-            foreach (var variable in enumerable)
+            foreach (Variable? variable in enumerable)
             {
                 if (!names.Contains(variable.Name))
                 {
@@ -152,8 +149,8 @@ namespace CalculatorShell.Expressions
         private static bool[] GetValues(int currentIndex, int length)
         {
             bool[] result = new bool[length];
-            var str = Convert.ToString(currentIndex, 2).PadLeft(length, '0');
-            for (int j=0; j<str.Length; j++)
+            string? str = Convert.ToString(currentIndex, 2).PadLeft(length, '0');
+            for (int j = 0; j < str.Length; j++)
             {
                 if (str[j] == '1')
                     result[j] = true;

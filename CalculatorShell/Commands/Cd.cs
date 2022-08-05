@@ -1,10 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Commands
 {
@@ -21,7 +17,7 @@ namespace CalculatorShell.Commands
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             arguments.CheckArgumentCount(1);
-            var target = arguments.Get<string>(0);
+            string? target = arguments.Get<string>(0);
             if (target == "~"
                 && Directory.Exists(fs.Home))
             {
@@ -52,7 +48,7 @@ namespace CalculatorShell.Commands
         private bool TryGetSubir(string currentDirectory, string target, out string subdir)
         {
             subdir = Path.Combine(currentDirectory, target);
-            if (!subdir.EndsWith("\\")) 
+            if (!subdir.EndsWith("\\"))
                 subdir += "\\";
             return Directory.Exists(subdir);
         }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell.Expressions
+﻿namespace CalculatorShell.Expressions
 {
     /// <summary>
     /// A parsed expression

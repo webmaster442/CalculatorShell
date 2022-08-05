@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace CalculatorShell.Ui
@@ -50,7 +48,7 @@ namespace CalculatorShell.Ui
 
         private string BuildKeyInput()
         {
-            return (_keyInfo.Modifiers != ConsoleModifiers.Control && _keyInfo.Modifiers != ConsoleModifiers.Shift) ?
+            return (_keyInfo.Modifiers is not ConsoleModifiers.Control and not ConsoleModifiers.Shift) ?
                 _keyInfo.Key.ToString() : _keyInfo.Modifiers.ToString() + _keyInfo.Key.ToString();
         }
 
@@ -157,15 +155,12 @@ namespace CalculatorShell.Ui
 
             if (IsStartOfLine()) { return; }
 
-            var firstIdx = decrementIf(IsEndOfLine, _cursorPos - 1);
-            var secondIdx = decrementIf(IsEndOfLine, _cursorPos);
+            int firstIdx = decrementIf(IsEndOfLine, _cursorPos - 1);
+            int secondIdx = decrementIf(IsEndOfLine, _cursorPos);
 
-            var secondChar = _text[secondIdx];
-            _text[secondIdx] = _text[firstIdx];
-            _text[firstIdx] = secondChar;
-
-            var left = incrementIf(almostEndOfLine, _console.CursorLeft);
-            var cursorPosition = incrementIf(almostEndOfLine, _cursorPos);
+            (_text[firstIdx], _text[secondIdx]) = (_text[secondIdx], _text[firstIdx]);
+            int left = incrementIf(almostEndOfLine, _console.CursorLeft);
+            int cursorPosition = incrementIf(almostEndOfLine, _cursorPos);
 
             WriteNewString(_text.ToString());
 
@@ -245,7 +240,7 @@ namespace CalculatorShell.Ui
 
         public string GetAndResetText()
         {
-            var ret = Text;
+            string? ret = Text;
             _cursorPos = 0;
             _cursorLimit = 0;
             _text.Clear();

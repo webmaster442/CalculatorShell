@@ -1,8 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Expressions;
 using CalculatorShell.Properties;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace CalculatorShell
@@ -22,7 +20,7 @@ namespace CalculatorShell
 
         private static Dictionary<string, dynamic> FillConstants()
         {
-            var fields = typeof(Constants).GetFields(BindingFlags.Static | BindingFlags.Public);
+            FieldInfo[]? fields = typeof(Constants).GetFields(BindingFlags.Static | BindingFlags.Public);
             if (fields != null)
             {
                 return fields.ToDictionary(x => x.Name, x => x.GetValue(null))!;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace CalculatorShell.Expressions
 {
@@ -27,13 +25,13 @@ namespace CalculatorShell.Expressions
                 for (int j = 0; j < dataCount; j++)
                 {
                     //consecutive positions of the array will store N,sigma(xi),sigma(xi^2),sigma(xi^3)....sigma(xi^2n)
-                    X[i] += Math.Pow(xValues[j], i);   
+                    X[i] += Math.Pow(xValues[j], i);
                 }
             }
 
             //B is the Normal matrix(augmented) that will store the equations, 'a' is for value of the final coefficients
             double[,] B = new double[degree + 1, degree + 2];
-            double[] a = new double[degree + 1];      
+            double[] a = new double[degree + 1];
             for (int i = 0; i <= degree; i++)
             {
                 for (int j = 0; j <= degree; j++)
@@ -44,7 +42,7 @@ namespace CalculatorShell.Expressions
             }
 
             //Array to store the values of sigma(yi),sigma(xi*yi),sigma(xi^2*yi)...sigma(xi^n*yi)
-            double[] Y = new double[degree + 1];                    
+            double[] Y = new double[degree + 1];
             for (int i = 0; i < degree + 1; i++)
             {
                 Y[i] = 0;
@@ -57,14 +55,14 @@ namespace CalculatorShell.Expressions
             for (int i = 0; i <= degree; i++)
             {
                 //load the values of Y as the last column of B(Normal Matrix but augmented)
-                B[i, degree + 1] = Y[i];                
+                B[i, degree + 1] = Y[i];
             }
 
             //n is made n+1 because the Gaussian Elimination part below was for n equations, but here n is the degree of polynomial and for n degree we get n+1 equations
             degree++;
 
             //From now Gaussian Elimination starts(can be ignored) to solve the set of linear equations (Pivotisation)
-            for (int i = 0; i < degree; i++)                    
+            for (int i = 0; i < degree; i++)
             {
                 for (int k = i + 1; k < degree; k++)
                 {
@@ -72,16 +70,14 @@ namespace CalculatorShell.Expressions
                     {
                         for (int j = 0; j <= degree; j++)
                         {
-                            double temp = B[i, j];
-                            B[i, j] = B[k, j];
-                            B[k, j] = temp;
+                            (B[k, j], B[i, j]) = (B[i, j], B[k, j]);
                         }
                     }
                 }
             }
 
             //loop to perform the gauss elimination
-            for (int i = 0; i < degree - 1; i++)            
+            for (int i = 0; i < degree - 1; i++)
             {
                 for (int k = i + 1; k < degree; k++)
                 {
@@ -95,29 +91,29 @@ namespace CalculatorShell.Expressions
             }
 
             //back-substitution
-            for (int i = degree - 1; i >= 0; i--)                
+            for (int i = degree - 1; i >= 0; i--)
             {
                 //x is an array whose values correspond to the values of x,y,z..
                 //make the variable to be calculated equal to the rhs of the last equation
-                a[i] = B[i, degree];                
+                a[i] = B[i, degree];
                 for (int j = 0; j < degree; j++)
                 {
                     //then subtract all the lhs values except the coefficient of the variable whose value is being calculated
-                    if (j != i)            
+                    if (j != i)
                     {
                         a[i] -= B[i, j] * a[j];
                     }
                 }
 
                 //now finally divide the rhs by the coefficient of the variable to be calculated
-                a[i] /= B[i, i];           
+                a[i] /= B[i, i];
             }
 
             StringBuilder expression = new();
-            for (int i=0; i<degree; i++)
+            for (int i = 0; i < degree; i++)
             {
                 expression.AppendFormat("{0}*x^{1}", a[i], i);
-                if (i<degree-1)
+                if (i < degree - 1)
                 {
                     expression.Append('+');
                 }

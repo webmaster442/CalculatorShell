@@ -1,12 +1,12 @@
 ﻿using CalculatorShell.Maths;
 using NUnit.Framework;
 
-namespace CalculatorShell.Tests
+namespace CalculatorShell.Tests.Maths
 {
     [TestFixture]
     public class FractionTests
     {
-        [TestCase(5 ,5, 1, 1)]
+        [TestCase(5, 5, 1, 1)]
         [TestCase(27, 3, 9, 1)]
         [TestCase(34, 8, 17, 4)]
         public void TestReduceOnCreate(long n1, long d1, long en, long ed)

@@ -8,7 +8,7 @@
         /// <summary>
         /// Creates a new instance of color
         /// </summary>
-        public ConsoleColor() 
+        public ConsoleColor()
         {
             R = 0xff;
             G = 0xff;

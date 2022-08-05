@@ -1,6 +1,5 @@
 ﻿using CalculatorShell.Maths;
 using NUnit.Framework;
-using System;
 
 namespace CalculatorShell.Tests.Maths
 {
@@ -10,9 +9,9 @@ namespace CalculatorShell.Tests.Maths
         [TestCase(0, 0)]
         [TestCase(45, Math.PI / 4)]
         [TestCase(90, Math.PI / 2)]
-        [TestCase(135, (Math.PI * 3) / 4)]
+        [TestCase(135, Math.PI * 3 / 4)]
         [TestCase(180, Math.PI)]
-        [TestCase(270, (Math.PI * 3) / 2)]
+        [TestCase(270, Math.PI * 3 / 2)]
         [TestCase(360, Math.PI * 2)]
         public void TestDegToRad(double deg, double expectedRad)
         {
@@ -23,9 +22,9 @@ namespace CalculatorShell.Tests.Maths
         [TestCase(0, 0)]
         [TestCase(Math.PI / 4, 45)]
         [TestCase(Math.PI / 2, 90)]
-        [TestCase((Math.PI * 3) / 4, 135)]
+        [TestCase(Math.PI * 3 / 4, 135)]
         [TestCase(Math.PI, 180)]
-        [TestCase((Math.PI * 3) / 2, 270)]
+        [TestCase(Math.PI * 3 / 2, 270)]
         [TestCase(Math.PI * 2, 360)]
         public void TestRadToDeg(double rad, double expectedDeg)
         {
@@ -62,9 +61,9 @@ namespace CalculatorShell.Tests.Maths
         [TestCase(0, 0)]
         [TestCase(50, Math.PI / 4)]
         [TestCase(100, Math.PI / 2)]
-        [TestCase(150, (Math.PI * 3) / 4)]
+        [TestCase(150, Math.PI * 3 / 4)]
         [TestCase(200, Math.PI)]
-        [TestCase(300, (Math.PI * 3) / 2)]
+        [TestCase(300, Math.PI * 3 / 2)]
         [TestCase(400, Math.PI * 2)]
         public void TestGradToRad(double grad, double expectedRad)
         {
@@ -75,9 +74,9 @@ namespace CalculatorShell.Tests.Maths
         [TestCase(0, 0)]
         [TestCase(Math.PI / 4, 50)]
         [TestCase(Math.PI / 2, 100)]
-        [TestCase((Math.PI * 3) / 4, 150)]
+        [TestCase(Math.PI * 3 / 4, 150)]
         [TestCase(Math.PI, 200)]
-        [TestCase((Math.PI * 3) / 2, 300)]
+        [TestCase(Math.PI * 3 / 2, 300)]
         [TestCase(Math.PI * 2, 400)]
         public void TestRadToGrad(double rad, double expectedGrad)
         {

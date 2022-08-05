@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CalculatorShell.Maths
 {
@@ -118,7 +116,7 @@ namespace CalculatorShell.Maths
             }
 
             // else string is in the form of Numerator/Denominator
-            long iNumerator = Convert.ToInt64(strValue.Substring(0, i));
+            long iNumerator = Convert.ToInt64(strValue[..i]);
             long iDenominator = Convert.ToInt64(strValue[(i + 1)..]);
             return new Fraction(iNumerator, iDenominator);
         }
@@ -352,9 +350,7 @@ namespace CalculatorShell.Maths
             {
                 if (iNo1 < iNo2)
                 {
-                    long tmp = iNo1;  // swap the two operands
-                    iNo1 = iNo2;
-                    iNo2 = tmp;
+                    (iNo2, iNo1) = (iNo1, iNo2);  // swap the two operands
                 }
                 if (iNo2 == 0)
                     return 0;

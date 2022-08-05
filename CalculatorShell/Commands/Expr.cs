@@ -2,10 +2,8 @@
 using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Properties;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Globalization;
-using System.Linq;
 
 namespace CalculatorShell.Commands
 {
@@ -15,7 +13,7 @@ namespace CalculatorShell.Commands
         protected override void PrintMemory(ICommandConsole output)
         {
             Dictionary<string, IExpression> expressions = new();
-            foreach (var name in Memory!.ExpressionNames)
+            foreach (string? name in Memory!.ExpressionNames)
             {
                 expressions.Add(name, Memory!.GetExpression(name));
             }
@@ -40,7 +38,7 @@ namespace CalculatorShell.Commands
 
         protected override void SetMemory(string varName, string valueString, CultureInfo culture)
         {
-            var parsed = ExpressionFactory.Parse(valueString, Memory!, culture);
+            IExpression? parsed = ExpressionFactory.Parse(valueString, Memory!, culture);
             Memory!.SetExpression(varName, parsed);
         }
     }

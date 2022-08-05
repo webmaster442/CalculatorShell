@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace CalculatorShell.Base
+﻿namespace CalculatorShell.Base
 {
     /// <summary>
     /// Base interface for a command that runs on a sepperate thread from the base shell and

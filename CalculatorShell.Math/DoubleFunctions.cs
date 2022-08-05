@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell.Maths
+﻿namespace CalculatorShell.Maths
 {
     /// <summary>
     /// Functions that have a double return value
@@ -24,7 +22,7 @@ namespace CalculatorShell.Maths
         /// <returns>angle in degrees</returns>
         public static double RadToDeg(double rad)
         {
-            return (rad * 180.0) / Math.PI;
+            return rad * 180.0 / Math.PI;
         }
 
         /// <summary>
@@ -34,7 +32,7 @@ namespace CalculatorShell.Maths
         /// <returns>angle in degrees</returns>
         public static double GradToDeg(double grad)
         {
-            return (360.0 * grad) / 400.0;
+            return 360.0 * grad / 400.0;
         }
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace CalculatorShell.Maths
         /// <returns>angle in gradians</returns>
         public static double DegToGrad(double deg)
         {
-            return (400.0 * deg) / 360.0;
+            return 400.0 * deg / 360.0;
         }
 
         /// <summary>
@@ -54,7 +52,7 @@ namespace CalculatorShell.Maths
         /// <returns>angle in radians</returns>
         public static double GradToRad(double grad)
         {
-            return (grad * Math.PI) / 200.0;
+            return grad * Math.PI / 200.0;
         }
 
         /// <summary>
@@ -64,7 +62,7 @@ namespace CalculatorShell.Maths
         /// <returns>angle in gradians</returns>
         public static double RadToGrad(double rad)
         {
-            return (rad * 200.0) / Math.PI;
+            return rad * 200.0 / Math.PI;
         }
 
         /// <summary>

@@ -25,10 +25,10 @@ namespace CalculatorShell.Commands
         private void ExecuteMintermMode(Arguments arguments, ICommandConsole output)
         {
             arguments.CheckMinimumArgumentCount(2);
-            var termkind = arguments.Get<TermKind>(0, "--");
-            var terms = arguments.GetRange<int>(1, arguments.Count);
+            TermKind termkind = arguments.Get<TermKind>(0, "--");
+            IEnumerable<int>? terms = arguments.GetRange<int>(1, arguments.Count);
 
-            var reparsed = ExpressionFactory.ParseLogic(terms, null, new ParseLogicOptions
+            IExpression? reparsed = ExpressionFactory.ParseLogic(terms, null, new ParseLogicOptions
             {
                 Culture = arguments.CurrentCulture,
                 GenerateHazardFree = false,
@@ -42,8 +42,8 @@ namespace CalculatorShell.Commands
 
         private void ExecuteEpressionMode(Arguments arguments, ICommandConsole output)
         {
-            var expression = ParseExpression(arguments, 0);
-            var simplified = expression.ExtendedSimplify(arguments.CurrentCulture);
+            IExpression? expression = ParseExpression(arguments, 0);
+            IExpression? simplified = expression.ExtendedSimplify(arguments.CurrentCulture);
 
             Memory?.SetExpression("$ans", simplified);
             output.WriteLine("{0}", simplified);

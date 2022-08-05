@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CalculatorShell.Base
+﻿namespace CalculatorShell.Base
 {
     /// <summary>
     /// API that has to be provided by the command host to the commands

@@ -1,7 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Ui;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands

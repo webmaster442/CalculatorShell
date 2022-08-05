@@ -2,7 +2,6 @@
 using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Properties;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Globalization;
 
@@ -14,7 +13,7 @@ namespace CalculatorShell.Commands
         protected override void PrintMemory(ICommandConsole output)
         {
             Dictionary<string, string> vars = new();
-            foreach (var name in Memory!.VariableNames)
+            foreach (string? name in Memory!.VariableNames)
             {
                 vars.Add(name, Memory[name].ToString());
             }

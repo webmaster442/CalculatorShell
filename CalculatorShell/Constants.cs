@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell
+﻿namespace CalculatorShell
 {
     internal static class Constants
     {

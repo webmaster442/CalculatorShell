@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CalculatorShell.Base
 {
@@ -34,7 +32,7 @@ namespace CalculatorShell.Base
         public void CheckArgumentCount(params int[] arguments)
         {
             bool checkpassed = false;
-            foreach (var argument in arguments)
+            foreach (int argument in arguments)
             {
                 if (_arguments.Length == argument)
                 {
@@ -44,7 +42,7 @@ namespace CalculatorShell.Base
             }
             if (!checkpassed)
             {
-                var countString = string.Join(" or ", arguments);
+                string? countString = string.Join(" or ", arguments);
                 throw new InvalidOperationException($"Command expected {countString} arguments. {_arguments.Length} was given");
             }
         }
@@ -80,11 +78,11 @@ namespace CalculatorShell.Base
         /// <returns>true, if conversion was successfull, othwerwise false</returns>
         public bool TryGet<T>(int index, out T? result, string? ignore = "") where T : IConvertible
         {
-            var preprocessed = _arguments[index];
+            string? preprocessed = _arguments[index];
             if (!string.IsNullOrEmpty(ignore)
                 && preprocessed.StartsWith(ignore))
             {
-                preprocessed = preprocessed.Substring(ignore.Length);
+                preprocessed = preprocessed[ignore.Length..];
             }
 
             try
@@ -118,11 +116,11 @@ namespace CalculatorShell.Base
         /// <returns>Converted value</returns>
         public T Get<T>(int index, string? ignore = null) where T : IConvertible
         {
-            var preprocessed = _arguments[index];
+            string? preprocessed = _arguments[index];
             if (!string.IsNullOrEmpty(ignore)
                 && preprocessed.StartsWith(ignore))
             {
-                preprocessed = preprocessed.Substring(ignore.Length);
+                preprocessed = preprocessed[ignore.Length..];
             }
 
             try

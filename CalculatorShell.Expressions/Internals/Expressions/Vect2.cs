@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Maths;
-using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {

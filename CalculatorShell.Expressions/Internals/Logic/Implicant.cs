@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CalculatorShell.Expressions.Internals.Logic
+﻿namespace CalculatorShell.Expressions.Internals.Logic
 {
     internal class Implicant : IEquatable<Implicant?>
     {

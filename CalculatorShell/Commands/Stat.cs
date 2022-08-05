@@ -2,9 +2,7 @@
 using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
 using CalculatorShell.Maths;
-using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace CalculatorShell.Commands
 {
@@ -18,8 +16,8 @@ namespace CalculatorShell.Commands
 
             arguments.CheckMinimumArgumentCount(1);
 
-            var parameters =  arguments.GetRange<double>().ToArray();
-            var result = Statistics.Calculate(parameters);
+            double[]? parameters = arguments.GetRange<double>().ToArray();
+            StatisticResult? result = Statistics.Calculate(parameters);
             output.WriteTable(result);
 
             Memory["ans"] = result.CreateNumber();

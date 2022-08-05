@@ -1,16 +1,13 @@
 ﻿using CalculatorShell.Maths;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using System.Linq;
 
 namespace CalculatorShell.Expressions
 {
     internal class NumberImplementation : INumber
     {
         public dynamic Value { get; }
-        
+
         internal bool IsInteger
         {
             get
@@ -29,30 +26,16 @@ namespace CalculatorShell.Expressions
         public NumberImplementation(dynamic value)
         {
             Value = value;
-            switch (value)
+            NumberType = value switch
             {
-                case double:
-                    NumberType = NumberType.Double;
-                    break;
-                case System.Numerics.Complex:
-                    NumberType = NumberType.Complex;
-                    break;
-                case Fraction:
-                    NumberType = NumberType.Fraction;
-                    break;
-                case bool:
-                    NumberType = NumberType.Boolean;
-                    break;
-                case Vector2:
-                    NumberType = NumberType.Vector2;
-                    break;
-                case Vector3:
-                    NumberType = NumberType.Vector3;
-                    break;
-                default:
-                    NumberType = NumberType.Object;
-                    break;
-            }
+                double => NumberType.Double,
+                System.Numerics.Complex => NumberType.Complex,
+                Fraction => NumberType.Fraction,
+                bool => NumberType.Boolean,
+                Vector2 => NumberType.Vector2,
+                Vector3 => NumberType.Vector3,
+                _ => NumberType.Object,
+            };
         }
 
         public NumberType NumberType { get; }
@@ -75,7 +58,7 @@ namespace CalculatorShell.Expressions
             if (NumberType != NumberType.Complex)
                 throw new TypeException("Value is not a Complex");
 
-            var v = (Maths.Complex)Value;
+            Complex? v = (Maths.Complex)Value;
             return new System.Numerics.Complex(v.Real, v.Imaginary);
         }
 
@@ -92,7 +75,7 @@ namespace CalculatorShell.Expressions
             if (NumberType != NumberType.Fraction)
                 throw new TypeException("Value is not a Fraction");
 
-            var v = (Fraction)Value;
+            Fraction? v = (Fraction)Value;
             return (v.Numerator, v.Denominator);
 
         }
@@ -111,8 +94,8 @@ namespace CalculatorShell.Expressions
         {
             object o = Value;
             Dictionary<string, string> result = new();
-            var properties = o.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var property in properties)
+            PropertyInfo[]? properties = o.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo? property in properties)
             {
                 result.Add(property.Name, property.GetValue(o)?.ToString() ?? string.Empty);
             }
@@ -122,12 +105,12 @@ namespace CalculatorShell.Expressions
         public INumber GetPropertyValue(string property)
         {
             object o = Value;
-            var propertyInfo = o.GetType()?
+            PropertyInfo? propertyInfo = o.GetType()?
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .FirstOrDefault(x => x.Name.Equals(property, StringComparison.InvariantCultureIgnoreCase));
             if (propertyInfo != null)
             {
-                var result = propertyInfo.GetValue(o);
+                object? result = propertyInfo.GetValue(o);
                 if (result != null)
                 {
                     return new NumberImplementation(result);
@@ -139,13 +122,13 @@ namespace CalculatorShell.Expressions
 
         public (double x, double y) GetVector2()
         {
-            var v = (Vector2)Value;
+            Vector2? v = (Vector2)Value;
             return (v.X, v.Y);
         }
 
         public (double x, double y, double z) GetVector3()
         {
-            var v = (Vector3)Value;
+            Vector3? v = (Vector3)Value;
             return (v.X, v.Y, v.Z);
         }
     }

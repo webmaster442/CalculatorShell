@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -16,7 +15,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                 // f(x) = g(x)^n
                 // f'(x) = n * g'(x) * g(x)^(n-1)
 
-                var newRight = new Divide(new Constant(new NumberImplementation(1)), Right);
+                Divide? newRight = new Divide(new Constant(new NumberImplementation(1)), Right);
 
                 return
                     new Multiply(new Multiply(newRight, Left?.Differentiate(byVariable)),
@@ -27,16 +26,16 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override IExpression Simplify()
         {
-            var newLeft = Left?.Simplify();
-            var newRight = Right?.Simplify();
+            IExpression? newLeft = Left?.Simplify();
+            IExpression? newRight = Right?.Simplify();
 
-            var leftConst = newLeft as Constant;
-            var rightConst = newRight as Constant;
+            Constant? leftConst = newLeft as Constant;
+            Constant? rightConst = newRight as Constant;
 
             if (leftConst != null && rightConst != null)
             {
                 // two constants
-                return new Constant(Math.Pow(leftConst.Value.Value,  1.0 / rightConst.Value.Value));
+                return new Constant(Math.Pow(leftConst.Value.Value, 1.0 / rightConst.Value.Value));
             }
             if (rightConst != null)
             {

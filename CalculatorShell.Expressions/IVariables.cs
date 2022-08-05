@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CalculatorShell.Expressions
+﻿namespace CalculatorShell.Expressions
 {
     /// <summary>
     /// Provides acces to variable and constant management

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace CalculatorShell.Expressions.Internals.Logic
 {
@@ -55,7 +52,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
         public static bool ContainsSubList(List<int> list, List<int> OtherList)
         {
             bool ret = true;
-            foreach (var item in OtherList)
+            foreach (int item in OtherList)
             {
                 if (!list.Contains(item))
                 {
@@ -69,7 +66,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
         public static bool ContainsAtleastOne(List<int> list, List<int> OtherList)
         {
             bool ret = false;
-            foreach (var item in OtherList)
+            foreach (int item in OtherList)
             {
                 if (list.Contains(item))
                 {
@@ -90,7 +87,7 @@ namespace CalculatorShell.Expressions.Internals.Logic
 
         internal static int GetVariableCount(IEnumerable<int> terms, IEnumerable<int> notCared, int minimumVars)
         {
-            var merged = terms.Union(notCared);
+            IEnumerable<int>? merged = terms.Union(notCared);
 
             int max = 0;
             if (merged.Any())

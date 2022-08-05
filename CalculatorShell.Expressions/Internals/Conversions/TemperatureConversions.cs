@@ -1,8 +1,5 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace CalculatorShell.Expressions.Internals.Conversions
 {
@@ -33,7 +30,7 @@ namespace CalculatorShell.Expressions.Internals.Conversions
 
         public string Convert(string inputValue, string inputUnit, string targetUnit)
         {
-            if (!KnownUnits.Contains(inputUnit)||
+            if (!KnownUnits.Contains(inputUnit) ||
                 !KnownUnits.Contains(targetUnit))
             {
                 throw new ExpressionEngineException(Resources.CantConvert, inputUnit, targetUnit);

@@ -1,14 +1,11 @@
 ﻿using CalculatorShell.Expressions.Internals.Expressions;
 using CalculatorShell.Maths;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CalculatorShell.Expressions.Internals
 {
     internal static class FunctionFactory
     {
-        private static Dictionary<string, int> TypeFunctionTable = new()
+        private static readonly Dictionary<string, int> TypeFunctionTable = new()
         {
             { "cplx", 2 },
             { "cplxp", 2 },
@@ -42,7 +39,7 @@ namespace CalculatorShell.Expressions.Internals
 
         internal static IEnumerable<string> GetFunctionNames()
         {
-            var x = SingleParamFunctions.Keys.ToList();
+            List<string>? x = SingleParamFunctions.Keys.ToList();
             x.AddRange(TwoParamFunctions.Keys);
             x.AddRange(TypeFunctionTable.Keys);
             return x.Distinct();

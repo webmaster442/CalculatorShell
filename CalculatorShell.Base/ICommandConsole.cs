@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CalculatorShell.Base
+﻿namespace CalculatorShell.Base
 {
     /// <summary>
     /// Provides API to the console

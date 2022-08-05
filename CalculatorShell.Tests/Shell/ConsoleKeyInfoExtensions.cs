@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell.Tests.Shell
+﻿namespace CalculatorShell.Tests.Shell
 {
     public static class ConsoleKeyInfoExtensions
     {

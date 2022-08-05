@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace CalculatorShell.Maths
+﻿namespace CalculatorShell.Maths
 {
     public static class Statistics
     {
@@ -16,7 +14,7 @@ namespace CalculatorShell.Maths
             ret.Sum = 0.0;
             ret.Count = numbers.Length;
 
-            for (int i=0; i<numbers.Length; i++)
+            for (int i = 0; i < numbers.Length; i++)
             {
                 //Maximum
                 if (numbers[i] > ret.Maximum)
@@ -38,8 +36,8 @@ namespace CalculatorShell.Maths
         private static double ComputeMedian(double[] numbers)
         {
             int halfindex = numbers.Length / 2;
-            var sorted = numbers.OrderBy(x => x);
-            if ((numbers.Length %2) == 0)
+            IOrderedEnumerable<double>? sorted = numbers.OrderBy(x => x);
+            if ((numbers.Length % 2) == 0)
                 return (sorted.ElementAt(halfindex) + sorted.ElementAt(halfindex - 1)) / 2;
             else
                 return sorted.ElementAt(halfindex);

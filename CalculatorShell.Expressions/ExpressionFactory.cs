@@ -3,10 +3,7 @@ using CalculatorShell.Expressions.Internals.Expressions;
 using CalculatorShell.Expressions.Internals.Logic;
 using CalculatorShell.Expressions.Properties;
 using CalculatorShell.Maths;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 
 namespace CalculatorShell.Expressions
@@ -67,8 +64,8 @@ namespace CalculatorShell.Expressions
             {
                 throw new ExpressionEngineException(Resources.EmptyFunction);
             }
-            var exp = ParseAddExpression();
-            var leftover = new StringBuilder();
+            IExpression? exp = ParseAddExpression();
+            StringBuilder? leftover = new StringBuilder();
             while (_currentToken.Type != TokenType.Eof)
             {
                 leftover.Append(_currentToken.Value);
@@ -88,8 +85,8 @@ namespace CalculatorShell.Expressions
         /// <param name="dontcareTerms">Collection of terms that don't count</param>
         /// <param name="options">parsing options</param>
         /// <returns>A parsed expression</returns>
-        public static IExpression ParseLogic(IEnumerable<int> terms, 
-                                             IEnumerable<int>? dontcareTerms, 
+        public static IExpression ParseLogic(IEnumerable<int> terms,
+                                             IEnumerable<int>? dontcareTerms,
                                              ParseLogicOptions options)
         {
             IEnumerable<int> notCared = Enumerable.Empty<int>();
@@ -97,8 +94,8 @@ namespace CalculatorShell.Expressions
                 notCared = dontcareTerms;
 
 
-            string logic = QuineMcclusky.GetSimplified(terms, 
-                                                       notCared, 
+            string logic = QuineMcclusky.GetSimplified(terms,
+                                                       notCared,
                                                        Utilities.GetVariableCount(terms, notCared, options.MinVariableCount),
                                                        new QuineMcCluskeyConfig
                                                        {
@@ -142,35 +139,25 @@ namespace CalculatorShell.Expressions
         {
             if (Check(FirstMultExp))
             {
-                var exp = ParseMultExpression();
+                IExpression? exp = ParseMultExpression();
 
                 while (Check(new TokenSet(TokenType.Plus, TokenType.Minus, TokenType.Or)))
                 {
-                    var opType = _currentToken.Type;
+                    TokenType opType = _currentToken.Type;
                     Eat(opType);
                     if (!Check(FirstMultExp))
                     {
                         throw new ExpressionEngineException(Resources.ExpectedExpression);
                     }
-                    var right = ParseMultExpression();
+                    IExpression? right = ParseMultExpression();
 
-                    switch (opType)
+                    exp = opType switch
                     {
-                        case TokenType.Plus:
-                            exp = new Add(exp, right);
-                            break;
-
-                        case TokenType.Or:
-                            exp = new Or(exp, right);
-                            break;
-
-                        case TokenType.Minus:
-                            exp = new Subtract(exp, right);
-                            break;
-
-                        default:
-                            throw new ExpressionEngineException(Resources.ExpectedPlussminus, opType);
-                    }
+                        TokenType.Plus => new Add(exp, right),
+                        TokenType.Or => new Or(exp, right),
+                        TokenType.Minus => new Subtract(exp, right),
+                        _ => throw new ExpressionEngineException(Resources.ExpectedPlussminus, opType),
+                    };
                 }
 
                 return exp;
@@ -182,39 +169,26 @@ namespace CalculatorShell.Expressions
         {
             if (Check(FirstExpExp))
             {
-                var exp = ParseExpExpression();
+                IExpression? exp = ParseExpExpression();
 
                 while (Check(new TokenSet(TokenType.Multiply, TokenType.Divide, TokenType.And, TokenType.Mod)))
                 {
-                    var opType = _currentToken.Type;
+                    TokenType opType = _currentToken.Type;
                     Eat(opType);
                     if (!Check(FirstExpExp))
                     {
                         throw new ExpressionEngineException(Resources.ExpectedExpressionAfterMultDiv);
                     }
-                    var right = ParseExpExpression();
+                    IExpression? right = ParseExpExpression();
 
-                    switch (opType)
+                    exp = opType switch
                     {
-                        case TokenType.Multiply:
-                            exp = new Multiply(exp, right);
-                            break;
-
-                        case TokenType.Divide:
-                            exp = new Divide(exp, right);
-                            break;
-
-                        case TokenType.Mod:
-                            exp = new Mod(exp, right);
-                            break;
-
-                        case TokenType.And:
-                            exp = new And(exp, right);
-                            break;
-
-                        default:
-                            throw new ExpressionEngineException(Resources.ExpectedMultiplyDivide, opType);
-                    }
+                        TokenType.Multiply => new Multiply(exp, right),
+                        TokenType.Divide => new Divide(exp, right),
+                        TokenType.Mod => new Mod(exp, right),
+                        TokenType.And => new And(exp, right),
+                        _ => throw new ExpressionEngineException(Resources.ExpectedMultiplyDivide, opType),
+                    };
                 }
 
                 return exp;
@@ -226,27 +200,23 @@ namespace CalculatorShell.Expressions
         {
             if (Check(FirstUnaryExp))
             {
-                var exp = ParseUnaryExpression();
+                IExpression? exp = ParseUnaryExpression();
 
                 if (Check(new TokenSet(TokenType.Exponent)))
                 {
-                    var opType = _currentToken.Type;
+                    TokenType opType = _currentToken.Type;
                     Eat(opType);
                     if (!Check(FirstUnaryExp))
                     {
                         throw new ExpressionEngineException(Resources.ExpectedExpressionAfterExponent);
                     }
-                    var right = ParseUnaryExpression();
+                    IExpression? right = ParseUnaryExpression();
 
-                    switch (opType)
+                    exp = opType switch
                     {
-                        case TokenType.Exponent:
-                            exp = new Exponent(exp, right);
-                            break;
-
-                        default:
-                            throw new ExpressionEngineException(Resources.ExpectedExponent, opType);
-                    }
+                        TokenType.Exponent => new Exponent(exp, right),
+                        _ => throw new ExpressionEngineException(Resources.ExpectedExponent, opType),
+                    };
                 }
 
                 return exp;
@@ -256,8 +226,8 @@ namespace CalculatorShell.Expressions
 
         private static IExpression ParseUnaryExpression()
         {
-            var negate = false;
-            var not = false;
+            bool negate = false;
+            bool not = false;
             if (_currentToken.Type == TokenType.Minus)
             {
                 Eat(TokenType.Minus);
@@ -271,7 +241,7 @@ namespace CalculatorShell.Expressions
 
             if (Check(FirstFactorPrefix))
             {
-                var exp = ParseFactorPrefix();
+                IExpression? exp = ParseFactorPrefix();
 
                 if (negate)
                 {
@@ -292,7 +262,7 @@ namespace CalculatorShell.Expressions
             IExpression? exp = null;
             if (_currentToken.Type == TokenType.Constant)
             {
-                bool succes = NumberParser.TryParse(_currentToken.Value, out var result, _culture);
+                bool succes = NumberParser.TryParse(_currentToken.Value, out NumberImplementation? result, _culture);
                 if (!succes)
                 {
                     throw new ExpressionEngineException(Resources.InvalidExpression);
@@ -363,8 +333,8 @@ namespace CalculatorShell.Expressions
 
         private static IExpression ParseFunction()
         {
-            var opType = _currentToken.Type;
-            var function = _currentToken.Value;
+            TokenType opType = _currentToken.Type;
+            string? function = _currentToken.Value;
 
             Eat(opType);
             Eat(TokenType.OpenParen);
@@ -379,7 +349,7 @@ namespace CalculatorShell.Expressions
 
             IExpression[] arguments = new IExpression[argumentCount];
 
-            for (int i=0; i<argumentCount; i++)
+            for (int i = 0; i < argumentCount; i++)
             {
                 arguments[i] = ParseAddExpression();
                 if (i < (argumentCount - 1))

@@ -1,8 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
 using System.ComponentModel.Composition;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Commands
 {
@@ -14,7 +12,7 @@ namespace CalculatorShell.Commands
             arguments.CheckArgumentCount(1);
 
             uint seconds = arguments.Get<uint>(0);
-            for (uint i=0; i < seconds; i++)
+            for (uint i = 0; i < seconds; i++)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {

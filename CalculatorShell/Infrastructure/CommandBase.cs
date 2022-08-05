@@ -1,9 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Expressions;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -22,12 +19,12 @@ namespace CalculatorShell.Infrastructure
             if (Memory == null)
                 throw new InvalidOperationException();
 
-            var expressionString = arguments.Get<string>(index);
+            string? expressionString = arguments.Get<string>(index);
 
             if (expressionString.StartsWith('$'))
                 return Memory.GetExpression(expressionString);
             else
                 return ExpressionFactory.Parse(expressionString, Memory, arguments.CurrentCulture);
-        } 
+        }
     }
 }

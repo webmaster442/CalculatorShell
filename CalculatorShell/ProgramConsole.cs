@@ -1,8 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Properties;
 using CalculatorShell.Ui;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace CalculatorShell
@@ -152,7 +150,7 @@ namespace CalculatorShell
                 Console.Write(EscapeCodeFactory.CreateFormatSting(_currentFormat));
 
             StringBuilder buffer = new();
-            foreach (var item in items)
+            foreach (T? item in items)
             {
                 buffer.AppendLine(itemFormatter.Invoke(item));
             }
@@ -161,7 +159,7 @@ namespace CalculatorShell
 
         public ConsoleKey ReadKey()
         {
-            var key = Console.ReadKey(true);
+            ConsoleKeyInfo key = Console.ReadKey(true);
             return key.Key;
         }
     }

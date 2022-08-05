@@ -1,8 +1,6 @@
 ﻿using CalculatorShell.Expressions;
-using Moq;
 using NUnit.Framework;
 using System.Globalization;
-using System.Linq;
 
 namespace CalculatorShell.Tests.Expressions
 {
@@ -27,8 +25,8 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("1+2", false)]
         public void TestIsLogicExpression(string expression, bool expected)
         {
-            var parsed = ExpressionFactory.Parse(expression, _testVars, CultureInfo.InvariantCulture);
-            var result = parsed.IsLogicExpression();
+            IExpression parsed = ExpressionFactory.Parse(expression, _testVars, CultureInfo.InvariantCulture);
+            bool result = parsed.IsLogicExpression();
             Assert.AreEqual(expected, result);
         }
 
@@ -37,8 +35,8 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("(!a)&(!b)", 0)]
         public void TestMinterms(string expression, params int[] expected)
         {
-            var parsed = ExpressionFactory.Parse(expression, _testVars, CultureInfo.InvariantCulture);
-            var result = parsed.GetMinterms().ToArray();
+            IExpression parsed = ExpressionFactory.Parse(expression, _testVars, CultureInfo.InvariantCulture);
+            int[] result = parsed.GetMinterms().ToArray();
             CollectionAssert.AreEqual(expected, result);
         }
 
@@ -49,8 +47,8 @@ namespace CalculatorShell.Tests.Expressions
         [TestCase("true&false", "False")]
         public void TestExtendedSimplify(string expression, string expected)
         {
-            var parsed = ExpressionFactory.Parse(expression, _testVars, CultureInfo.InvariantCulture);
-            var simplified = parsed.ExtendedSimplify(CultureInfo.InvariantCulture);
+            IExpression parsed = ExpressionFactory.Parse(expression, _testVars, CultureInfo.InvariantCulture);
+            IExpression simplified = parsed.ExtendedSimplify(CultureInfo.InvariantCulture);
 
             Assert.AreEqual(expected, simplified.ToString());
 

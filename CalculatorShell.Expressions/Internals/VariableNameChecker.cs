@@ -4,7 +4,7 @@ namespace CalculatorShell.Expressions.Internals
 {
     internal static class VariableNameChecker
     {
-        private static Regex validator = new(@"^[a-z1-9_]+$");
+        private static readonly Regex validator = new(@"^[a-z1-9_]+$");
 
         public static bool IsValidVariableName(string name)
         {

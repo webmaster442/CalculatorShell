@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CalculatorShell.Base.Domain
+﻿namespace CalculatorShell.Base.Domain
 {
 
     /// <summary>

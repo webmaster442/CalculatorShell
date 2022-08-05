@@ -1,7 +1,4 @@
 ﻿using CalculatorShell.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -24,7 +21,7 @@ namespace CalculatorShell.Infrastructure
         {
             get
             {
-                var name = typeof(Program).Assembly.GetName();
+                System.Reflection.AssemblyName? name = typeof(Program).Assembly.GetName();
                 return name?.Version ?? new Version(99, 99, 99);
             }
         }

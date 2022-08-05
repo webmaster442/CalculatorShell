@@ -2,7 +2,6 @@
 using CalculatorShell.Infrastructure;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Globalization;
 
 namespace CalculatorShell.Tests.Shell
@@ -24,7 +23,7 @@ namespace CalculatorShell.Tests.Shell
             _fsHostMock = new Mock<IFsHost>();
             _memMock = new Mock<IMemory>();
             _consoleMock = new Mock<ICommandConsole>();
-            var loader = new CommandLoader(_memMock.Object, _hostMock.Object);
+            CommandLoader loader = new CommandLoader(_memMock.Object, _hostMock.Object);
 
             _sut = new CommandRunner(loader.Commands, _hostMock.Object, _fsHostMock.Object, CultureInfo.InvariantCulture);
         }

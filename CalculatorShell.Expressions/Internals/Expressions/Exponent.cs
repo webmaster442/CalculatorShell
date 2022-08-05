@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -19,13 +18,13 @@ namespace CalculatorShell.Expressions.Internals.Expressions
                     new Multiply(new Multiply(Right, Left?.Differentiate(byVariable)),
                                  new Exponent(Left, new Subtract(Right, new Constant(new NumberImplementation(1)))));
             }
-            var simple = Left?.Simplify();
+            IExpression? simple = Left?.Simplify();
             if (simple is Constant constant)
             {
                 // f(x) = a^g(x)
                 // f'(x) = (ln a) * g'(x) * a^g(x)
                 NumberImplementation? a = constant.Value;
-                var newleft = new Multiply(new Constant(new NumberImplementation(Math.Log(a.Value))), Right?.Differentiate(byVariable));
+                Multiply? newleft = new Multiply(new Constant(new NumberImplementation(Math.Log(a.Value))), Right?.Differentiate(byVariable));
                 return new Multiply(newleft, new Exponent(simple, Right));
             }
             throw new ExpressionEngineException(Resources.CanotDifferentiate);
@@ -33,11 +32,11 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override IExpression Simplify()
         {
-            var newLeft = Left?.Simplify();
-            var newRight = Right?.Simplify();
+            IExpression? newLeft = Left?.Simplify();
+            IExpression? newRight = Right?.Simplify();
 
-            var leftConst = newLeft as Constant;
-            var rightConst = newRight as Constant;
+            Constant? leftConst = newLeft as Constant;
+            Constant? rightConst = newRight as Constant;
 
             if (leftConst != null && rightConst != null)
             {

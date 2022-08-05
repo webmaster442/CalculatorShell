@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CalculatorShell.Tests.Shell
+﻿namespace CalculatorShell.Tests.Shell
 {
     public static class CharExtensions
     {
@@ -43,18 +40,18 @@ namespace CalculatorShell.Tests.Shell
 
         public static ConsoleKeyInfo ToConsoleKeyInfo(this char c)
         {
-            var (key, modifiers) = c.ParseKeyInfo();
+            (ConsoleKey key, ConsoleModifiers modifiers) = c.ParseKeyInfo();
 
-            var ctrl = modifiers.HasFlag(ConsoleModifiers.Control);
-            var shift = modifiers.HasFlag(ConsoleModifiers.Shift);
-            var alt = modifiers.HasFlag(ConsoleModifiers.Alt);
+            bool ctrl = modifiers.HasFlag(ConsoleModifiers.Control);
+            bool shift = modifiers.HasFlag(ConsoleModifiers.Shift);
+            bool alt = modifiers.HasFlag(ConsoleModifiers.Alt);
 
             return new ConsoleKeyInfo(c, key, shift, alt, ctrl);
         }
 
         private static Tuple<ConsoleKey, ConsoleModifiers> ParseKeyInfo(this char c)
         {
-            var success = Enum.TryParse<ConsoleKey>(c.ToString().ToUpper(), out ConsoleKey result);
+            bool success = Enum.TryParse<ConsoleKey>(c.ToString().ToUpper(), out ConsoleKey result);
             if (success) { return Tuple.Create(result, NoModifiers()); }
 
             success = specialKeyCharMap.TryGetValue(c, out Tuple<ConsoleKey, ConsoleModifiers> result2);
@@ -66,7 +63,7 @@ namespace CalculatorShell.Tests.Shell
 
         private static ConsoleModifiers NoModifiers()
         {
-            return (ConsoleModifiers)0;
+            return 0;
         }
     }
 }

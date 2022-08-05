@@ -1,7 +1,5 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
 using System.Globalization;
-using System.Linq;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
@@ -23,7 +21,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public INumber Evaluate()
         {
-            var evaluated = Parameters.Select(x => x.Evaluate() as NumberImplementation);
+            IEnumerable<NumberImplementation?>? evaluated = Parameters.Select(x => x.Evaluate() as NumberImplementation);
             NumberImplementation?[] notnull = evaluated?.Where(x => x != null)?.ToArray() ?? Array.Empty<NumberImplementation>();
 
             return Evaluate(notnull!);
@@ -37,7 +35,7 @@ namespace CalculatorShell.Expressions.Internals.Expressions
         {
             if (Parameters.All(x => x is Constant))
             {
-                var values = Parameters.OfType<Constant>().Select(x => x.Value);
+                IEnumerable<NumberImplementation>? values = Parameters.OfType<Constant>().Select(x => x.Value);
                 return new Constant(Evaluate(values.ToArray()));
             }
             else

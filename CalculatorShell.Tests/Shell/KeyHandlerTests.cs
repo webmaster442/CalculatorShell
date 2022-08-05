@@ -1,9 +1,6 @@
 ﻿using CalculatorShell.Ui;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 using static CalculatorShell.Tests.Shell.ConsoleKeyInfoExtensions;
 
@@ -81,7 +78,7 @@ namespace CalculatorShell.Tests.Shell
         [Test]
         public void TestControlT()
         {
-            var initialCursorCol = _console.CursorLeft;
+            int initialCursorCol = _console.CursorLeft;
             _sut.Handle(CtrlT);
 
             Assert.AreEqual("Helol", _sut.Text);
@@ -91,7 +88,7 @@ namespace CalculatorShell.Tests.Shell
         [Test]
         public void TestControlT_LeftOnce_CursorMovesToEnd()
         {
-            var initialCursorCol = _console.CursorLeft;
+            int initialCursorCol = _console.CursorLeft;
 
             new List<ConsoleKeyInfo>() { LeftArrow, CtrlT }
                 .ForEach(_sut.Handle);
@@ -108,7 +105,7 @@ namespace CalculatorShell.Tests.Shell
                 .ToList()
                 .ForEach(_sut.Handle);
 
-            var initialCursorCol = _console.CursorLeft;
+            int initialCursorCol = _console.CursorLeft;
 
             _sut.Handle(CtrlT);
 
@@ -121,7 +118,7 @@ namespace CalculatorShell.Tests.Shell
         {
             _sut.Handle(CtrlA);
 
-            var initialCursorCol = _console.CursorLeft;
+            int initialCursorCol = _console.CursorLeft;
 
             _sut.Handle(CtrlT);
 
@@ -226,7 +223,8 @@ namespace CalculatorShell.Tests.Shell
         [Test]
         public void TestUpArrow()
         {
-            _history.AsEnumerable().Reverse().ToList().ForEach((history) => {
+            _history.AsEnumerable().Reverse().ToList().ForEach((history) =>
+            {
                 _sut.Handle(UpArrow);
                 Assert.AreEqual(history, _sut.Text);
             });
@@ -235,7 +233,8 @@ namespace CalculatorShell.Tests.Shell
         [Test]
         public void TestControlP()
         {
-            _history.AsEnumerable().Reverse().ToList().ForEach((history) => {
+            _history.AsEnumerable().Reverse().ToList().ForEach((history) =>
+            {
                 _sut.Handle(CtrlP);
                 Assert.AreEqual(history, _sut.Text);
             });
@@ -248,7 +247,8 @@ namespace CalculatorShell.Tests.Shell
                     .ToList()
                     .ForEach(_sut.Handle);
 
-            _history.ForEach(history => {
+            _history.ForEach(history =>
+            {
                 Assert.AreEqual(history, _sut.Text);
                 _sut.Handle(DownArrow);
             });
@@ -261,7 +261,8 @@ namespace CalculatorShell.Tests.Shell
                     .ToList()
                     .ForEach(_sut.Handle);
 
-            _history.ForEach(history => {
+            _history.ForEach(history =>
+            {
                 Assert.AreEqual(history, _sut.Text);
                 _sut.Handle(CtrlN);
             });
@@ -322,7 +323,8 @@ namespace CalculatorShell.Tests.Shell
 
             "Hi ".Select(c => c.ToConsoleKeyInfo()).ToList().ForEach(_sut.Handle);
 
-            _completions.ToList().ForEach(completion => {
+            _completions.ToList().ForEach(completion =>
+            {
                 _sut.Handle(Tab);
                 Assert.AreEqual($"Hi {completion}", _sut.Text);
             });
@@ -343,7 +345,8 @@ namespace CalculatorShell.Tests.Shell
             // Bring up the first Autocomplete
             _sut.Handle(Tab);
 
-            _completions.Reverse().ToList().ForEach(completion => {
+            _completions.Reverse().ToList().ForEach(completion =>
+            {
                 _sut.Handle(ShiftTab);
                 Assert.AreEqual($"Hi {completion}", _sut.Text);
             });

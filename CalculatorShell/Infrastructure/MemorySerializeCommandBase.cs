@@ -1,12 +1,8 @@
 ﻿using CalculatorShell.Base.Domain;
 using CalculatorShell.Expressions;
 using CalculatorShell.Properties;
-using System;
 using System.Globalization;
-using System.IO;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -24,7 +20,7 @@ namespace CalculatorShell.Infrastructure
         protected async ValueTask Deserialize(Stream source, CancellationToken token)
         {
 
-            var data = await JsonSerializer.DeserializeAsync<MemoryData>(source, CreateOptions(), token);
+            MemoryData? data = await JsonSerializer.DeserializeAsync<MemoryData>(source, CreateOptions(), token);
 
             if (data == null)
                 throw new InvalidOperationException(Resources.FileLoadError);
@@ -35,14 +31,14 @@ namespace CalculatorShell.Infrastructure
             Memory.Clear();
             Memory.ClearExpressions();
 
-            foreach (var variable in data.Variables)
+            foreach (KeyValuePair<string, string> variable in data.Variables)
             {
                 Memory[variable.Key] = NumberSerializerFactory.Deserialize(variable.Value);
             }
 
-            foreach (var expression in data.Expressions)
+            foreach (KeyValuePair<string, string> expression in data.Expressions)
             {
-                var parsed = ExpressionFactory.Parse(expression.Value, Memory, CultureInfo.InvariantCulture);
+                IExpression? parsed = ExpressionFactory.Parse(expression.Value, Memory, CultureInfo.InvariantCulture);
                 Memory.SetExpression(expression.Key, parsed);
             }
         }
@@ -53,14 +49,14 @@ namespace CalculatorShell.Infrastructure
                 throw new InvalidOperationException();
 
             MemoryData result = new();
-            foreach (var name in Memory.VariableNames)
+            foreach (string? name in Memory.VariableNames)
             {
                 result.Variables[name] = NumberSerializerFactory.Serialize(Memory[name]);
             }
 
-            foreach (var name in Memory.ExpressionNames)
+            foreach (string? name in Memory.ExpressionNames)
             {
-                var value = Memory.GetExpression(name).ToString(CultureInfo.InvariantCulture);
+                string? value = Memory.GetExpression(name).ToString(CultureInfo.InvariantCulture);
                 result.Expressions[name] = value;
             }
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CalculatorShell.Maths
 {
@@ -92,7 +90,7 @@ namespace CalculatorShell.Maths
             return new Vector3(left.X / right, left.Y / right, left.Z / right);
         }
 
-        public static implicit operator Vector3 (Vector2 value)
+        public static implicit operator Vector3(Vector2 value)
         {
             return new Vector3(value.X, value.Y, 0);
         }

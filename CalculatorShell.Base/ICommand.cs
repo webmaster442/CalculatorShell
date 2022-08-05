@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CalculatorShell.Base
+﻿namespace CalculatorShell.Base
 {
     /// <summary>
     /// Base interface for a shell command

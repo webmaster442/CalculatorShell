@@ -1,11 +1,7 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Infrastructure;
-using System;
 using System.Collections.Concurrent;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Commands
 {
@@ -19,13 +15,13 @@ namespace CalculatorShell.Commands
             arguments.CheckArgumentCount(1);
 
             long number = arguments.Get<long>(0);
-            var numbers = new ConcurrentBag<long>();
-            var options = new ParallelOptions
+            ConcurrentBag<long>? numbers = new ConcurrentBag<long>();
+            ParallelOptions? options = new ParallelOptions
             {
                 CancellationToken = cancellationToken,
             };
 
-            Parallel.For(1L, Convert.ToInt64(Math.Sqrt(number)),  options, i =>
+            Parallel.For(1L, Convert.ToInt64(Math.Sqrt(number)), options, i =>
             {
                 if (number % i == 0)
                 {
@@ -41,7 +37,7 @@ namespace CalculatorShell.Commands
                 }
             });
 
-            var str = string.Join(';', numbers.OrderBy(i => i));
+            string? str = string.Join(';', numbers.OrderBy(i => i));
             output.WriteLine(str);
         }
     }

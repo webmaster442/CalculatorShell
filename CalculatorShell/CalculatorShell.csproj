@@ -15,6 +15,7 @@
     <PackageTags>calculator,shell,expression,evaluator,vt100</PackageTags>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>CalculatorShell</ToolCommandName>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

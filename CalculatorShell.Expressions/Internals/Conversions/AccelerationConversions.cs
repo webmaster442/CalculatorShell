@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CalculatorShell.Expressions.Internals.Conversions
 {
@@ -13,31 +12,31 @@ namespace CalculatorShell.Expressions.Internals.Conversions
         {
             get
             {
-                yield return new ConstantBasedConversion 
-                { 
+                yield return new ConstantBasedConversion
+                {
                     UnitName = "Meters/sec2",
                     Value = 1M
                 };
                 yield return new ConstantBasedConversion
                 {
-                    UnitName = "Feet/sec2", 
+                    UnitName = "Feet/sec2",
                     Value = 3.280839895M,
                     BaseRelationShip = MultipleOfBase,
-                    TargetRelationShip = DivideBase 
+                    TargetRelationShip = DivideBase
                 };
-                yield return new ConstantBasedConversion 
+                yield return new ConstantBasedConversion
                 {
                     UnitName = "Gravity",
                     Value = 0.101971621M,
                     BaseRelationShip = MultipleOfBase,
-                    TargetRelationShip = DivideBase 
+                    TargetRelationShip = DivideBase
                 };
-                yield return new ConstantBasedConversion 
-                { 
+                yield return new ConstantBasedConversion
+                {
                     UnitName = "Inches/sec2",
-                    Value = 39.37007874M, 
-                    BaseRelationShip = MultipleOfBase, 
-                    TargetRelationShip = DivideBase 
+                    Value = 39.37007874M,
+                    BaseRelationShip = MultipleOfBase,
+                    TargetRelationShip = DivideBase
                 };
             }
         }

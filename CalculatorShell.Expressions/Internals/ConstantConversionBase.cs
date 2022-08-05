@@ -1,8 +1,5 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace CalculatorShell.Expressions.Internals
 {
@@ -59,7 +56,7 @@ namespace CalculatorShell.Expressions.Internals
         public CultureInfo Culture { get; }
 
         public abstract IEnumerable<ConstantBasedConversion> UnitConstants { get; }
-        
+
         public abstract string CategoryName { get; }
 
         public string Convert(string inputValue, string inputUnit, string targetUnit)
@@ -100,7 +97,7 @@ namespace CalculatorShell.Expressions.Internals
         {
             if (inputUnit.Contains("_"))
             {
-                var parts = inputUnit.Split('_');
+                string[]? parts = inputUnit.Split('_');
                 sourceMultiplier = _prefixTable[parts[0]];
                 return UnitConstants.FirstOrDefault(x => x.UnitName == parts[1]);
             }

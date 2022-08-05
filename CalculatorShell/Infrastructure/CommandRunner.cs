@@ -2,13 +2,8 @@
 using CalculatorShell.Expressions;
 using CalculatorShell.Properties;
 using CalculatorShell.Ui;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CalculatorShell.Infrastructure
 {
@@ -40,11 +35,11 @@ namespace CalculatorShell.Infrastructure
 
         private Dictionary<string, ICommand> CreateCommandsTable(IEnumerable<ICommand> commands)
         {
-            var ret = new Dictionary<string, ICommand>();
-            foreach (var cmd in commands)
+            Dictionary<string, ICommand>? ret = new Dictionary<string, ICommand>();
+            foreach (ICommand? cmd in commands)
             {
                 ret.Add(cmd.GetType().Name.ToLower(), cmd);
-                foreach (var alias in cmd.Aliases)
+                foreach (string? alias in cmd.Aliases)
                 {
                     ret.Add(alias.ToLower(), cmd);
                 }
@@ -128,13 +123,13 @@ namespace CalculatorShell.Infrastructure
 
         private static string CreatePrompt(string currentDirectory)
         {
-            var angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
+            string? angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
             {
                 TextFormat = TextFormat.Italic,
                 Foreground = new Base.ConsoleColor(0xff, 0x00, 0xff),
             });
 
-            var dir = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
+            string? dir = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
             {
                 Foreground = new Base.ConsoleColor(0xF2, 0xC5, 0x1F),
                 TextFormat = TextFormat.None,
@@ -159,7 +154,7 @@ namespace CalculatorShell.Infrastructure
             if (string.IsNullOrWhiteSpace(commandLine))
                 yield break;
 
-            var buffer = new StringBuilder(1024);
+            StringBuilder? buffer = new StringBuilder(1024);
             bool inQuote = false;
             foreach (char c in commandLine)
             {
@@ -177,7 +172,7 @@ namespace CalculatorShell.Infrastructure
 
                 if (buffer.Length > 0)
                 {
-                    var result = buffer.ToString();
+                    string? result = buffer.ToString();
                     buffer.Clear();
                     inQuote = false;
                     yield return result;

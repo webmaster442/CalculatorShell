@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
     <OutputPath>..\bin\tests\$(Configuration)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

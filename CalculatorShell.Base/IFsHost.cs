@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-
-namespace CalculatorShell.Base
+﻿namespace CalculatorShell.Base
 {
     /// <summary>
     /// Provides acces to File system stuff
@@ -23,7 +20,7 @@ namespace CalculatorShell.Base
         /// </summary>
         /// <returns>Directories</returns>
         IEnumerable<string> GetDirectories();
-        
+
         /// <summary>
         /// Get current dirs files
         /// </summary>

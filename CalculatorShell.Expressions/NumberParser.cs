@@ -1,13 +1,11 @@
 ﻿using CalculatorShell.Maths;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace CalculatorShell.Expressions
 {
     internal static class NumberParser
     {
-        private static Dictionary<string, double> _multipliers = new()
+        private static readonly Dictionary<string, double> _multipliers = new()
         {
             { "_p", 1E-12 },
             { "_n", 1E-9 },
@@ -23,7 +21,7 @@ namespace CalculatorShell.Expressions
 
         private static string FindPrefix(string input)
         {
-            foreach (var prefix in _multipliers.Keys)
+            foreach (string? prefix in _multipliers.Keys)
             {
                 if (input.Contains(prefix))
                     return prefix;

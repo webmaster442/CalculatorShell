@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalculatorShell.Expressions.Internals.Expressions
+﻿namespace CalculatorShell.Expressions.Internals.Expressions
 {
     internal sealed class Log : BinaryExpression
     {
@@ -16,8 +14,8 @@ namespace CalculatorShell.Expressions.Internals.Expressions
 
         public override IExpression Simplify()
         {
-            var newLeft = Left?.Simplify();
-            var newRight = Right?.Simplify();
+            IExpression? newLeft = Left?.Simplify();
+            IExpression? newRight = Right?.Simplify();
 
             if (newLeft is Constant leftConst
                 && newRight is Constant rightConst)

@@ -1,7 +1,5 @@
 ﻿using CalculatorShell.Expressions.Properties;
-using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 
 namespace CalculatorShell.Expressions.Internals
@@ -76,7 +74,7 @@ namespace CalculatorShell.Expressions.Internals
 
         private Token HandleStrings()
         {
-            var temp = new StringBuilder();
+            StringBuilder? temp = new StringBuilder();
             while (_index < _function.Length &&
                 IsAllowedToken(_function[_index]))
             {
@@ -100,8 +98,8 @@ namespace CalculatorShell.Expressions.Internals
 
         private bool IsAllowedToken(char c)
         {
-            bool isText = ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z');
-            bool isNumber = ('0' <= c && c <= '9');
+            bool isText = c is (>= 'a' and <= 'z') or (>= 'A' and <= 'Z');
+            bool isNumber = c is >= '0' and <= '9';
             return isText || isNumber || _specialTokens.Contains(c);
         }
     }

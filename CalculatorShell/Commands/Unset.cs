@@ -1,7 +1,5 @@
 ﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
 using CalculatorShell.Infrastructure;
-using System;
 using System.ComponentModel.Composition;
 
 namespace CalculatorShell.Commands
@@ -19,7 +17,7 @@ namespace CalculatorShell.Commands
 
             if (arguments.Count == 1)
             {
-                var name = arguments.Get<string>(0);
+                string? name = arguments.Get<string>(0);
                 Memory.Delete(name);
             }
             else

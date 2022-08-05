@@ -1,7 +1,5 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Properties;
-using System;
-using System.Collections.Generic;
 
 namespace CalculatorShell.Ui
 {
@@ -24,14 +22,14 @@ namespace CalculatorShell.Ui
 
         public void LoadText(string manifestResourceName)
         {
-            var assembly = typeof(TextViewer).Assembly;
+            System.Reflection.Assembly? assembly = typeof(TextViewer).Assembly;
 
-            using var stream = assembly.GetManifestResourceStream(manifestResourceName);
+            using Stream? stream = assembly.GetManifestResourceStream(manifestResourceName);
             if (stream == null)
             {
                 return;
             }
-            using var reader = new System.IO.StreamReader(stream);
+            using StreamReader? reader = new System.IO.StreamReader(stream);
 
             string? line = null;
             while ((line = reader.ReadLine()) != null)
@@ -136,7 +134,7 @@ namespace CalculatorShell.Ui
                 if (written > maxRowCount)
                 {
                     output.WriteLine("\nPress a key to contine or ESC to exit...");
-                    var key = output.ReadKey();
+                    ConsoleKey key = output.ReadKey();
                     if (key == ConsoleKey.Escape)
                     {
                         return false;
@@ -151,7 +149,7 @@ namespace CalculatorShell.Ui
         public void Show(ICommandConsole output, string? chapter = null)
         {
             BufferSwap(alternate: true);
-            int screenRows = (Console.WindowHeight - 2);
+            int screenRows = Console.WindowHeight - 2;
 
             (int start, int end) pos = (0, _lines.Count);
 
