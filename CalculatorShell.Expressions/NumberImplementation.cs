@@ -58,7 +58,7 @@ namespace CalculatorShell.Expressions
             if (NumberType != NumberType.Complex)
                 throw new TypeException("Value is not a Complex");
 
-            Complex? v = (Maths.Complex)Value;
+            Complex v = (Maths.Complex)Value;
             return new System.Numerics.Complex(v.Real, v.Imaginary);
         }
 
@@ -75,7 +75,7 @@ namespace CalculatorShell.Expressions
             if (NumberType != NumberType.Fraction)
                 throw new TypeException("Value is not a Fraction");
 
-            Fraction? v = (Fraction)Value;
+            Fraction v = (Fraction)Value;
             return (v.Numerator, v.Denominator);
 
         }
@@ -122,13 +122,13 @@ namespace CalculatorShell.Expressions
 
         public (double x, double y) GetVector2()
         {
-            Vector2? v = (Vector2)Value;
+            Vector2 v = (Vector2)Value;
             return (v.X, v.Y);
         }
 
         public (double x, double y, double z) GetVector3()
         {
-            Vector3? v = (Vector3)Value;
+            Vector3 v = (Vector3)Value;
             return (v.X, v.Y, v.Z);
         }
     }

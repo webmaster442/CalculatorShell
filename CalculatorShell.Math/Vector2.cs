@@ -2,7 +2,7 @@
 
 namespace CalculatorShell.Maths
 {
-    public sealed class Vector2 : IEquatable<Vector2?>, ICalculatorType
+    public struct Vector2 : ICalculatorType
     {
         public double X { get; }
         public double Y { get; }
@@ -16,14 +16,18 @@ namespace CalculatorShell.Maths
 
         public override bool Equals(object? obj)
         {
-            return Equals(obj as Vector2);
+            if (obj is Vector2 vector)
+            {
+                return Equals(vector);
+            }
+            return false;
         }
 
-        public bool Equals(Vector2? other)
+        public bool Equals(Vector2 other)
         {
-            return other != null &&
-                   X == other.X &&
-                   Y == other.Y;
+            return
+              X == other.X &&
+              Y == other.Y;
         }
 
         public override int GetHashCode()
@@ -41,12 +45,12 @@ namespace CalculatorShell.Maths
             return ToString(CultureInfo.InvariantCulture);
         }
 
-        public static bool operator ==(Vector2? left, Vector2? right)
+        public static bool operator ==(Vector2 left, Vector2 right)
         {
-            return EqualityComparer<Vector2>.Default.Equals(left, right);
+            return left.Equals(right);
         }
 
-        public static bool operator !=(Vector2? left, Vector2? right)
+        public static bool operator !=(Vector2 left, Vector2 right)
         {
             return !(left == right);
         }

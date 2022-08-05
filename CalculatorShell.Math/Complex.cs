@@ -2,7 +2,7 @@
 
 namespace CalculatorShell.Maths
 {
-    public sealed class Complex : IEquatable<Complex?>, ICalculatorType
+    public struct Complex : ICalculatorType
     {
         private readonly System.Numerics.Complex _complex;
 
@@ -72,25 +72,26 @@ namespace CalculatorShell.Maths
             return new Complex(calculated.Real, calculated.Imaginary);
         }
 
-        public static bool operator ==(Complex? left, Complex? right)
+        public static bool operator ==(Complex left, Complex right)
         {
-            return EqualityComparer<Complex>.Default.Equals(left, right);
+            return left.Equals(right);
         }
 
-        public static bool operator !=(Complex? left, Complex? right)
+        public static bool operator !=(Complex left, Complex right)
         {
             return !(left == right);
         }
 
         public override bool Equals(object? obj)
         {
-            return Equals(obj as Complex);
+            if (obj is Complex complex)
+                return Equals(complex);
+            return false;
         }
 
-        public bool Equals(Complex? other)
+        public bool Equals(Complex other)
         {
-            return other != null &&
-                   _complex.Equals(other._complex);
+            return  _complex.Equals(other._complex);
         }
 
         public override int GetHashCode()

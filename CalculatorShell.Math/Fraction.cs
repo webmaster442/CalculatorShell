@@ -2,49 +2,47 @@
 
 namespace CalculatorShell.Maths
 {
-    public sealed class Fraction : IEquatable<Fraction?>, ICalculatorType
+    public struct Fraction : ICalculatorType
     {
         /// <summary>
         /// Constructors
         /// </summary>
         public Fraction()
         {
-            Initialize(0, 1);
+            Numerator = 0;
+            Denominator = 1;
         }
 
         public Fraction(long iWholeNumber)
         {
-            Initialize(iWholeNumber, 1);
+            Numerator = iWholeNumber;
+            Denominator = 1;
         }
 
         public Fraction(double dDecimalValue)
         {
             Fraction temp = ToFraction(dDecimalValue);
-            Initialize(temp.Numerator, temp.Denominator);
+            Numerator = temp.Numerator;
+            Denominator = temp.Denominator;
+            ReduceFraction();
         }
 
         public Fraction(string strValue)
         {
             Fraction temp = ToFraction(strValue);
-            Initialize(temp.Numerator, temp.Denominator);
+            Numerator = temp.Numerator;
+            Denominator = temp.Denominator;
+            ReduceFraction();
         }
 
         public Fraction(long iNumerator, long iDenominator)
-        {
-            Initialize(iNumerator, iDenominator);
-        }
-
-        /// <summary>
-        /// Internal function for constructors
-        /// </summary>
-        private void Initialize(long iNumerator, long iDenominator)
         {
             if (iDenominator == 0)
                 throw new TypeException("Denominator can't be 0");
 
             Numerator = iNumerator;
             Denominator = iDenominator;
-            ReduceFraction(this);
+            ReduceFraction();
         }
 
         /// <summary>
@@ -76,16 +74,18 @@ namespace CalculatorShell.Maths
                 return $"{Numerator.ToString(format)}/{Denominator.ToString(format)}";
         }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(object obj)
         {
-            return Equals(obj as Fraction);
+            if (obj is Fraction fraction)
+                return Equals(fraction);
+            return false;
         }
 
-        public bool Equals(Fraction? other)
+        public bool Equals(Fraction other)
         {
-            return other != null &&
-                   Denominator == other.Denominator &&
-                   Numerator == other.Numerator;
+            return 
+                Denominator == other.Denominator &&
+                Numerator == other.Numerator;
         }
 
         public override int GetHashCode()
@@ -240,9 +240,9 @@ namespace CalculatorShell.Maths
 
         public static bool operator !=(Fraction left, double right) => !(left == new Fraction(right));
 
-        public static bool operator ==(Fraction? left, Fraction? right) => EqualityComparer<Fraction>.Default.Equals(left, right);
+        public static bool operator ==(Fraction left, Fraction right) => left.Equals(right);
 
-        public static bool operator !=(Fraction? left, Fraction? right) => !(left == right);
+        public static bool operator !=(Fraction left, Fraction right) => !(left == right);
 
         public static bool operator <(Fraction frac1, Fraction frac2)
         {
@@ -362,28 +362,28 @@ namespace CalculatorShell.Maths
             return iNo2;
         }
 
-        private static void ReduceFraction(Fraction frac)
+        private void ReduceFraction()
         {
             try
             {
-                if (frac.Numerator == 0)
+                if (Numerator == 0)
                 {
-                    frac.Denominator = 1;
+                    Denominator = 1;
                     return;
                 }
 
-                long iGCD = GCD(frac.Numerator, frac.Denominator);
+                long iGCD = GCD(Numerator, Denominator);
                 if (iGCD != 0)
                 {
-                    frac.Numerator /= iGCD;
-                    frac.Denominator /= iGCD;
+                    Numerator /= iGCD;
+                    Denominator /= iGCD;
                 }
 
-                if (frac.Denominator < 0)   // if -ve sign in denominator
+                if (Denominator < 0)   // if -ve sign in denominator
                 {
                     //pass -ve sign to numerator
-                    frac.Numerator *= -1;
-                    frac.Denominator *= -1;
+                    Numerator *= -1;
+                    Denominator *= -1;
                 }
             } // end try
             catch (Exception exp)

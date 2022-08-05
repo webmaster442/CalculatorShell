@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace CalculatorShell.Expressions.Internals.Expressions
 {
-    internal abstract class TypeFunction<T> : IExpression where T : class
+    internal abstract class TypeFunction<T> : IExpression where T : struct
     {
         public TypeFunction(params IExpression[] expressions)
         {
