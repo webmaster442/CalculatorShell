@@ -9,11 +9,11 @@ namespace CalculatorShell
         public static async Task Main(string[] args)
         {
             PrintVersion();
-            Memory? memory = new Memory();
-            HostEnvironment? host = new HostEnvironment();
-            FsHost? fshost = new FsHost();
-            CommandLoader? loader = new CommandLoader(memory, host);
-            using CommandRunner? runner = new CommandRunner(loader.Commands, host, fshost, CultureInfo.InvariantCulture);
+            Memory? memory = new();
+            HostEnvironment? host = new();
+            FsHost? fshost = new();
+            CommandLoader? loader = new(memory, host);
+            using CommandRunner? runner = new(loader.Commands, host, fshost, CultureInfo.InvariantCulture);
             await runner.RunShell();
         }
 

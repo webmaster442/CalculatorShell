@@ -139,7 +139,8 @@ Day of week: {2}</value>
   </data>
   <data name="InitText" xml:space="preserve">
     <value>(c) Webmaster442.
-To get help type Help [command]</value>
+To get help type Help [command]
+To list available commands type cmdlist</value>
   </data>
   <data name="Mode" xml:space="preserve">
     <value>Change trigonometry parsing mode.
