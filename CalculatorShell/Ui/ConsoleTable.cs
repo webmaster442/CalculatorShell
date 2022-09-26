@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace CalculatorShell.Ui
 {
-    public class ConsoleTable
+    public sealed class ConsoleTable
     {
         public IList<object> Columns { get; set; }
         public IList<object?[]> Rows { get; protected set; }

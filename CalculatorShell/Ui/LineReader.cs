@@ -1,6 +1,6 @@
 ﻿namespace CalculatorShell.Ui
 {
-    internal class LineReader
+    internal sealed class LineReader
     {
         private readonly List<string> _history;
         private readonly KeyHandler _keyHandler;

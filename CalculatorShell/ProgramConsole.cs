@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CalculatorShell
 {
-    internal class ProgramConsole : ICommandConsole, IConsole
+    internal sealed class ProgramConsole : ICommandConsole, IConsole
     {
         private ConsoleFormat? _currentFormat;
 

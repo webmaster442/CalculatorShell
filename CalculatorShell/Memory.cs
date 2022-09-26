@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace CalculatorShell
 {
-    internal class Memory : IMemory
+    internal sealed class Memory : IMemory
     {
         private readonly Dictionary<string, INumber> _variables;
         private readonly Dictionary<string, dynamic> _constants;

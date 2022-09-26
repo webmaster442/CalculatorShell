@@ -3,7 +3,7 @@ using CalculatorShell.Properties;
 
 namespace CalculatorShell.Ui
 {
-    public class TextViewer
+    public sealed class TextViewer
     {
         private readonly List<string> _lines;
         private readonly Base.ConsoleColor _error;
