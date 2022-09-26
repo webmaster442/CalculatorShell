@@ -18,16 +18,21 @@ namespace CalculatorShell.Commands
             string expression = arguments.Get<string>(0);
             string byVariable = arguments.Get<string>(1);
 
+            IExpression? exp;
+
             if (expression.StartsWith('$'))
             {
-                IExpression? exp = Memory.GetExpression(expression);
-                Memory.SetExpression("$ans", exp.Differentiate(byVariable));
+                exp = Memory.GetExpression(expression);
             }
             else
             {
-                IExpression? exp = ExpressionFactory.Parse(expression, Memory, arguments.CurrentCulture);
-                Memory.SetExpression("$ans", exp.Differentiate(byVariable));
+                exp = ExpressionFactory.Parse(expression, Memory, arguments.CurrentCulture);
             }
+
+            exp = exp.Differentiate(byVariable).Simplify();
+
+            Memory.SetExpression("$ans", exp);
+            output.WriteLine("{0}", exp);
         }
     }
 }
