@@ -1,3 +1,6 @@
+![Branch Coverage Status](https://raw.githubusercontent.com/webmaster442/CalculatorShell/master/coverage-badge-branch.svg)
+![Line Coverage Status](https://raw.githubusercontent.com/webmaster442/CalculatorShell/master/coverage-badge-line.svg)
+
 # CalculatorShell
 
 
