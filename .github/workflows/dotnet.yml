@@ -1,4 +1,4 @@
-name: Unit test runner
+name: Unit test runner and coverage collector
 
 on:
   push:
@@ -22,4 +22,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='../coverage/opencover.xml' --no-build --verbosity normal
+      
+    - name: OpenCover Badge Generator
+      uses: danpetitt/open-cover-badge-generator-action@v1.0.10
+      with:
+        path-to-opencover-xml: './coverage/opencover.xml'
+        minimum-coverage: 51
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
