@@ -20,7 +20,7 @@ namespace CalculatorShell
 
         private static Dictionary<string, dynamic> FillConstants()
         {
-            FieldInfo[]? fields = typeof(Constants).GetFields(BindingFlags.Static | BindingFlags.Public);
+            FieldInfo[]? fields = typeof(MathConstants).GetFields(BindingFlags.Static | BindingFlags.Public);
             if (fields != null)
             {
                 return fields.ToDictionary(x => x.Name, x => x.GetValue(null))!;

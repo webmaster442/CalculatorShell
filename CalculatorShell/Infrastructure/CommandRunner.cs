@@ -1,5 +1,6 @@
 ﻿using CalculatorShell.Base;
 using CalculatorShell.Expressions;
+using CalculatorShell.Extensions;
 using CalculatorShell.Properties;
 using CalculatorShell.Ui;
 using System.Globalization;
@@ -62,7 +63,7 @@ namespace CalculatorShell.Infrastructure
         {
             while (_host.CanRun)
             {
-                string prompt = CreatePrompt(_fsHost.CurrentDirectory);
+                string prompt = _fsHost.CurrentDirectory.CreatePrompt();
                 string rawLine = _lineReader.Read(prompt);
 
                 await RunSingleCommand(rawLine, _console).ConfigureAwait(false);
@@ -71,7 +72,7 @@ namespace CalculatorShell.Infrastructure
 
         public async Task RunSingleCommand(string rawLine, ICommandConsole console)
         {
-            IEnumerable<string> arguments = ParseArguments(rawLine);
+            IEnumerable<string> arguments = rawLine.ParseArguments();
             string cmd = arguments.FirstOrDefault() ?? string.Empty;
             string[] args = arguments.Skip(1).ToArray();
 
@@ -111,6 +112,7 @@ namespace CalculatorShell.Infrastructure
                     }
                     catch (Exception ex)
                     {
+                        //TODO: Log exception with command line
                         _console.Error(ex);
                     }
                 }
@@ -121,24 +123,6 @@ namespace CalculatorShell.Infrastructure
             }
         }
 
-        private static string CreatePrompt(string currentDirectory)
-        {
-            string? angleMode = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
-            {
-                TextFormat = TextFormat.Italic,
-                Foreground = new Base.ConsoleColor(0xff, 0x00, 0xff),
-            });
-
-            string? dir = EscapeCodeFactory.CreateFormatSting(new ConsoleFormat
-            {
-                Foreground = new Base.ConsoleColor(0xF2, 0xC5, 0x1F),
-                TextFormat = TextFormat.None,
-            });
-
-            return $"\n{dir}{currentDirectory}{EscapeCodeFactory.Reset}\n"
-                   + $"→ {angleMode}{ExpressionFactory.CurrentAngleMode}{EscapeCodeFactory.Reset} > ";
-        }
-
         private void ResetToken()
         {
             if (_cancellationTokenSource?.IsCancellationRequested == true)
@@ -147,40 +131,6 @@ namespace CalculatorShell.Infrastructure
                 _cancellationTokenSource = null;
                 _cancellationTokenSource = new CancellationTokenSource();
             }
-        }
-
-        private static IEnumerable<string> ParseArguments(string commandLine)
-        {
-            if (string.IsNullOrWhiteSpace(commandLine))
-                yield break;
-
-            StringBuilder? buffer = new StringBuilder(1024);
-            bool inQuote = false;
-            foreach (char c in commandLine)
-            {
-                if (c == '"' && !inQuote)
-                {
-                    inQuote = true;
-                    continue;
-                }
-
-                if (c != '"' && !(char.IsWhiteSpace(c) && !inQuote))
-                {
-                    buffer.Append(c);
-                    continue;
-                }
-
-                if (buffer.Length > 0)
-                {
-                    string? result = buffer.ToString();
-                    buffer.Clear();
-                    inQuote = false;
-                    yield return result;
-                }
-            }
-
-            if (buffer.Length > 0)
-                yield return buffer.ToString();
         }
 
         char[] IAutoCompleteHandler.Separators => new char[] { ' ' };

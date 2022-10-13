@@ -2,8 +2,10 @@
 using CalculatorShell.Properties;
 using System.Globalization;
 
+//TODO: Introduce global namespaces
 namespace CalculatorShell
 {
+    //TODO: Add command for debugger wait
     public static class Program
     {
         public static async Task Main(string[] args)

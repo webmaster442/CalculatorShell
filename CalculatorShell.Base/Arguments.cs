@@ -69,45 +69,6 @@ namespace CalculatorShell.Base
         }
 
         /// <summary>
-        /// Try to get a converted value of the given argument index
-        /// </summary>
-        /// <typeparam name="T">Target type</typeparam>
-        /// <param name="index">argument index</param>
-        /// <param name="result">converted ouptut</param>
-        /// <param name="ignore">string to ignore at the begining of the argument</param>
-        /// <returns>true, if conversion was successfull, othwerwise false</returns>
-        public bool TryGet<T>(int index, out T? result, string? ignore = "") where T : IConvertible
-        {
-            string? preprocessed = _arguments[index];
-            if (!string.IsNullOrEmpty(ignore)
-                && preprocessed.StartsWith(ignore))
-            {
-                preprocessed = preprocessed[ignore.Length..];
-            }
-
-            try
-            {
-                if (typeof(T).IsEnum
-                    && Enum.TryParse(typeof(T), preprocessed, true, out object? enumObject)
-                    && enumObject != null)
-                {
-                    result = (T)enumObject;
-                    return true;
-                }
-                else
-                {
-                    result = (T)Convert.ChangeType(preprocessed, typeof(T), CurrentCulture);
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                result = default;
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Get a converted value of the given argument index. If conversion fails, an InvalidOperationException is thrown
         /// </summary>
         /// <typeparam name="T">Target type</typeparam>

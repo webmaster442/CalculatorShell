@@ -1,5 +1,6 @@
 ﻿namespace CalculatorShell.Ui
 {
+    //TODO: Investigate why up key doesn't work sometimes
     internal sealed class LineReader
     {
         private readonly List<string> _history;
