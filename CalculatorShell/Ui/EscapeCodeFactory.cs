@@ -1,7 +1,4 @@
-﻿using CalculatorShell.Base;
-using System.Text;
-
-namespace CalculatorShell.Ui
+﻿namespace CalculatorShell.Ui
 {
     internal static class EscapeCodeFactory
     {

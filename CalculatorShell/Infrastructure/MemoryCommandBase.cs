@@ -1,5 +1,4 @@
-﻿using CalculatorShell.Base;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CalculatorShell.Infrastructure
 {

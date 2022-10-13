@@ -1,8 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
-using System.ComponentModel.Composition;
-
-namespace CalculatorShell.Infrastructure
+﻿namespace CalculatorShell.Infrastructure
 {
     internal abstract class CommandBase : ICommand
     {

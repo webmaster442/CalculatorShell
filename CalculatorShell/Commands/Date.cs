@@ -1,7 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Infrastructure;
-using CalculatorShell.Properties;
-using System.ComponentModel.Composition;
+﻿using CalculatorShell.Properties;
 
 namespace CalculatorShell.Commands
 {

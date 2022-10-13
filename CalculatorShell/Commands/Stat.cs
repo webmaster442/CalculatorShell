@@ -1,10 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
-using CalculatorShell.Infrastructure;
-using CalculatorShell.Maths;
-using System.ComponentModel.Composition;
-
-namespace CalculatorShell.Commands
+﻿namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
     internal class Stat : CommandBase, ISimpleCommand

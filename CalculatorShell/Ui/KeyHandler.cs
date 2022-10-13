@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace CalculatorShell.Ui
 {
     internal class KeyHandler

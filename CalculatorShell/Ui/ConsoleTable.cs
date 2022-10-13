@@ -1,14 +1,13 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace CalculatorShell.Ui
 {
     public sealed class ConsoleTable
     {
         public IList<object> Columns { get; set; }
-        public IList<object?[]> Rows { get; protected set; }
+        public IList<object?[]> Rows { get; internal set; }
 
-        public ConsoleTableOptions Options { get; protected set; }
+        public ConsoleTableOptions Options { get; internal set; }
         public Type[] ColumnTypes { get; private set; }
 
         public static HashSet<Type> NumericTypes = new()

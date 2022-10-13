@@ -1,9 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
-using CalculatorShell.Infrastructure;
-using System.ComponentModel.Composition;
-
-namespace CalculatorShell.Commands
+﻿namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
     internal class Differentiate : CommandBase, ISimpleCommand

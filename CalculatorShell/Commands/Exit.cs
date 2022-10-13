@@ -1,8 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Infrastructure;
-using System.ComponentModel.Composition;
-
-namespace CalculatorShell.Commands
+﻿namespace CalculatorShell.Commands
 {
     [Export(typeof(ICommand))]
     internal sealed class Exit : CommandBase, ISimpleCommand

@@ -1,5 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Properties;
+﻿using CalculatorShell.Properties;
 
 namespace CalculatorShell.Ui
 {

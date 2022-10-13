@@ -1,5 +1,4 @@
 ﻿using CalculatorShell.Base.Domain;
-using CalculatorShell.Expressions;
 using CalculatorShell.Properties;
 using System.Globalization;
 using System.Text.Json;

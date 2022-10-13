@@ -1,8 +1,6 @@
-﻿using CalculatorShell.Infrastructure;
-using CalculatorShell.Properties;
+﻿using CalculatorShell.Properties;
 using System.Globalization;
 
-//TODO: Introduce global namespaces
 namespace CalculatorShell
 {
     //TODO: Add command for debugger wait

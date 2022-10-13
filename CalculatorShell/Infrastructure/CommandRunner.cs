@@ -1,10 +1,7 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
-using CalculatorShell.Extensions;
+﻿using CalculatorShell.Extensions;
 using CalculatorShell.Properties;
 using CalculatorShell.Ui;
 using System.Globalization;
-using System.Text;
 
 namespace CalculatorShell.Infrastructure
 {

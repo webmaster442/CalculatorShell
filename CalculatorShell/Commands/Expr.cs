@@ -1,8 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
-using CalculatorShell.Infrastructure;
-using CalculatorShell.Properties;
-using System.ComponentModel.Composition;
+﻿using CalculatorShell.Properties;
 using System.Globalization;
 
 namespace CalculatorShell.Commands

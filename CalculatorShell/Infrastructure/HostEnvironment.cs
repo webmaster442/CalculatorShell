@@ -1,6 +1,4 @@
-﻿using CalculatorShell.Base;
-
-namespace CalculatorShell.Infrastructure
+﻿namespace CalculatorShell.Infrastructure
 {
     public class HostEnvironment : IHostEx
     {

@@ -1,7 +1,4 @@
-﻿using CalculatorShell.Base;
-using CalculatorShell.Expressions;
-using CalculatorShell.Ui;
-using System.Text;
+﻿using CalculatorShell.Ui;
 
 namespace CalculatorShell.Extensions
 {
