@@ -209,23 +209,28 @@ namespace CalculatorShell.Ui
 
         private void PrevHistory()
         {
-            if (_historyIndex > 0)
+            if (_historyIndex -1 < 0)
+            {
+                _historyIndex = _history.Count - 1;
+            }
+            else
             {
                 _historyIndex--;
-                WriteNewString(_history[_historyIndex]);
             }
+            WriteNewString(_history[_historyIndex]);
         }
 
         private void NextHistory()
         {
-            if (_historyIndex < _history.Count)
+            if (_historyIndex + 1 > _history.Count - 1)
+            {
+                _historyIndex = 0;
+            }
+            else
             {
                 _historyIndex++;
-                if (_historyIndex == _history.Count)
-                    ClearLine();
-                else
-                    WriteNewString(_history[_historyIndex]);
             }
+            WriteNewString(_history[_historyIndex]);
         }
 
         private void ResetAutoComplete()
