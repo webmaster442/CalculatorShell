@@ -74,7 +74,8 @@
         /// <summary>
         /// Read a key
         /// </summary>
+        /// <param name="intercept">Intercept calls. If set to true, blocks further execution.</param>
         /// <returns>Read key</returns>
-        ConsoleKey ReadKey();
+        ConsoleKey ReadKey(bool intercept = true);
     }
 }

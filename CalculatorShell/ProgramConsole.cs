@@ -155,9 +155,9 @@ namespace CalculatorShell
             Console.WriteLine(buffer.ToString());
         }
 
-        public ConsoleKey ReadKey()
+        public ConsoleKey ReadKey(bool intercept = true)
         {
-            ConsoleKeyInfo key = Console.ReadKey(true);
+            ConsoleKeyInfo key = Console.ReadKey(intercept);
             return key.Key;
         }
     }
